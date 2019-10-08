@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: code-generator
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://119.23.207.25:3306/code_generator?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+#    username: code_generator
+#    password: Wojia168.12345678
+    url: jdbc:mysql://119.23.207.25:3306/code_generator?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+    username: root
+    password: Chitic.2899
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: DatebookHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  mail:
+      default-encoding: UTF-8
+      host: smtp.163.com
+      username: chiticserver@163.com
+      password: ChiticServer001
+      port: 465
+      properties:
+          mail:
+              imap:
+                  ssl:
+                      socketFactory:
+                          fallback: false
+              smtp:
+                  auth: true
+                  ssl:
+                      enable: true
+                      socketFactory:
+                          class: com.fintech.modules.base.util.mail.MailSSLSocketFactory
+                  starttls:
+                      enable: true
+                      required: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 9999
