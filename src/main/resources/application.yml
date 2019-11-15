@@ -3,9 +3,6 @@ spring:
     name: code-generator
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-#    url: jdbc:mysql://119.23.207.25:3306/code_generator?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
-#    username: root
-#    password: Chitic.2899
     url: jdbc:mysql://10.133.230.63:3306/code_generator?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
     username: root
     password: xxx
