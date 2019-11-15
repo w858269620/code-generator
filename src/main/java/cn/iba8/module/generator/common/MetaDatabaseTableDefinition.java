@@ -28,6 +28,10 @@ public class MetaDatabaseTableDefinition implements Serializable {
 
     private String tableComment;
 
+    private String tableDdl;
+
+    private String tableTriggers;
+
     private List<MetaDatabaseTableDefinitionColumn> columns = new ArrayList<>();
 
     @Data
@@ -192,6 +196,8 @@ public class MetaDatabaseTableDefinition implements Serializable {
                     MetaDatabaseTable metaDatabaseTable = CopyUtil.copy(originsMap.get(k), MetaDatabaseTable.class);
                     metaDatabaseTable.setTableName(tableDiff.getTableName());
                     metaDatabaseTable.setTableComment(tableDiff.getTableComment());
+                    metaDatabaseTable.setTableDdl(tableDiff.getTableDdl());
+                    metaDatabaseTable.setTableTriggers(tableDiff.getTableTriggers());
                     adds.add(metaDatabaseTable);
                 }
             } else {
@@ -211,6 +217,8 @@ public class MetaDatabaseTableDefinition implements Serializable {
                 metaDatabaseTable.setTableName(tableDiff.getTableName());
                 metaDatabaseTable.setTableComment(tableDiff.getTableComment());
                 metaDatabaseTable.setMetaDatabaseId(r.getId());
+                metaDatabaseTable.setTableDdl(tableDiff.getTableDdl());
+                metaDatabaseTable.setTableTriggers(tableDiff.getTableTriggers());
                 adds.add(metaDatabaseTable);
             }
         });
@@ -241,12 +249,15 @@ public class MetaDatabaseTableDefinition implements Serializable {
     static class TableDiff implements Serializable {
         private String tableName;
         private String tableComment;
+        private String tableDdl;
+        private String tableTriggers;
 
         public static TableDiff of(MetaDatabaseTableDefinition definition) {
             TableDiff tableDiff = new TableDiff();
             tableDiff.setTableComment(definition.getTableComment());
             tableDiff.setTableName(definition.getTableName());
-
+            tableDiff.setTableDdl(definition.getTableDdl());
+            tableDiff.setTableTriggers(definition.getTableTriggers());
             return tableDiff;
         }
 
@@ -254,6 +265,8 @@ public class MetaDatabaseTableDefinition implements Serializable {
             TableDiff tableDiff = new TableDiff();
             tableDiff.setTableComment(table.getTableComment());
             tableDiff.setTableName(table.getTableName());
+            tableDiff.setTableDdl(table.getTableDdl());
+            tableDiff.setTableTriggers(table.getTableTriggers());
             return tableDiff;
         }
 

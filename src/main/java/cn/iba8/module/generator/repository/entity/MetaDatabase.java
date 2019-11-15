@@ -36,4 +36,10 @@ public class MetaDatabase implements Serializable {
 	@Column(name = "rw")
 	private String rw;
 
+	@Column(name = "note")
+	private String note;
+
+	@Column(name = "enabled")
+	private Integer enabled;
+
 }

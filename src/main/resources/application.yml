@@ -4,11 +4,11 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
 #    url: jdbc:mysql://119.23.207.25:3306/code_generator?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
-#    username: code_generator
-#    password: Wojia168.12345678
-    url: jdbc:mysql://119.23.207.25:3306/code_generator?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+#    username: root
+#    password: Chitic.2899
+    url: jdbc:mysql://10.133.230.63:3306/code_generator?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
     username: root
-    password: Chitic.2899
+    password: xxx
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       minimum-idle: 5
@@ -22,8 +22,8 @@ spring:
   mail:
       default-encoding: UTF-8
       host: smtp.163.com
-      username: chiticserver@163.com
-      password: ChiticServer001
+      username: xxx
+      password: xxx
       port: 465
       properties:
           mail:

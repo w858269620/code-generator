@@ -40,7 +40,7 @@ public class DatabaseChangeMonitor {
 
     private final MetaDatabaseChangeLogTopushRepository metaDatabaseChangeLogTopushRepository;
 
-    @Scheduled(cron = "0 0/2 * * * ? ")
+//    @Scheduled(cron = "0 0/3 * * * ? ")
     @Transactional(rollbackFor = Exception.class)
     public void monitor() {
         //数据连接信息
@@ -51,45 +51,47 @@ public class DatabaseChangeMonitor {
         //表结构变化记录
         List<MetaDatabaseChangeLog> logs = new ArrayList<>();
         metaDatabases.forEach(r -> {
-            //数据库连接，如果连接不上，加入日志
-            Connection connection = doConnect(r, logs);
-            if (null != connection) {
-                //获取数据库表原始信息信息
-                List<MetaDatabaseTableDefinition> metaDatabaseTableDefinition = doMata(r, logs, connection);
-                //获取已经存在的数据表及字段信息
-                List<MetaDatabaseTable> metaDatabaseTables = metaDatabaseTableRepository.findAllByMetaDatabaseId(r.getId());
-                //数据库表变化
-                List<MetaDatabaseTableColumn> metaDatabaseTableColumns = new ArrayList<>();
-                List<MetaDatabaseTable> adds = new ArrayList<>();
-                List<MetaDatabaseTable> deletes = new ArrayList<>();
-                List<MetaDatabaseTableColumn> columnAdds = new ArrayList<>();
-                List<MetaDatabaseTableColumn> columnDeletes = new ArrayList<>();
+            if (null != r.getEnabled() && r.getEnabled() == 1) {
+                //数据库连接，如果连接不上，加入日志
+                Connection connection = doConnect(r, logs);
+                if (null != connection) {
+                    //获取数据库表原始信息信息
+                    List<MetaDatabaseTableDefinition> metaDatabaseTableDefinition = doMata(r, logs, connection);
+                    //获取已经存在的数据表及字段信息
+                    List<MetaDatabaseTable> metaDatabaseTables = metaDatabaseTableRepository.findAllByMetaDatabaseId(r.getId());
+                    //数据库表变化
+                    List<MetaDatabaseTableColumn> metaDatabaseTableColumns = new ArrayList<>();
+                    List<MetaDatabaseTable> adds = new ArrayList<>();
+                    List<MetaDatabaseTable> deletes = new ArrayList<>();
+                    List<MetaDatabaseTableColumn> columnAdds = new ArrayList<>();
+                    List<MetaDatabaseTableColumn> columnDeletes = new ArrayList<>();
 
-                if (!CollectionUtils.isEmpty(metaDatabaseTables)) {
-                    Set<Long> ids = metaDatabaseTables.stream().map(MetaDatabaseTable::getId).collect(Collectors.toSet());
-                    metaDatabaseTableColumns = metaDatabaseTableColumnRepository.findAllByMetaDatabaseTableIdIn(ids);
-                }
+                    if (!CollectionUtils.isEmpty(metaDatabaseTables)) {
+                        Set<Long> ids = metaDatabaseTables.stream().map(MetaDatabaseTable::getId).collect(Collectors.toSet());
+                        metaDatabaseTableColumns = metaDatabaseTableColumnRepository.findAllByMetaDatabaseTableIdIn(ids);
+                    }
 
-                //找出差异
-                doDiff(r, metaDatabaseTableDefinition, metaDatabaseTables, metaDatabaseTableColumns, logs, adds, deletes, columnAdds, columnDeletes);
+                    //找出差异
+                    doDiff(r, metaDatabaseTableDefinition, metaDatabaseTables, metaDatabaseTableColumns, logs, adds, deletes, columnAdds, columnDeletes);
 
-                if (!CollectionUtils.isEmpty(logs)) {
-                    List<MetaDatabaseChangeLog> metaDatabaseChangeLogs = metaDatabaseChangeLogRepository.saveAll(logs);
-                    metaDatabaseChangeLogTopushRepository.saveAll(CopyUtil.copyList(metaDatabaseChangeLogs, MetaDatabaseChangeLogTopush.class));
-                }
+                    if (!CollectionUtils.isEmpty(logs)) {
+                        List<MetaDatabaseChangeLog> metaDatabaseChangeLogs = metaDatabaseChangeLogRepository.saveAll(logs);
+                        metaDatabaseChangeLogTopushRepository.saveAll(CopyUtil.copyList(metaDatabaseChangeLogs, MetaDatabaseChangeLogTopush.class));
+                    }
 
-                if (!CollectionUtils.isEmpty(adds)) {
-                    metaDatabaseTableRepository.saveAll(adds);
-                }
-                if (!CollectionUtils.isEmpty(deletes)) {
-                    metaDatabaseTableRepository.deleteAll(deletes);
-                }
+                    if (!CollectionUtils.isEmpty(adds)) {
+                        metaDatabaseTableRepository.saveAll(adds);
+                    }
+                    if (!CollectionUtils.isEmpty(deletes)) {
+                        metaDatabaseTableRepository.deleteAll(deletes);
+                    }
 
-                if (!CollectionUtils.isEmpty(columnAdds)) {
-                    metaDatabaseTableColumnRepository.saveAll(columnAdds);
-                }
-                if (!CollectionUtils.isEmpty(columnDeletes)) {
-                    metaDatabaseTableColumnRepository.deleteAll(columnDeletes);
+                    if (!CollectionUtils.isEmpty(columnAdds)) {
+                        metaDatabaseTableColumnRepository.saveAll(columnAdds);
+                    }
+                    if (!CollectionUtils.isEmpty(columnDeletes)) {
+                        metaDatabaseTableColumnRepository.deleteAll(columnDeletes);
+                    }
                 }
             }
         });

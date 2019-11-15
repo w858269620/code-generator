@@ -30,4 +30,10 @@ public class MetaDatabaseTable implements Serializable {
 	@Column(name = "id_strategy")
 	private String idStrategy;
 
+	@Column(name = "table_ddl")
+	private String tableDdl;
+
+	@Column(name = "table_triggers")
+	private String tableTriggers;
+
 }
