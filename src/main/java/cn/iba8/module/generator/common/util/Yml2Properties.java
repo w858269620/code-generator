@@ -9,6 +9,15 @@ import java.util.List;
 
 public abstract class Yml2Properties {
 
+    public static String convert2properties(String yml) {
+        String[] convert = convert(yml);
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < convert.length; i++) {
+            sb.append(convert[i] + "\n");
+        }
+        return sb.toString();
+    }
+
     public static String[] convert(String yml) {
         try {
             Yaml yaml = new Yaml();

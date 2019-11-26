@@ -4,16 +4,19 @@ import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.nodes.Tag;
 
-import java.io.IOException;
 import java.io.StringReader;
 import java.util.*;
 import java.util.regex.Pattern;
 
 public abstract class Properties2Yml {
 
-    public static String convert(String ps) throws IOException {
+    public static String convert(String ps) {
         Properties properties = new Properties();
-        properties.load(new StringReader(ps));
+        try {
+            properties.load(new StringReader(ps));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         LinkedHashMap hashMap = new LinkedHashMap();
         HashMap<String, Object> hashMap1 = new HashMap<>();
         hashMap1.put("", hashMap);
