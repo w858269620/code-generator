@@ -3,9 +3,9 @@ spring:
     name: code-generator
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://10.133.230.63:3306/code_generator?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+    url: jdbc:mysql://:3306/code_generator?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
     username: root
-    password: xxx
+    password:
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
       minimum-idle: 5
@@ -42,3 +42,9 @@ spring:
       ddl-auto: update
 server:
   port: 9999
+
+cn:
+  iba8:
+    module:
+      generator:
+        input-dir: D:/my/data/input
