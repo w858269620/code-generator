@@ -7,19 +7,16 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "module")
-public class Module implements Serializable {
+@Table(name = "app")
+public class App implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "package_name")
-	private String packageName;
-
-	@Column(name = "code")
-	private String code;
+	@Column(name = "service_name")
+	private String serviceName;
 
 	@Column(name = "name")
 	private String name;

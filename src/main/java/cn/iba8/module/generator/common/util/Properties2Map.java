@@ -1,5 +1,6 @@
 package cn.iba8.module.generator.common.util;
 
+import cn.iba8.module.generator.common.CodeGenerateConstants;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.LinkedHashMap;
@@ -9,16 +10,14 @@ public abstract class Properties2Map {
 
     public static Map<String, String> converter(String properties) {
         Map<String, String> map = new LinkedHashMap<>();
-        String[] split = properties.split("\n");
+        String[] split = properties.split(CodeGenerateConstants.SPLITOR_PROPERTIES);
         for (int i = 0; i < split.length; i++) {
             String s = split[i];
             if (StringUtils.isNotBlank(s)) {
-                String[] sp = s.split("=");
-                String value = null;
-                if (sp.length == 2) {
-                    value = sp[1];
-                }
-                map.put(sp[0], value);
+                int i1 = s.indexOf("=");
+                String key = s.substring(0, i1);
+                String value = s.substring(i1);
+                map.put(key, value);
             }
         }
         return map;

@@ -7,18 +7,21 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "api_error_code")
-public class ApiErrorCode implements Serializable {
+@Table(name = "i18n_code_language")
+public class I18nCodeLanguage implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "api_method_id")
-	private Long apiMethodId;
+	@Column(name = "code")
+	private String code;
 
-	@Column(name = "meta_error_code_id")
-	private Long metaErrorCodeId;
+	@Column(name = "message")
+	private String message;
+
+	@Column(name = "language")
+	private String language;
 
 }

@@ -7,21 +7,18 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "meta_language")
-public class MetaLanguage implements Serializable {
+@Table(name = "api_i18n_code")
+public class ApiI18nCode implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "el")
-	private String el;
+	@Column(name = "api_method_id")
+	private Long apiMethodId;
 
-	@Column(name = "name")
-	private String name;
-
-	@Column(name = "language")
-	private String language;
+	@Column(name = "i18n_code_id")
+	private Long i18nCodeId;
 
 }

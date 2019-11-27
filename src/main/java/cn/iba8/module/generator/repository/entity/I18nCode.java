@@ -7,19 +7,19 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "meta_error_code")
-public class MetaErrorCode implements Serializable {
+@Table(name = "i18n_code")
+public class I18nCode implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "module_id")
-	private Long moduleId;
+	@Column(name = "module_code")
+	private String moduleCode;
 
-	@Column(name = "is_global")
-	private Integer isGlobal;
+	@Column(name = "int_code")
+	private Long intCode;
 
 	@Column(name = "code")
 	private String code;
