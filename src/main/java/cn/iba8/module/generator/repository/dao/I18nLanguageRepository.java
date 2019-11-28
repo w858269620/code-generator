@@ -14,4 +14,6 @@ public interface I18nLanguageRepository extends JpaRepository<I18nLanguage, Long
     I18nLanguage findFirstByCode(String code);
 
     List<I18nLanguage> findAllByCodeIn(Set<String> codes);
+
+    List<I18nLanguage> findAllByModuleCode(String moduleCode);
 }

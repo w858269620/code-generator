@@ -15,6 +15,9 @@ public class I18nLanguage implements Serializable {
 	@Column(name = "id")
 	private Long id;
 
+	@Column(name = "module_code")
+	private String moduleCode;
+
 	@Column(name = "code")
 	private String code;
 

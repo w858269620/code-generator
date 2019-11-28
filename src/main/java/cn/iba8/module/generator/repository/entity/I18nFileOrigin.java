@@ -36,6 +36,9 @@ public class I18nFileOrigin implements Serializable {
 	@Column(name = "processed")
 	private Integer processed;
 
+	@Column(name = "type")
+	private Integer type;
+
 	@Column(name = "create_ts")
 	private Long createTs;
 

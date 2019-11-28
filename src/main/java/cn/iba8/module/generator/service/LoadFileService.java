@@ -4,4 +4,8 @@ public interface LoadFileService {
 
     void loadI18n();
 
+    void processI18nFileOrigin();
+
+    public void codeLanguageCompensate();
+
 }

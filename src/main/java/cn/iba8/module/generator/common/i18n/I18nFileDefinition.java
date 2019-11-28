@@ -79,6 +79,7 @@ public class I18nFileDefinition implements Serializable {
         private String name;
         private String suffix;
         private String content;
+        private Integer type;
 
         public static List<I18nFileDefinitionFile> ofFiles(File[] itemFiles) {
             List<I18nFileDefinitionFile> i18nFileDefinitionFiles = new ArrayList<>();
@@ -87,26 +88,54 @@ public class I18nFileDefinition implements Serializable {
                 String itemFileName = itemFile.getName();
                 if ("i18n".equals(itemFileName)) {
                     if (itemFile.isDirectory()) {
-                        File[] languageFiles = itemFile.listFiles();
-                        for (int k = 0; k < languageFiles.length; k++) {
-                            File languageFile = languageFiles[k];
-                            String language = languageFile.getName();
-                            if (languageFile.isDirectory()) {
-                                File[] files = languageFile.listFiles();
-                                for (int m = 0; m < files.length; m++) {
-                                    I18nFileDefinitionFile i18nFileDefinitionFile = new I18nFileDefinitionFile();
-                                    i18nFileDefinitionFiles.add(i18nFileDefinitionFile);
-                                    i18nFileDefinitionFile.setLanguage(language);
-                                    File file = files[m];
-                                    String fileName = file.getName();
-                                    int i1 = fileName.lastIndexOf(".");
-                                    String suffix = fileName.substring(i1);
-                                    i18nFileDefinitionFile.setSuffix(suffix);
-                                    i18nFileDefinitionFile.setName(fileName);
-                                    i18nFileDefinitionFile.setContent(getContent(file));
+                        File[] endFiles = itemFile.listFiles();
+                        for (int i = 0; i < endFiles.length; i++) {
+                            File endFile = endFiles[i];
+                            if ("frontend".equals(endFile.getName())) {
+                                if (endFile.isDirectory()) {
+                                    File[] languageFiles = endFile.listFiles();
+                                    for (int k = 0; k < languageFiles.length; k++) {
+                                        File languageFile = languageFiles[k];
+                                        String language = languageFile.getName();
+                                        if (languageFile.isDirectory()) {
+                                            File[] files = languageFile.listFiles();
+                                            for (int m = 0; m < files.length; m++) {
+                                                I18nFileDefinitionFile i18nFileDefinitionFile = new I18nFileDefinitionFile();
+                                                i18nFileDefinitionFiles.add(i18nFileDefinitionFile);
+                                                i18nFileDefinitionFile.setLanguage(language);
+                                                File file = files[m];
+                                                String fileName = file.getName();
+                                                int i1 = fileName.lastIndexOf(".");
+                                                String suffix = fileName.substring(i1 + 1);
+                                                i18nFileDefinitionFile.setSuffix(suffix);
+                                                i18nFileDefinitionFile.setName(fileName);
+                                                i18nFileDefinitionFile.setContent(getContent(file));
+                                                i18nFileDefinitionFile.setType(2);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            if ("backend".equals(endFile.getName())) {
+                                if (endFile.isDirectory()) {
+                                    File[] files = endFile.listFiles();
+                                    for (int m = 0; m < files.length; m++) {
+                                        I18nFileDefinitionFile i18nFileDefinitionFile = new I18nFileDefinitionFile();
+                                        i18nFileDefinitionFiles.add(i18nFileDefinitionFile);
+                                        i18nFileDefinitionFile.setLanguage("zh_CN");
+                                        File file = files[m];
+                                        String fileName = file.getName();
+                                        int i1 = fileName.lastIndexOf(".");
+                                        String suffix = fileName.substring(i1 + 1);
+                                        i18nFileDefinitionFile.setSuffix(suffix);
+                                        i18nFileDefinitionFile.setName(fileName);
+                                        i18nFileDefinitionFile.setContent(getContent(file));
+                                        i18nFileDefinitionFile.setType(1);
+                                    }
                                 }
                             }
                         }
+
                     }
                 }
             }

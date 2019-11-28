@@ -20,4 +20,16 @@ public class LoadFileController {
         return BaseResponse.success(null);
     }
 
+    @GetMapping("/loadFile/originToCodeLanguage")
+    public BaseResponse<Void> originToCodeLanguage() {
+        loadFileService.processI18nFileOrigin();
+        return BaseResponse.success(null);
+    }
+
+    @GetMapping("/loadFile/codeLanguageCompensate")
+    public BaseResponse<Void> codeLanguageCompensate() {
+        loadFileService.codeLanguageCompensate();
+        return BaseResponse.success(null);
+    }
+
 }

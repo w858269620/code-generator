@@ -5,7 +5,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface I18nCodeLanguageRepository extends JpaRepository<I18nCodeLanguage, Long>, JpaSpecificationExecutor<I18nCodeLanguage> {
+
+    List<I18nCodeLanguage> findAllByModuleCodeAndLanguage(String moduleCode, String language);
+
+    List<I18nCodeLanguage> findAllByModuleCode(String moduleCode);
 
 }

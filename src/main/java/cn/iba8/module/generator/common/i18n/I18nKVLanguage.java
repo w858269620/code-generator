@@ -14,18 +14,20 @@ import java.util.Map;
 @AllArgsConstructor
 public class I18nKVLanguage {
 
-    private String key;
+    private String code;
 
-    private String value;
+    private String message;
 
     private String language;
 
-    public static List<I18nKVLanguage> ofMap(Map<String, Object> stringObjectMap, String language) {
+    private String moduleCode;
+
+    public static List<I18nKVLanguage> ofMap(Map<String, Object> kvMap, String language, String moduleCode) {
         List<I18nKVLanguage> target = new ArrayList<>();
-        stringObjectMap.keySet().forEach(r -> {
-            Object o = stringObjectMap.get(r);
+        kvMap.keySet().forEach(r -> {
+            Object o = kvMap.get(r);
             if (StringUtils.isNotBlank(r)) {
-                target.add(new I18nKVLanguage(r, o != null ? o.toString() : "", language));
+                target.add(new I18nKVLanguage(r, o != null ? o.toString() : "", language, moduleCode));
             }
         });
         return target;
