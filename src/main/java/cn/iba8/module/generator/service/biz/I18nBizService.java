@@ -197,21 +197,39 @@ public class I18nBizService {
         i18nFileOriginRepository.save(p);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     public void codeLanguageCompensate() {
-
         List<I18nLanguage> i18nLanguages = i18nLanguageRepository.findAll();
         if (CollectionUtils.isEmpty(i18nLanguages)) {
             return;
         }
         Map<String, List<I18nLanguage>> i18nLanMap = i18nLanguages.stream().collect(Collectors.groupingBy(I18nLanguage::getModuleCode));
         Set<String> modules = i18nLanMap.keySet();
+        List<I18nCodeLanguage> target = new ArrayList<>();
         for (String module : modules) {
             List<I18nCodeLanguage> i18nCodeLanguages = i18nCodeLanguageRepository.findAllByModuleCode(module);
             List<I18nCode> i18nCodes = i18nCodeRepository.findAllByModuleCode(module);
-            Set<String> allCodes = new HashSet<>();
-            if (!CollectionUtils.isEmpty(i18nCodeLanguages)) {
-
+            List<I18nLanguage> nLanguages = i18nLanMap.get(module);
+            Map<String, List<I18nCodeLanguage>> lanCodeLanMap = i18nCodeLanguages.stream().collect(Collectors.groupingBy(I18nCodeLanguage::getLanguage));
+            for (I18nLanguage i18nLanguage : nLanguages) {
+                String code = i18nLanguage.getCode();
+                List<I18nCodeLanguage> codeLanguages = lanCodeLanMap.get(code);
+                Set<String> existCodes = new HashSet<>();
+                if (!CollectionUtils.isEmpty(codeLanguages)) {
+                    codeLanguages.forEach(r -> existCodes.add(r.getCode()));
+                }
+                i18nCodes.forEach(r -> {
+                    if (!existCodes.contains(r.getCode())) {
+                        I18nCodeLanguage codeLanguage = CopyUtil.copy(r, I18nCodeLanguage.class);
+                        codeLanguage.setLanguage(code);
+                        codeLanguage.setModuleCode(module);
+                        target.add(codeLanguage);
+                    }
+                });
             }
+        }
+        if (!CollectionUtils.isEmpty(target)) {
+            i18nCodeLanguageRepository.saveAll(target);
         }
     }
 

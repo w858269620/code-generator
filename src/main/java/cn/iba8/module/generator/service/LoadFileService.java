@@ -6,6 +6,6 @@ public interface LoadFileService {
 
     void processI18nFileOrigin();
 
-    public void codeLanguageCompensate();
+    void codeLanguageCompensate();
 
 }
