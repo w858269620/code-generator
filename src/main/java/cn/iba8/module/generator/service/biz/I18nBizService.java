@@ -220,7 +220,9 @@ public class I18nBizService {
                 }
                 i18nCodes.forEach(r -> {
                     if (!existCodes.contains(r.getCode())) {
-                        I18nCodeLanguage codeLanguage = CopyUtil.copy(r, I18nCodeLanguage.class);
+                        I18nCodeLanguage codeLanguage = new I18nCodeLanguage();
+                        codeLanguage.setMessage(r.getMessage());
+                        codeLanguage.setCode(r.getCode());
                         codeLanguage.setLanguage(code);
                         codeLanguage.setModuleCode(module);
                         target.add(codeLanguage);
