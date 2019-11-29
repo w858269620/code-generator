@@ -15,8 +15,8 @@ public class App implements Serializable {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "service_name")
-	private String serviceName;
+	@Column(name = "code")
+	private String code;
 
 	@Column(name = "name")
 	private String name;

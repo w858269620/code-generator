@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AppRepository extends JpaRepository<App, Long>, JpaSpecificationExecutor<App> {
 
+    App findFirstByCode(String code);
+
 }

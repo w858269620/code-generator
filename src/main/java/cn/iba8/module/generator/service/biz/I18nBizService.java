@@ -8,6 +8,7 @@ import cn.iba8.module.generator.common.util.Json2Map;
 import cn.iba8.module.generator.config.CodeGeneratorProperties;
 import cn.iba8.module.generator.repository.dao.*;
 import cn.iba8.module.generator.repository.entity.*;
+import cn.iba8.module.generator.service.converter.I18nConverter;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -34,6 +38,12 @@ public class I18nBizService {
     private final I18nCodeLanguageRepository i18nCodeLanguageRepository;
 
     private final I18nCodeRepository i18nCodeRepository;
+
+    private final AppRepository appRepository;
+
+    private final AppModuleRepository appModuleRepository;
+
+    private final I18nFileTargetRepository i18nFileTargetRepository;
 
     @Transactional(rollbackFor = Exception.class)
     public void loadI18n() {
@@ -274,6 +284,83 @@ public class I18nBizService {
         if (!CollectionUtils.isEmpty(target)) {
             i18nCodeRepository.saveAll(target);
         }
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void generateApp(String appCode) {
+        App app = appRepository.findFirstByCode(appCode);
+        if (null == app) {
+            return;
+        }
+        List<AppModule> appModules = appModuleRepository.findAllByAppCode(appCode);
+        if (CollectionUtils.isEmpty(appModules)) {
+            return;
+        }
+        List<I18nCodeLanguage> targetLans = new ArrayList<>();
+        Set<String> notes = new HashSet<>();
+        for (AppModule appModule : appModules) {
+            List<I18nCodeLanguage> i18nCodeLanguages = i18nCodeLanguageRepository.findAllByModuleCode(appModule.getModuleCode());
+            if (!CollectionUtils.isEmpty(i18nCodeLanguages)) {
+                targetLans.addAll(i18nCodeLanguages);
+                notes.add(appModule.getModuleCode());
+            }
+        }
+        List<I18nFileTarget> target = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(targetLans)) {
+            Map<String, List<I18nCodeLanguage>> i18nCodeMap = targetLans.stream().collect(Collectors.groupingBy(I18nCodeLanguage::getLanguage));
+            target.addAll(I18nConverter.toI18nFileTargetJson(app, i18nCodeMap, notes));
+        }
+        if (!CollectionUtils.isEmpty(target)) {
+            i18nFileTargetRepository.saveAll(target);
+        }
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void generateLatestTargetFile(String appCode) {
+        App app = appRepository.findFirstByCode(appCode);
+        if (null == app) {
+            return;
+        }
+        List<I18nFileTarget> i18nFileTargets = i18nFileTargetRepository.findAllByAppCodeOrderByCreateTsDesc(appCode);
+        if (CollectionUtils.isEmpty(i18nFileTargets)) {
+            return;
+        }
+        Map<String, List<I18nFileTarget>> lanMap = i18nFileTargets.stream().collect(Collectors.groupingBy(I18nFileTarget::getLanguage));
+        String outputDir = codeGeneratorProperties.getOutputDir();
+        String path = outputDir + "/" + app.getCode();
+        File file = new File(path);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        Set<String> langs = lanMap.keySet();
+        for (String lang : langs) {
+            List<I18nFileTarget> fileTargets = lanMap.get(lang);
+            I18nFileTarget i18nFileTarget = fileTargets.get(0);
+            writeFile(path, i18nFileTarget);
+        }
+    }
+
+    private void writeFile(String path, I18nFileTarget i18nFileTarget) {
+        OutputStream os = null;
+        try {
+            File lanFile = new File(path + "/" + i18nFileTarget.getLanguage());
+            if (!lanFile.exists()) {
+                lanFile.mkdirs();
+            }
+            os = new FileOutputStream(new File(path + "/" + i18nFileTarget.getLanguage() + "/" + i18nFileTarget.getCreateTs() + "-" + i18nFileTarget.getName()));
+            os.write(i18nFileTarget.getContent().getBytes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (null != os) {
+                try {
+                    os.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
 
 }

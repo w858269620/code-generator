@@ -5,6 +5,7 @@ import cn.iba8.module.generator.service.I18nService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -39,8 +40,14 @@ public class I18nController {
     }
 
     @GetMapping("/i18n/generateApp")
-    public BaseResponse<Void> generateApp() {
-        i18nService.compensateToCode();
+    public BaseResponse<Void> generateApp(@RequestParam("appCode") String appCode) {
+        i18nService.generateApp(appCode);
+        return BaseResponse.success(null);
+    }
+
+    @GetMapping("/i18n/generateLatestTargetFile")
+    public BaseResponse<Void> generateLatestTargetFile(@RequestParam("appCode") String appCode) {
+        i18nService.generateLatestTargetFile(appCode);
         return BaseResponse.success(null);
     }
 

@@ -1,6 +1,6 @@
 package cn.iba8.module.generator.repository.dao;
 
-import cn.iba8.module.generator.repository.entity.I18nFileTarget;
+import cn.iba8.module.generator.repository.entity.AppModule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface I18nFileTargetRepository extends JpaRepository<I18nFileTarget, Long>, JpaSpecificationExecutor<I18nFileTarget> {
+public interface AppModuleRepository extends JpaRepository<AppModule, Long>, JpaSpecificationExecutor<AppModule> {
 
-    List<I18nFileTarget> findAllByAppCodeOrderByCreateTsDesc(String appCode);
+    List<AppModule> findAllByAppCode(String appCode);
 
 }

@@ -10,4 +10,8 @@ public interface I18nService {
 
     void compensateToCode();
 
+    void generateApp(String appCode);
+
+    void generateLatestTargetFile(String appCode);
+
 }

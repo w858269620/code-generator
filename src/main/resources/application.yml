@@ -47,4 +47,6 @@ cn:
   iba8:
     module:
       generator:
-        input-dir: D:/my/data/input
+        input-dir: D:/i/my/data/input
+        output-dir: D:/i/my/data/output
+        input-history: D:/i/my/data/inputHistory

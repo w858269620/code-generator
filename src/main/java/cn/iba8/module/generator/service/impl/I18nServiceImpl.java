@@ -60,4 +60,14 @@ public class I18nServiceImpl implements I18nService {
         i18nBizService.compensateToCode();
     }
 
+    @Override
+    public void generateApp(String appCode) {
+        i18nBizService.generateApp(appCode);
+    }
+
+    @Override
+    public void generateLatestTargetFile(String appCode) {
+        i18nBizService.generateLatestTargetFile(appCode);
+    }
+
 }

@@ -15,9 +15,14 @@ public abstract class Properties2Map {
             String s = split[i];
             if (StringUtils.isNotBlank(s)) {
                 int i1 = s.indexOf("=");
-                String key = s.substring(0, i1);
-                String value = s.substring(i1);
-                map.put(key, value);
+                if (i1 > 0) {
+                    String key = s.substring(0, i1);
+                    String value = "";
+                    if (i1 < s.length() - 1) {
+                        value = s.substring(i1 + 1);
+                    }
+                    map.put(key, value);
+                }
             }
         }
         return map;

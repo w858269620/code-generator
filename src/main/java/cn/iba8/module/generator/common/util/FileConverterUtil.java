@@ -47,4 +47,20 @@ public abstract class FileConverterUtil {
         return yml;
     }
 
+    public static String map2properties(Map<String, String> map) {
+        return Map2Properties.convertString(map);
+    }
+
+    public static String map2json(Map<String, String> map) {
+        String properties = map2properties(map);
+        String json = properties2json(properties);
+        return json;
+    }
+
+    public static String map2yml(Map<String, String> map) {
+        String properties = map2properties(map);
+        String yml = properties2yml(properties);
+        return yml;
+    }
+
 }

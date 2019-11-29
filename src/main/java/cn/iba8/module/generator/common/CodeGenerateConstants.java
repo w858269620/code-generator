@@ -4,6 +4,6 @@ public interface CodeGenerateConstants {
 
     String GENERATE_DDL_ALL = "all";
 
-    String SPLITOR_PROPERTIES = "\r\r\r\r\n";
+    String SPLITOR_PROPERTIES = "\n";
 
 }

@@ -36,4 +36,13 @@ public class I18nFileTarget implements Serializable {
 	@Column(name = "create_ts")
 	private Long createTs;
 
+	@Column(name = "version")
+	private String version;
+
+	@Column(name = "md5")
+	private String md5;
+
+	@Column(name = "note")
+	private String note;
+
 }

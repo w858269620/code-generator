@@ -11,4 +11,8 @@ public class CodeGeneratorProperties {
 
     private String inputDir;
 
+    private String outputDir;
+
+    private String inputHistory;
+
 }
