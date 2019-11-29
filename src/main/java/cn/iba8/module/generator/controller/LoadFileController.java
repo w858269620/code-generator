@@ -28,7 +28,7 @@ public class LoadFileController {
 
     @GetMapping("/loadFile/codeLanguageCompensate")
     public BaseResponse<Void> codeLanguageCompensate() {
-        loadFileService.codeLanguageCompensate();
+        loadFileService.compensateToLanguage();
         return BaseResponse.success(null);
     }
 

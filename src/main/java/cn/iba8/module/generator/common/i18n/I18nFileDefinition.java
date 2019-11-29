@@ -1,5 +1,6 @@
 package cn.iba8.module.generator.common.i18n;
 
+import cn.iba8.module.generator.common.util.MD5;
 import com.alibaba.fastjson.JSON;
 import lombok.Data;
 
@@ -79,6 +80,7 @@ public class I18nFileDefinition implements Serializable {
         private String name;
         private String suffix;
         private String content;
+        private String md5;
         private Integer type;
 
         public static List<I18nFileDefinitionFile> ofFiles(File[] itemFiles) {
@@ -111,6 +113,7 @@ public class I18nFileDefinition implements Serializable {
                                                 i18nFileDefinitionFile.setName(fileName);
                                                 i18nFileDefinitionFile.setContent(getContent(file));
                                                 i18nFileDefinitionFile.setType(2);
+                                                i18nFileDefinitionFile.setMd5(MD5.getMD5Str(i18nFileDefinitionFile.getContent() + i18nFileDefinitionFile.getLanguage()));
                                             }
                                         }
                                     }
@@ -131,6 +134,7 @@ public class I18nFileDefinition implements Serializable {
                                         i18nFileDefinitionFile.setName(fileName);
                                         i18nFileDefinitionFile.setContent(getContent(file));
                                         i18nFileDefinitionFile.setType(1);
+                                        i18nFileDefinitionFile.setMd5(MD5.getMD5Str(i18nFileDefinitionFile.getContent() + i18nFileDefinitionFile.getLanguage()));
                                     }
                                 }
                             }

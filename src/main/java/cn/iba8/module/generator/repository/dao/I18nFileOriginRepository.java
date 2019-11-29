@@ -12,4 +12,6 @@ public interface I18nFileOriginRepository extends JpaRepository<I18nFileOrigin, 
 
     List<I18nFileOrigin> findAllByProcessed(Integer processed);
 
+    long countAllByMd5(String md5);
+
 }

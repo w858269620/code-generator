@@ -45,4 +45,7 @@ public class I18nFileOrigin implements Serializable {
 	@Column(name = "modify_ts")
 	private Long modifyTs;
 
+	@Column(name = "md5")
+	private String md5;
+
 }

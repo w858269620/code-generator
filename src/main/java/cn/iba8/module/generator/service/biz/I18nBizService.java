@@ -49,9 +49,7 @@ public class I18nBizService {
         Set<I18nLanguage> languages = new HashSet<>();
         for (I18nFileDefinition.I18nFileDefinitionModule definitionModule : modules) {
             Module module = moduleRepository.findFirstByCodeAndVersion(definitionModule.getCode(), definitionModule.getVersion());
-            if (null != module) {
-//                continue;
-            } else {
+            if (null == module) {
                 targetModules.add(CopyUtil.copy(definitionModule, Module.class));
             }
             List<I18nFileDefinition.I18nFileDefinitionFile> moduleFiles = definitionModule.getFiles();
@@ -59,11 +57,17 @@ public class I18nBizService {
                 Set<String> existLan = new HashSet<>();
                 for (I18nFileDefinition.I18nFileDefinitionFile i18nFileDefinitionFile : moduleFiles) {
                     I18nFileOrigin i18nFileOrigin = CopyUtil.copy(i18nFileDefinitionFile, I18nFileOrigin.class);
+                    long l = i18nFileOriginRepository.countAllByMd5(i18nFileDefinitionFile.getMd5());
                     i18nFileOrigin.setCreateTs(System.currentTimeMillis());
                     i18nFileOrigin.setModuleCode(definitionModule.getCode());
                     i18nFileOrigin.setModuleName(definitionModule.getName());
-                    i18nFileOrigin.setProcessed(0);
-                    i18nFileOrigin.setModifyTs(0L);
+                    if (l > 0) {
+                        i18nFileOrigin.setProcessed(2);
+                        i18nFileOrigin.setModifyTs(System.currentTimeMillis());
+                    } else {
+                        i18nFileOrigin.setProcessed(0);
+                        i18nFileOrigin.setModifyTs(0L);
+                    }
                     targetFileOrigins.add(i18nFileOrigin);
                     String exist = definitionModule.getCode() + "_" + i18nFileDefinitionFile.getLanguage();
                     if (!existLan.contains(exist)) {
@@ -198,7 +202,7 @@ public class I18nBizService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void codeLanguageCompensate() {
+    public void compensateToLanguage() {
         List<I18nLanguage> i18nLanguages = i18nLanguageRepository.findAll();
         if (CollectionUtils.isEmpty(i18nLanguages)) {
             return;
@@ -235,5 +239,9 @@ public class I18nBizService {
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public void compensatToCode() {
+
+    }
 
 }

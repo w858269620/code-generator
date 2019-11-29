@@ -51,7 +51,7 @@ public class LoadFileServiceImpl implements LoadFileService {
     }
 
     @Override
-    public void codeLanguageCompensate() {
-        i18NBizService.codeLanguageCompensate();
+    public void compensateToLanguage() {
+        i18NBizService.compensateToLanguage();
     }
 }
