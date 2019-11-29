@@ -240,8 +240,40 @@ public class I18nBizService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void compensatToCode() {
-
+    public void compensateToCode() {
+        List<I18nLanguage> i18nLanguages = i18nLanguageRepository.findAll();
+        if (CollectionUtils.isEmpty(i18nLanguages)) {
+            return;
+        }
+        Map<String, List<I18nLanguage>> i18nLanMap = i18nLanguages.stream().collect(Collectors.groupingBy(I18nLanguage::getModuleCode));
+        Set<String> modules = i18nLanMap.keySet();
+        List<I18nCode> target = new ArrayList<>();
+        for (String module : modules) {
+            List<I18nCodeLanguage> i18nCodeLanguages = i18nCodeLanguageRepository.findAllByModuleCodeAndLanguage(module, "zh_CN");
+            Map<String, I18nCodeLanguage> i18nCodeLanguageMap = new HashMap<>();
+            if (CollectionUtils.isEmpty(i18nCodeLanguages)) {
+                continue;
+            }
+            i18nCodeLanguages.forEach(r -> i18nCodeLanguageMap.put(r.getCode(), r));
+            List<I18nCode> i18nCodes = i18nCodeRepository.findAllByModuleCode(module);
+            Map<String, I18nCode> i18nCodeMap = new HashMap<>();
+            if (!CollectionUtils.isEmpty(i18nCodes)) {
+                i18nCodes.forEach(r -> i18nCodeMap.put(r.getCode(), r));
+            }
+            i18nCodeLanguages.forEach(r -> {
+                I18nCode i18nCode = i18nCodeMap.get(r.getCode());
+                if (null == i18nCode) {
+                    I18nCode i18nC = new I18nCode();
+                    i18nC.setMessage(r.getMessage());
+                    i18nC.setCode(r.getCode());
+                    i18nC.setModuleCode(r.getModuleCode());
+                    target.add(i18nC);
+                }
+            });
+        }
+        if (!CollectionUtils.isEmpty(target)) {
+            i18nCodeRepository.saveAll(target);
+        }
     }
 
 }
