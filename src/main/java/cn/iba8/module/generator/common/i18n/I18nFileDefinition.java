@@ -82,6 +82,7 @@ public class I18nFileDefinition implements Serializable {
         private String content;
         private String md5;
         private Integer type;
+        private String path;
 
         public static List<I18nFileDefinitionFile> ofFiles(File[] itemFiles) {
             List<I18nFileDefinitionFile> i18nFileDefinitionFiles = new ArrayList<>();
@@ -114,6 +115,7 @@ public class I18nFileDefinition implements Serializable {
                                                 i18nFileDefinitionFile.setContent(getContent(file));
                                                 i18nFileDefinitionFile.setType(2);
                                                 i18nFileDefinitionFile.setMd5(MD5.getMD5Str(i18nFileDefinitionFile.getContent() + i18nFileDefinitionFile.getLanguage()));
+                                                i18nFileDefinitionFile.setPath(file.getPath());
                                             }
                                         }
                                     }
@@ -135,6 +137,7 @@ public class I18nFileDefinition implements Serializable {
                                         i18nFileDefinitionFile.setContent(getContent(file));
                                         i18nFileDefinitionFile.setType(1);
                                         i18nFileDefinitionFile.setMd5(MD5.getMD5Str(i18nFileDefinitionFile.getContent() + i18nFileDefinitionFile.getLanguage()));
+                                        i18nFileDefinitionFile.setPath(file.getPath());
                                     }
                                 }
                             }

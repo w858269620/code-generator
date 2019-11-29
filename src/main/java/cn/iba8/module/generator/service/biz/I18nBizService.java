@@ -56,7 +56,8 @@ public class I18nBizService {
         List<Module> targetModules = new ArrayList<>();
         List<I18nFileOrigin> targetFileOrigins = new ArrayList<>();
         List<I18nLanguage> targetLanguages = new ArrayList<>();
-        Set<I18nLanguage> languages = new HashSet<>();
+        List<I18nLanguage> languages = new ArrayList<>();
+        Set<String> filePaths = new HashSet<>();
         for (I18nFileDefinition.I18nFileDefinitionModule definitionModule : modules) {
             Module module = moduleRepository.findFirstByCodeAndVersion(definitionModule.getCode(), definitionModule.getVersion());
             if (null == module) {
@@ -66,6 +67,7 @@ public class I18nBizService {
             if (!CollectionUtils.isEmpty(moduleFiles)) {
                 Set<String> existLan = new HashSet<>();
                 for (I18nFileDefinition.I18nFileDefinitionFile i18nFileDefinitionFile : moduleFiles) {
+                    filePaths.add(i18nFileDefinitionFile.getPath());
                     I18nFileOrigin i18nFileOrigin = CopyUtil.copy(i18nFileDefinitionFile, I18nFileOrigin.class);
                     long l = i18nFileOriginRepository.countAllByMd5(i18nFileDefinitionFile.getMd5());
                     i18nFileOrigin.setCreateTs(System.currentTimeMillis());
@@ -118,6 +120,7 @@ public class I18nBizService {
         if (!CollectionUtils.isEmpty(targetFileOrigins)) {
             i18nFileOriginRepository.saveAll(targetFileOrigins);
         }
+        I18nConverter.transferFiles(filePaths);
     }
 
 

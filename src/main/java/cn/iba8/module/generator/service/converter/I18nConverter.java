@@ -3,13 +3,17 @@ package cn.iba8.module.generator.service.converter;
 import cn.iba8.module.generator.common.enums.FileSuffixEnum;
 import cn.iba8.module.generator.common.util.FileConverterUtil;
 import cn.iba8.module.generator.common.util.MD5;
+import cn.iba8.module.generator.common.util.SpringUtils;
+import cn.iba8.module.generator.config.CodeGeneratorProperties;
 import cn.iba8.module.generator.repository.entity.App;
 import cn.iba8.module.generator.repository.entity.I18nCodeLanguage;
 import cn.iba8.module.generator.repository.entity.I18nFileTarget;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +40,24 @@ public abstract class I18nConverter {
             target.add(i18nFileTarget);
         });
         return target;
+    }
+
+    public static void transferFiles(Set<String> filePaths) {
+        try {
+            CodeGeneratorProperties bean = SpringUtils.getBean(CodeGeneratorProperties.class);
+            for (String filePath : filePaths) {
+                File origin = new File(filePath);
+                File target = new File(filePath.replaceFirst(bean.getInputDir(), bean.getInputHistory()));
+                String parent = target.getParent();
+                File f = new File(parent);
+                if (!f.exists()) {
+                    f.mkdirs();
+                }
+                FileUtils.moveFile(origin, target);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static String buildJson(List<I18nCodeLanguage> i18nCodeLanguages) {
