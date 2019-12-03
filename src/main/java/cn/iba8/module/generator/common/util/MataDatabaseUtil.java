@@ -14,6 +14,11 @@ import java.util.List;
 @Slf4j
 public abstract class MataDatabaseUtil {
 
+
+    private static final String RESET_AUTO_INCREMENT_REG= "AUTO_INCREMENT=\\d+ DEFAULT";
+
+    private static final String RESET_AUTO_INCREMENT_REPLACEMENT= "AUTO_INCREMENT=0 DEFAULT";
+
     /*
      * @Author sc.wan
      * @Description 获取表信息
@@ -142,11 +147,11 @@ public abstract class MataDatabaseUtil {
             resultSet = statement.executeQuery(sql);
             StringBuffer sb = new StringBuffer();
             if (null != resultSet && resultSet.next()) {
-                String s = "CREATE TRIGGER '" + resultSet.getString("TRIGGER_NAME") + "' "
+                String s = "CREATE TRIGGER `" + resultSet.getString("TRIGGER_NAME") + "` "
                         + resultSet.getString("ACTION_TIMING")
                         + " " + resultSet.getString("EVENT_MANIPULATION")
-                        + " ON " + resultSet.getString("EVENT_OBJECT_TABLE")
-                        + " FOR EACH ROW "
+                        + " ON `" + resultSet.getString("EVENT_OBJECT_TABLE")
+                        + "` FOR EACH ROW "
                         + resultSet.getString("ACTION_STATEMENT")
                         + ";\n"
                         ;
@@ -212,6 +217,13 @@ public abstract class MataDatabaseUtil {
                 }
             }
         }
+    }
+
+    public static String resetAutoIncrement(String ddl) {
+        if (StringUtils.isBlank(ddl)) {
+            return ddl;
+        }
+        return ddl.replaceAll(RESET_AUTO_INCREMENT_REG, RESET_AUTO_INCREMENT_REPLACEMENT);
     }
 
 }

@@ -1,7 +1,6 @@
 package cn.iba8.module.generator.service.impl;
 
 import cn.iba8.module.generator.common.enums.FileSuffixEnum;
-import cn.iba8.module.generator.common.properties2json.utils.collection.CollectionUtils;
 import cn.iba8.module.generator.repository.dao.I18nFileOriginRepository;
 import cn.iba8.module.generator.repository.entity.I18nFileOrigin;
 import cn.iba8.module.generator.service.I18nService;
@@ -10,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 

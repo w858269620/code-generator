@@ -4,7 +4,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://:3306/code_generator?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
-    username: root
+    username:
     password:
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
@@ -50,3 +50,7 @@ cn:
         input-dir: D:/i/my/data/input
         output-dir: D:/i/my/data/output
         input-history: D:/i/my/data/inputHistory
+      cron:
+        database-monitor: 0 50 * * * ?
+        database-change-push: 0 0/1 * * * ?
+        table-change-push: 0 0/1 * * * ?

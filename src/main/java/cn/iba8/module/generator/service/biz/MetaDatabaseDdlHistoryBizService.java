@@ -79,7 +79,7 @@ public class MetaDatabaseDdlHistoryBizService {
                     targetTableTriggers = tableTriggers;
                 }
                 if (null != targetTableTriggers) {
-                    createTriggers.append(targetTableTriggers + ";\n\n");
+                    createTriggers.append(targetTableTriggers + "\n\n");
                 }
                 createTable.append(targetTableDdl + ";\n\n");
                 createDdl.append(targetTableDdl + ";\n\n" + (null != targetTableTriggers ? targetTableTriggers + "\n" : ""));

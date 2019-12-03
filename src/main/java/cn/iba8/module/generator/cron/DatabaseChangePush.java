@@ -33,7 +33,7 @@ public class DatabaseChangePush {
 
     private final MetaDatabaseRepository metaDatabaseRepository;
 
-//    @Scheduled(cron = "0 0 0/2 * * ? ")
+//    @Scheduled(cron = "${cn.iba8.module.cron.database-change-push}")
     @Transactional(rollbackFor = Exception.class)
     public void pushDatabase() {
         //数据量不会太大，一次性处理
@@ -43,7 +43,7 @@ public class DatabaseChangePush {
         push(topushes, "开发数据库变更");
     }
 
-//    @Scheduled(cron = "0 0/1 * * * ? ")
+//    @Scheduled(cron = "${cn.iba8.module.cron.table-change-push}")
     @Transactional(rollbackFor = Exception.class)
     public void pushTableAndField() {
         //数据量不会太大，一次性处理

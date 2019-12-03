@@ -20,11 +20,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
- /*
-  * @Author sc.wan
-  * @Description 定时监控数据库变化情况
-  * @Date 12:42 2019/7/4
-  **/
+/*
+ * @Author sc.wan
+ * @Description 定时监控数据库变化情况
+ * @Date 12:42 2019/7/4
+ **/
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -40,7 +40,7 @@ public class DatabaseChangeMonitor {
 
     private final MetaDatabaseChangeLogTopushRepository metaDatabaseChangeLogTopushRepository;
 
-//    @Scheduled(cron = "0 0/3 * * * ? ")
+//    @Scheduled(cron = "${cn.iba8.module.cron.database-monitor}")
     @Transactional(rollbackFor = Exception.class)
     public void monitor() {
         //数据连接信息
