@@ -4,7 +4,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://:3306/code_generator?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
-    username:
+    username: root
     password:
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
@@ -17,26 +17,27 @@ spring:
       connection-timeout: 30000
       connection-test-query: SELECT 1
   mail:
-      default-encoding: UTF-8
-      host: smtp.163.com
-      username: xxx
-      password: xxx
-      port: 465
-      properties:
-          mail:
-              imap:
-                  ssl:
-                      socketFactory:
-                          fallback: false
-              smtp:
-                  auth: true
-                  ssl:
-                      enable: true
-                      socketFactory:
-                          class: com.fintech.modules.base.util.mail.MailSSLSocketFactory
-                  starttls:
-                      enable: true
-                      required: true
+    default-encoding: UTF-8
+    host: smtp.163.com
+    username: xxx
+    password: xxx
+    port: 465
+    properties:
+      mail:
+        imap:
+          ssl:
+            socketFactory:
+              fallback: false
+        smtp:
+          auth: false
+          ssl:
+            enable: false
+            socketFactory:
+              class: com.fintech.modules.base.util.mail.MailSSLSocketFactory
+          starttls:
+            enable: false
+            required: false
+    test-connection: false
   jpa:
     hibernate:
       ddl-auto: update
@@ -50,7 +51,8 @@ cn:
         input-dir: D:/i/my/data/input
         output-dir: D:/i/my/data/output
         input-history: D:/i/my/data/inputHistory
+        code-output-tmp: D:/i/my/code/output
       cron:
-        database-monitor: 0 50 * * * ?
+        database-monitor: 0 0/5 * * * ?
         database-change-push: 0 0/1 * * * ?
         table-change-push: 0 0/1 * * * ?

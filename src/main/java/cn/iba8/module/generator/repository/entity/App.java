@@ -24,15 +24,6 @@ public class App implements Serializable {
 	@Column(name = "version")
 	private String version;
 
-	@Column(name = "version_1")
-	private Integer version1;
-
-	@Column(name = "version_2")
-	private Integer version2;
-
-	@Column(name = "version_3")
-	private Integer version3;
-
 	@Column(name = "note")
 	private String note;
 

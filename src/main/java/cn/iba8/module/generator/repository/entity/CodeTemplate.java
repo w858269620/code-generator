@@ -30,6 +30,9 @@ public class CodeTemplate implements Serializable {
     @Column(name = "type")
     private String type;
 
+    @Column(name = "type_group")
+    private String typeGroup;
+
     @Column(name = "md5")
     private String md5;
 

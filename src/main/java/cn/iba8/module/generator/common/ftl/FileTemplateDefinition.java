@@ -1,6 +1,7 @@
 package cn.iba8.module.generator.common.ftl;
 
 import cn.iba8.module.generator.common.enums.FileOpTypeEnum;
+import cn.iba8.module.generator.common.enums.FileTypeGroupEnum;
 import cn.iba8.module.generator.common.enums.TemplateTypeEnum;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,12 +14,13 @@ import java.util.List;
 @Data
 public class FileTemplateDefinition implements Serializable {
 
+    private String fileTypeGroup;
     private String fileType;
     private String filePath;
     private String fileOpType;
 
     public boolean valid() {
-        return StringUtils.isNotBlank(filePath) && TemplateTypeEnum.contains(fileType) && FileOpTypeEnum.contains(fileOpType);
+        return StringUtils.isNotBlank(filePath) && TemplateTypeEnum.contains(fileType) && FileOpTypeEnum.contains(fileOpType) && FileTypeGroupEnum.contains(fileTypeGroup);
     }
 
     public static List<FileTemplateDefinition> ofJson(String json) {

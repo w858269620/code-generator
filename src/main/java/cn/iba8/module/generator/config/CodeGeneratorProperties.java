@@ -15,4 +15,6 @@ public class CodeGeneratorProperties {
 
     private String inputHistory;
 
+    private String codeOutputTmp;
+
 }

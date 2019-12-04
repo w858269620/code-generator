@@ -37,9 +37,6 @@ public class I18nFileDefinition implements Serializable {
         private String code;
         private String name;
         private String version;
-        private Integer version1;
-        private Integer version2;
-        private Integer version3;
         private List<I18nFileDefinitionFile> files = new ArrayList<>();
 
         public static I18nFileDefinitionModule ofDirName(String dirName) {
@@ -48,9 +45,6 @@ public class I18nFileDefinition implements Serializable {
             module.setCode(names[0]);
             module.setName(names[1]);
             module.setVersion(names[2]);
-            module.setVersion1(Integer.valueOf(names[3]));
-            module.setVersion2(Integer.valueOf(names[4]));
-            module.setVersion3(Integer.valueOf(names[5]));
             return module;
         }
 

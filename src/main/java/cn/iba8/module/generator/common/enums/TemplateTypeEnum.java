@@ -14,7 +14,7 @@ public enum TemplateTypeEnum {
 
     REPOSITORY_ENTITY(11, "Entity", "数据库实体"),
     REPOSITORY_DAO(12, "Repository", "数据库接口"),
-    SERVICE(21, "Biz", "业务层接口"),
+    SERVICE(21, "ServiceBiz", "业务层接口"),
     SERVICE_BIZ(22, "Service", "业务层细化"),
     SERVICE_IMPL(23, "ServiceImpl", "业务层接口实现"),
     API(31, "Api", "REST接口"),

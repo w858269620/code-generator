@@ -1,0 +1,11 @@
+package #if($packagePrefix) $packagePrefix#end.repository.dao;
+
+import #if($packagePrefix) $packagePrefix#end.repository.entity.$entityName;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface $clazzName extends JpaRepository<$entityName, Long>, JpaSpecificationExecutor<$entityName> {
+
+}

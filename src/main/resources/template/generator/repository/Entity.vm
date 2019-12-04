@@ -1,0 +1,31 @@
+package #if($packagePrefix) $packagePrefix#end.repository.entity;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import lombok.Data;
+
+@Entity
+@Data
+@Table(name="$tableName")
+public class $clazzName implements Serializable {
+
+#if($columns)
+    #foreach($column in $columns)
+        #if($column.columnComment && $column.columnComment != '')
+    /** $column.columnComment */
+        #end
+        #if($column.primaryKey)
+    @Id
+            #if($idStrategy)
+    @GeneratedValue(generator = "idGenerator")
+    @GenericGenerator(name = "idGenerator", strategy = $data.idStrategyClazz)#else
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+            #end
+        #end
+    @Column(name = "$column.columnName"#if($column.columnSize > 0), length = $column.columnSize#end)
+    private $column.columnType $column.columnName;
+
+    #end
+#end
+
+}

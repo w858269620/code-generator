@@ -15,8 +15,8 @@ public class ModuleMetaDatabaseTable implements Serializable {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "module_id")
-	private Long moduleId;
+	@Column(name = "module_code")
+	private String moduleCode;
 
 	@Column(name = "meta_database_table_id")
 	private Long metaDatabaseTableId;

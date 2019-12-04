@@ -7,6 +7,7 @@ import cn.iba8.module.generator.repository.entity.CodeTemplate;
 import cn.iba8.module.generator.repository.entity.MetaDatabaseTable;
 import cn.iba8.module.generator.repository.entity.MetaDatabaseTableColumn;
 import cn.iba8.module.generator.repository.entity.Module;
+import freemarker.template.Configuration;
 import org.apache.commons.io.IOUtils;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -25,7 +26,7 @@ public abstract class TemplateUtil {
         String template = "#foreach ($column in $columns)\n" +
                 "#if($column.columnName != 'id' && $column.columnName != 'creator' && $column.columnName != 'create_date')\n" +
                 "    /**\n" +
-                "     * $column.comments\n" +
+                "     * $column.columnName\n" +
                 "     */\n" +
                 "\tprivate $column.columnComment;\n" +
                 "#end\n" +
@@ -45,7 +46,6 @@ public abstract class TemplateUtil {
         engine.evaluate(context, writer, "", template);
         System.out.println(writer.toString());
     }
-
 
     public byte[] generatorCode(List<CodeTemplate> codeTemplates, Module module, MetaDatabaseTable metaDatabaseTables, List<MetaDatabaseTableColumn> metaDatabaseTableColumns) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

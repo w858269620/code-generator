@@ -5,7 +5,7 @@ import cn.iba8.module.generator.common.ftl.FileTemplateDefinition;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ResourceUtils;
 
@@ -19,7 +19,7 @@ import java.util.List;
  * @Description 加载模板配置文件
  * @Date 2019/12/4 10:09
  */
-@Service
+@Component
 @AllArgsConstructor
 @Slf4j
 public class LoadTemplateBizService implements CommandLineRunner {

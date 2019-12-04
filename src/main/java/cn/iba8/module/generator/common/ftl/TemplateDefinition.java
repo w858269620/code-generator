@@ -1,6 +1,8 @@
 package cn.iba8.module.generator.common.ftl;
 
+import cn.iba8.module.generator.common.enums.DataTypeMappingEnum;
 import cn.iba8.module.generator.common.enums.TemplateTypeEnum;
+import cn.iba8.module.generator.common.util.ColumnNameUtil;
 import cn.iba8.module.generator.common.util.FileNameUtil;
 import cn.iba8.module.generator.common.util.TemplateDataUtil;
 import cn.iba8.module.generator.repository.entity.CodeTemplate;
@@ -77,6 +79,7 @@ public class TemplateDefinition {
         }
 
         public static TemplateFileBean ofRepositoryEntity(String packagePrefix, String template, TableColumnBean tableColumnBean) {
+            tableColumnBean.toJava();
             TemplateFileBean templateFileBean = new TemplateFileBean();
             MetaDatabaseTable metaDatabaseTable = tableColumnBean.getMetaDatabaseTable();
             templateFileBean.setFilename(FileNameUtil.getRepositoryEntityName(metaDatabaseTable.getTableName()));
@@ -86,7 +89,12 @@ public class TemplateDefinition {
         }
 
         public static TemplateFileBean ofRepositoryDao(String packagePrefix, String template, TableColumnBean tableColumnBean) {
+            tableColumnBean.toJava();
             TemplateFileBean templateFileBean = new TemplateFileBean();
+            MetaDatabaseTable metaDatabaseTable = tableColumnBean.getMetaDatabaseTable();
+            templateFileBean.setFilename(FileNameUtil.getRepositoryEntityName(metaDatabaseTable.getTableName()) + "Repository");
+            templateFileBean.setFileDir(packagePrefix + ".repository.dao");
+            templateFileBean.setContent(TemplateDataUtil.getContent(packagePrefix, template, tableColumnBean, TemplateTypeEnum.REPOSITORY_DAO));
             return templateFileBean;
         }
 
@@ -151,8 +159,28 @@ public class TemplateDefinition {
             TableColumnBean tableColumnBean = new TableColumnBean();
             tableColumnBean.setMetaDatabaseTable(metaDatabaseTable);
             tableColumnBean.setModule(module);
-            tableColumnBean.setMetaDatabaseTableColumns(metaDatabaseTableColumns);
+            List<MetaDatabaseTableColumn> idList = new ArrayList<>();
+            List<MetaDatabaseTableColumn> otherList = new ArrayList<>();
+            for (MetaDatabaseTableColumn metaDatabaseTableColumn : metaDatabaseTableColumns) {
+                if (metaDatabaseTableColumn.isPrimaryKey()) {
+                    if (!"String".equals(metaDatabaseTableColumn.getColumnType())) {
+                        metaDatabaseTableColumn.setColumnType("Long");
+                    }
+                    idList.add(metaDatabaseTableColumn);
+                } else {
+                    otherList.add(metaDatabaseTableColumn);
+                }
+            }
+            idList.addAll(otherList);
+            tableColumnBean.setMetaDatabaseTableColumns(idList);
             return tableColumnBean;
+        }
+
+        public void toJava() {
+            for (MetaDatabaseTableColumn metaDatabaseTableColumn : metaDatabaseTableColumns) {
+                metaDatabaseTableColumn.setColumnName(ColumnNameUtil.toJavaField(metaDatabaseTableColumn.getColumnName()));
+                metaDatabaseTableColumn.setColumnType(DataTypeMappingEnum.mysqlTypeToJavaType(metaDatabaseTableColumn.getColumnType()));
+            }
         }
     }
 

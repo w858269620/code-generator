@@ -1,58 +1,71 @@
 package cn.iba8.module.generator.service.biz;
 
-import cn.iba8.module.generator.repository.dao.CodeTemplateRepository;
-import cn.iba8.module.generator.repository.entity.CodeTemplate;
+import cn.iba8.module.generator.common.BaseException;
+import cn.iba8.module.generator.common.ResponseCode;
+import cn.iba8.module.generator.common.ftl.TemplateDefinition;
+import cn.iba8.module.generator.repository.dao.*;
+import cn.iba8.module.generator.repository.entity.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.VelocityEngine;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
-import java.io.StringWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 @Slf4j
 public class CodeGenerateBizService {
 
-    private final CodeTemplateBizService codeTemplateBizService;
+    private final ModuleRepository moduleRepository;
+
+    private final ModuleMetaDatabaseTableRepository moduleMetaDatabaseTableRepository;
+
+    private final MetaDatabaseTableColumnRepository metaDatabaseTableColumnRepository;
 
     private final CodeTemplateRepository codeTemplateRepository;
 
-    public CodeTemplate loadByCode(String code) {
-        return codeTemplateRepository.findFirstByCodeOrderByVersionDesc(code);
+    private final MetaDatabaseTableRepository metaDatabaseTableRepository;
+
+    public List<TemplateDefinition.TemplateFileBean> getCodeFiles(String moduleCode, String version, String typeGroup) {
+        Module module = moduleRepository.findFirstByCodeAndVersion(moduleCode, version);
+        if (null == module) {
+            throw BaseException.of(ResponseCode.MODULE_NOT_EXIST);
+        }
+        List<ModuleMetaDatabaseTable> moduleMetaDatabaseTables = moduleMetaDatabaseTableRepository.findAllByModuleCode(module.getCode());
+        if (CollectionUtils.isEmpty(moduleMetaDatabaseTables)) {
+            return null;
+        }
+        Set<Long> tableIds = moduleMetaDatabaseTables.stream().map(ModuleMetaDatabaseTable::getMetaDatabaseTableId).collect(Collectors.toSet());
+        List<MetaDatabaseTableColumn> metaDatabaseTableIdIn = metaDatabaseTableColumnRepository.findAllByMetaDatabaseTableIdIn(tableIds);
+        if (CollectionUtils.isEmpty(metaDatabaseTableIdIn)) {
+            return null;
+        }
+        List<CodeTemplate> codeTemplates = codeTemplateRepository.findAllByTypeGroupAndLatest(typeGroup, 1);
+        if (CollectionUtils.isEmpty(codeTemplates)) {
+            return null;
+        }
+        List<MetaDatabaseTable> metaDatabaseTables = metaDatabaseTableRepository.findAllById(tableIds);
+        if (CollectionUtils.isEmpty(metaDatabaseTables)) {
+            return null;
+        }
+        Map<Long, List<MetaDatabaseTableColumn>> columnsMap = metaDatabaseTableIdIn.stream().collect(Collectors.groupingBy(MetaDatabaseTableColumn::getMetaDatabaseTableId));
+        List<TemplateDefinition.TemplateFileBean> templateFileBeanList = new ArrayList<>();
+        for (MetaDatabaseTable metaDatabaseTable : metaDatabaseTables) {
+            List<MetaDatabaseTableColumn> metaDatabaseTableColumns = columnsMap.get(metaDatabaseTable.getId());
+            if (CollectionUtils.isEmpty(metaDatabaseTableColumns)) {
+                continue;
+            }
+            TemplateDefinition.TableColumnBean tableColumnBean = TemplateDefinition.TableColumnBean.of(module, metaDatabaseTable, metaDatabaseTableColumns);
+            List<TemplateDefinition.TemplateFileBean> templateFileBeans = TemplateDefinition.TemplateFileBean.of(tableColumnBean, codeTemplates);
+            templateFileBeanList.addAll(templateFileBeans);
+        }
+        return templateFileBeanList;
     }
 
-    private String generate(CodeTemplate codeTemplate) {
-        VelocityEngine engine = new VelocityEngine();
-        engine.init();
-        String template = "${owner}：您的${type}:${bill}在${date}日已支付成功";
-        VelocityContext context = new VelocityContext();
-        context.put("owner", "nassir");
-        context.put("bill", "201203221000029763");
-        context.put("type", "订单");
-        context.put("date",
-                new SimpleDateFormat("yyyy-MM-ddHH:mm:ss").format(new Date()));
-        StringWriter writer = new StringWriter();
-        engine.evaluate(context, writer, "", template);
-        System.out.println(writer.toString());
-        return null;
-    }
-
-    public static void main(String[] args) {
-        VelocityEngine engine = new VelocityEngine();
-        engine.init();
-        String template = "${owner}：您的${type}:${bill}在${date}日已支付成功";
-        VelocityContext context = new VelocityContext();
-        context.put("owner", "nassir");
-        context.put("bill", "201203221000029763");
-        context.put("type", "订单");
-        context.put("date", new SimpleDateFormat("yyyy-MM-ddHH:mm:ss").format(new Date()));
-        StringWriter writer = new StringWriter();
-        engine.evaluate(context, writer, "", template);
-        System.out.println(writer.toString());
-    }
 
 }

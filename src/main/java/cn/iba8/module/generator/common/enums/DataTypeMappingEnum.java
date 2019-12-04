@@ -15,6 +15,7 @@ public enum  DataTypeMappingEnum {
     TINYINT("TINYINT", "Integer"),
     SMALLINT("SMALLINT", "Integer"),
     INTEGER("INTEGER", "Integer"),
+    INT("INT", "Integer"),
     BIGINT("BIGINT", "Long"),
     FLOAT("FLOAT", "Float"),
     DOUBLE("DOUBLE", "Double"),

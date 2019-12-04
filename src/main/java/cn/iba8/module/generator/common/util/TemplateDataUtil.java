@@ -27,7 +27,20 @@ public abstract class TemplateDataUtil {
         if (TemplateTypeEnum.REPOSITORY_ENTITY.equals(templateTypeEnum)) {
             return getContentRepositoryEntity(packagePrefix, template, tableColumnBean);
         }
+        if (TemplateTypeEnum.REPOSITORY_DAO.equals(templateTypeEnum)) {
+            return getContentRepositoryDao(packagePrefix, template, tableColumnBean);
+        }
         return null;
+    }
+
+    private static String getContentRepositoryDao(String packagePrefix, String template, TemplateDefinition.TableColumnBean tableColumnBean) {
+        Map<String, Object> map = new HashMap<>();
+        MetaDatabaseTable metaDatabaseTable = tableColumnBean.getMetaDatabaseTable();
+        String entityName = FileNameUtil.getRepositoryEntityName(metaDatabaseTable.getTableName());
+        map.put("entityName", entityName);
+        map.put("clazzName", entityName + TemplateTypeEnum.REPOSITORY_DAO.getName());
+        map.put("packagePrefix", packagePrefix);
+        return getContent(template, map);
     }
 
     private static String getContentRepositoryEntity(String packagePrefix, String template, TemplateDefinition.TableColumnBean tableColumnBean) {
@@ -48,7 +61,7 @@ public abstract class TemplateDataUtil {
             map.keySet().forEach(r -> context.put(r, map.get(r)));
         }
         StringWriter writer = new StringWriter();
-        engine.evaluate(context, writer, "", template);
+        engine.evaluate(context, writer, "", template.replaceAll("[ ]*(#if|#else|#elseif|#end|#set|#foreach)", "$1"));
         return writer.toString();
     }
 

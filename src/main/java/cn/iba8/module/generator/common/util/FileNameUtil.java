@@ -1,13 +1,13 @@
 package cn.iba8.module.generator.common.util;
 
 import com.google.common.base.CaseFormat;
-
-import java.io.File;
+import org.apache.commons.lang3.StringUtils;
 
 public abstract class FileNameUtil {
 
     public static String getRepositoryEntityName(String tableName) {
-        return CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_CAMEL, tableName);
+        String str = CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_CAMEL, tableName);
+        return str.substring(0,1).toUpperCase().concat(str.substring(1).toLowerCase());
     }
 
     public static String getRepositoryDaoName(String tableName) {
@@ -15,8 +15,8 @@ public abstract class FileNameUtil {
     }
 
     public static String toPath(String packageDir) {
-        String separator = File.separator;
-        return packageDir.replaceAll(packageDir, separator);
+        String[] split = packageDir.split("\\.");
+        return StringUtils.join(split, "/");
     }
 
 }

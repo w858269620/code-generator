@@ -109,6 +109,7 @@ public enum ResponseCode {
     CODE_TEMPLATE_CODE_NOT_EXIST("100009", "模板编号不存在"),
     CODE_TEMPLATE_NOT_EXIST("100009", "模板不存在"),
     CODE_TEMPLATE_CODE_ALREADY_EXIST("100010", "模板编号已经存在"),
+    MODULE_NOT_EXIST("101001", "模块不存在存在"),
     ;
 
     /**
