@@ -1,0 +1,7 @@
+[
+  {
+    "fileType":"Entity",
+    "filePath": "classpath:template/generator/repository/Entity.ftl",
+    "fileOpType": "load"
+  }
+]

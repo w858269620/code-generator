@@ -28,9 +28,15 @@ public class CodeTemplate implements Serializable {
     private String template;
 
     @Column(name = "type")
-    private Integer type;
+    private String type;
 
-    @Column(name = "template_group")
-    private String templateGroup;
+    @Column(name = "md5")
+    private String md5;
+
+    @Column(name = "version")
+    private Long version;
+
+    @Column(name = "latest")
+    private Integer latest;
 
 }

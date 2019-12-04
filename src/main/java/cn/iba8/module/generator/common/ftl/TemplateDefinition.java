@@ -30,7 +30,7 @@ public class TemplateDefinition {
             Module module = tableColumnBean.getModule();
             String packagePrefix = module.getPackageName();
             for (CodeTemplate r : codeTemplates) {
-                TemplateTypeEnum templateTypeEnum = TemplateTypeEnum.of(r.getType());
+                TemplateTypeEnum templateTypeEnum = TemplateTypeEnum.ofName(r.getType());
                 String template = r.getTemplate();
                 switch (templateTypeEnum) {
                     case REPOSITORY_ENTITY:

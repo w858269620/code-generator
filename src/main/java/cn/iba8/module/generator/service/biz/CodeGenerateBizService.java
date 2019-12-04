@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -22,12 +21,8 @@ public class CodeGenerateBizService {
 
     private final CodeTemplateRepository codeTemplateRepository;
 
-    public List<CodeTemplate> loadByTemplateGroup(String templateGroup) {
-        return codeTemplateRepository.findAllByTemplateGroup(templateGroup);
-    }
-
     public CodeTemplate loadByCode(String code) {
-        return codeTemplateRepository.findFirstByCode(code);
+        return codeTemplateRepository.findFirstByCodeOrderByVersionDesc(code);
     }
 
     private String generate(CodeTemplate codeTemplate) {

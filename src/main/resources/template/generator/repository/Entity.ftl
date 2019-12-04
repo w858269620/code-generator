@@ -2,6 +2,7 @@ package ${packagePrefix}.repository.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import lombok.Data;
 
 @Entity
 @Data

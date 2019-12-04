@@ -58,7 +58,7 @@ public class CodeTemplateServiceImpl implements CodeTemplateService {
 
     @Override
     public CodeTemplateDetailResponse detailByCode(CodeRequest request) {
-        CodeTemplate codeTemplate = codeTemplateRepository.findFirstByCode(request.getCode());
+        CodeTemplate codeTemplate = codeTemplateRepository.findFirstByCodeOrderByVersionDesc(request.getCode());
         if (null == codeTemplate) {
             throw BaseException.of(ResponseCode.CODE_TEMPLATE_NOT_EXIST);
         }
@@ -83,7 +83,7 @@ public class CodeTemplateServiceImpl implements CodeTemplateService {
             codeTemplate = CopyUtil.copy(request, CodeTemplate.class);
         }
         if (checkCode) {
-            CodeTemplate firstByCode = codeTemplateRepository.findFirstByCode(request.getCode());
+            CodeTemplate firstByCode = codeTemplateRepository.findFirstByCodeOrderByVersionDesc(request.getCode());
             if (null != firstByCode) {
                 throw BaseException.of(ResponseCode.CODE_TEMPLATE_CODE_ALREADY_EXIST);
             }
