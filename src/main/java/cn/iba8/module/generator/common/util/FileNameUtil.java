@@ -19,4 +19,9 @@ public abstract class FileNameUtil {
         return StringUtils.join(split, "/");
     }
 
+    public static String toClassName(String tableName) {
+        String str = CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_CAMEL, tableName);
+        return str.substring(0,1).toUpperCase().concat(str.substring(1).toLowerCase());
+    }
+
 }

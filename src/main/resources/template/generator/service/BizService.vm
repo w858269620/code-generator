@@ -1,0 +1,23 @@
+package cn.iba8.module.generator.service.biz;
+
+import cn.iba8.module.generator.common.BaseException;
+import cn.iba8.module.generator.common.ResponseCode;
+import cn.iba8.module.generator.repository.dao.*;
+import cn.iba8.module.generator.repository.entity.*;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+@Service
+@AllArgsConstructor
+@Slf4j
+public class CodeGenerateBizService {
+
+}

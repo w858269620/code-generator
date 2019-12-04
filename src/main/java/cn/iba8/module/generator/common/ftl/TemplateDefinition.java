@@ -31,6 +31,7 @@ public class TemplateDefinition {
             List<TemplateFileBean> target = new ArrayList<>();
             Module module = tableColumnBean.getModule();
             String packagePrefix = module.getPackageName();
+            tableColumnBean.toJava();
             for (CodeTemplate r : codeTemplates) {
                 TemplateTypeEnum templateTypeEnum = TemplateTypeEnum.ofName(r.getType());
                 String template = r.getTemplate();
@@ -56,15 +57,6 @@ public class TemplateDefinition {
                     case API_IMPL:
                         target.add(TemplateFileBean.ofApiImpl(packagePrefix, template, tableColumnBean));
                         break;
-                    case API_REQUEST:
-                        target.add(TemplateFileBean.ofApiRequest(packagePrefix, template, tableColumnBean));
-                        break;
-                    case API_RESPONSE:
-                        target.add(TemplateFileBean.ofApiResponse(packagePrefix, template, tableColumnBean));
-                        break;
-                    case API_EXCEL:
-                        target.add(TemplateFileBean.ofApiExcel(packagePrefix, template, tableColumnBean));
-                        break;
                     case VUE_INDEX:
                         target.add(TemplateFileBean.ofApiVueIndex(packagePrefix, template, tableColumnBean));
                         break;
@@ -79,7 +71,6 @@ public class TemplateDefinition {
         }
 
         public static TemplateFileBean ofRepositoryEntity(String packagePrefix, String template, TableColumnBean tableColumnBean) {
-            tableColumnBean.toJava();
             TemplateFileBean templateFileBean = new TemplateFileBean();
             MetaDatabaseTable metaDatabaseTable = tableColumnBean.getMetaDatabaseTable();
             templateFileBean.setFilename(FileNameUtil.getRepositoryEntityName(metaDatabaseTable.getTableName()));
@@ -89,10 +80,9 @@ public class TemplateDefinition {
         }
 
         public static TemplateFileBean ofRepositoryDao(String packagePrefix, String template, TableColumnBean tableColumnBean) {
-            tableColumnBean.toJava();
             TemplateFileBean templateFileBean = new TemplateFileBean();
             MetaDatabaseTable metaDatabaseTable = tableColumnBean.getMetaDatabaseTable();
-            templateFileBean.setFilename(FileNameUtil.getRepositoryEntityName(metaDatabaseTable.getTableName()) + "Repository");
+            templateFileBean.setFilename(FileNameUtil.getRepositoryEntityName(metaDatabaseTable.getTableName()) + TemplateTypeEnum.REPOSITORY_DAO.getName());
             templateFileBean.setFileDir(packagePrefix + ".repository.dao");
             templateFileBean.setContent(TemplateDataUtil.getContent(packagePrefix, template, tableColumnBean, TemplateTypeEnum.REPOSITORY_DAO));
             return templateFileBean;
@@ -100,28 +90,50 @@ public class TemplateDefinition {
 
         public static TemplateFileBean ofServiceBiz(String packagePrefix, String template, TableColumnBean tableColumnBean) {
             TemplateFileBean templateFileBean = new TemplateFileBean();
+            MetaDatabaseTable metaDatabaseTable = tableColumnBean.getMetaDatabaseTable();
+            templateFileBean.setFilename(FileNameUtil.getRepositoryEntityName(metaDatabaseTable.getTableName()) + TemplateTypeEnum.SERVICE_BIZ.getName());
+            templateFileBean.setFileDir(packagePrefix + ".service.biz");
+            templateFileBean.setContent(TemplateDataUtil.getContent(packagePrefix, template, tableColumnBean, TemplateTypeEnum.SERVICE_BIZ));
             return templateFileBean;
         }
 
         public static TemplateFileBean ofServic(String packagePrefix, String template, TableColumnBean tableColumnBean) {
             TemplateFileBean templateFileBean = new TemplateFileBean();
+            MetaDatabaseTable metaDatabaseTable = tableColumnBean.getMetaDatabaseTable();
+            templateFileBean.setFilename(FileNameUtil.getRepositoryEntityName(metaDatabaseTable.getTableName()) + TemplateTypeEnum.SERVICE.getName());
+            templateFileBean.setFileDir(packagePrefix + ".service");
+            templateFileBean.setContent(TemplateDataUtil.getContent(packagePrefix, template, tableColumnBean, TemplateTypeEnum.SERVICE));
             return templateFileBean;
         }
 
         public static TemplateFileBean ofServiceImpl(String packagePrefix, String template, TableColumnBean tableColumnBean) {
             TemplateFileBean templateFileBean = new TemplateFileBean();
+            MetaDatabaseTable metaDatabaseTable = tableColumnBean.getMetaDatabaseTable();
+            templateFileBean.setFilename(FileNameUtil.getRepositoryEntityName(metaDatabaseTable.getTableName()) + TemplateTypeEnum.SERVICE_IMPL.getName());
+            templateFileBean.setFileDir(packagePrefix + ".service.impl");
+            templateFileBean.setContent(TemplateDataUtil.getContent(packagePrefix, template, tableColumnBean, TemplateTypeEnum.SERVICE_IMPL));
             return templateFileBean;
         }
 
         public static TemplateFileBean ofApi(String packagePrefix, String template, TableColumnBean tableColumnBean) {
             TemplateFileBean templateFileBean = new TemplateFileBean();
+            MetaDatabaseTable metaDatabaseTable = tableColumnBean.getMetaDatabaseTable();
+            templateFileBean.setFilename(FileNameUtil.getRepositoryEntityName(metaDatabaseTable.getTableName()) + TemplateTypeEnum.API.getName());
+            templateFileBean.setFileDir(packagePrefix + ".api");
+            templateFileBean.setContent(TemplateDataUtil.getContent(packagePrefix, template, tableColumnBean, TemplateTypeEnum.API));
             return templateFileBean;
         }
 
         public static TemplateFileBean ofApiImpl(String packagePrefix, String template, TableColumnBean tableColumnBean) {
             TemplateFileBean templateFileBean = new TemplateFileBean();
+            MetaDatabaseTable metaDatabaseTable = tableColumnBean.getMetaDatabaseTable();
+            templateFileBean.setFilename(FileNameUtil.getRepositoryEntityName(metaDatabaseTable.getTableName()) + TemplateTypeEnum.API_IMPL.getName());
+            templateFileBean.setFileDir(packagePrefix + ".controller");
+            templateFileBean.setContent(TemplateDataUtil.getContent(packagePrefix, template, tableColumnBean, TemplateTypeEnum.API_IMPL));
             return templateFileBean;
         }
+
+
 
         public static TemplateFileBean ofApiRequest(String packagePrefix, String template, TableColumnBean tableColumnBean) {
             TemplateFileBean templateFileBean = new TemplateFileBean();
@@ -145,6 +157,15 @@ public class TemplateDefinition {
 
         public static TemplateFileBean ofApiVueAddOrUpdate(String packagePrefix, String template, TableColumnBean tableColumnBean) {
             TemplateFileBean templateFileBean = new TemplateFileBean();
+            return templateFileBean;
+        }
+
+        public static TemplateFileBean of(String packagePrefix, String template, TableColumnBean tableColumnBean, String suffix, TemplateTypeEnum templateTypeEnum) {
+            TemplateFileBean templateFileBean = new TemplateFileBean();
+            MetaDatabaseTable metaDatabaseTable = tableColumnBean.getMetaDatabaseTable();
+            templateFileBean.setFilename(FileNameUtil.getRepositoryEntityName(metaDatabaseTable.getTableName()));
+            templateFileBean.setFileDir(packagePrefix + suffix);
+            templateFileBean.setContent(TemplateDataUtil.getContent(packagePrefix, template, tableColumnBean, templateTypeEnum));
             return templateFileBean;
         }
     }
