@@ -42,12 +42,6 @@ public class CodeTemplate implements Serializable {
     @Column(name = "latest")
     private Integer latest;
 
-    @Column(name = "file_suffix")
-    private String fileSuffix;
-
-    @Column(name = "package_suffix")
-    private String packageSuffix;
-
     @Column(name = "keyword")
     private String keyword;
 

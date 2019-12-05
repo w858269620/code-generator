@@ -11,11 +11,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -40,7 +42,7 @@ public class CodeTemplateBizService {
     }
 
     @Transactional
-    public void loadTemplate(FileTemplateDefinition fileTemplateDefinition) {
+    public void loadTemplate(FileTemplateDefinition.FileTemplateClassDefinition fileTemplateDefinition) {
         String content = loadContent(fileTemplateDefinition.getFilePath());
         if (StringUtils.isBlank(content)) {
             return;

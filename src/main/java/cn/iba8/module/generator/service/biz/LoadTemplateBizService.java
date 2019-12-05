@@ -1,6 +1,5 @@
 package cn.iba8.module.generator.service.biz;
 
-import cn.iba8.module.generator.common.enums.FileOpTypeEnum;
 import cn.iba8.module.generator.common.ftl.FileTemplateDefinition;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +25,10 @@ public class LoadTemplateBizService implements CommandLineRunner {
 
     private final CodeTemplateBizService codeTemplateBizService;
 
+    private final CodeTemplateSuffixBizService codeTemplateSuffixBizService;
+
+    private final CodeTemplateCodeClassBizService codeTemplateCodeClassBizService;
+
     @Override
     public void run(String... args) throws Exception {
         File file = ResourceUtils.getFile("classpath:template/templates.json");
@@ -33,16 +36,26 @@ public class LoadTemplateBizService implements CommandLineRunner {
         byte[] bytes = new byte[is.available()];
         is.read(bytes);
         String json = new String(bytes);
-        List<FileTemplateDefinition> fileTemplateDefinitions = FileTemplateDefinition.ofJson(json);
-        if (!CollectionUtils.isEmpty(fileTemplateDefinitions)) {
-            for (FileTemplateDefinition fileTemplateDefinition : fileTemplateDefinitions) {
-                if (!fileTemplateDefinition.valid()) {
-                    log.warn("invalid template.json item {}", fileTemplateDefinition);
-                    continue;
-                }
-                if (FileOpTypeEnum.LOAD.getName().equalsIgnoreCase(fileTemplateDefinition.getFileOpType())) {
-                    codeTemplateBizService.loadTemplate(fileTemplateDefinition);
-                }
+        FileTemplateDefinition fileTemplateDefinition = FileTemplateDefinition.ofJson(json);
+        if (null == fileTemplateDefinition) {
+            return;
+        }
+        List<FileTemplateDefinition.FileTemplateSuffixDefinition> loadCodeSuffix = fileTemplateDefinition.getLoadCodeSuffix();
+        List<FileTemplateDefinition.FileTemplateClassDefinition> loadCodeTemplate = fileTemplateDefinition.getLoadCodeTemplate();
+        List<FileTemplateDefinition.FileTemplateCodeClassDefinition> loadCodeClass = fileTemplateDefinition.getLoadCodeClass();
+        if (!CollectionUtils.isEmpty(loadCodeSuffix)) {
+            for (FileTemplateDefinition.FileTemplateSuffixDefinition fileTemplateSuffixDefinition : loadCodeSuffix) {
+                codeTemplateSuffixBizService.loadTemplateSuffix(fileTemplateSuffixDefinition);
+            }
+        }
+        if (!CollectionUtils.isEmpty(loadCodeTemplate)) {
+            for (FileTemplateDefinition.FileTemplateClassDefinition fileTemplateClassDefinition : loadCodeTemplate) {
+                codeTemplateBizService.loadTemplate(fileTemplateClassDefinition);
+            }
+        }
+        if (!CollectionUtils.isEmpty(loadCodeClass)) {
+            for (FileTemplateDefinition.FileTemplateCodeClassDefinition fileTemplateCodeClassDefinition : loadCodeClass) {
+                codeTemplateCodeClassBizService.loadTemplateCodeClass(fileTemplateCodeClassDefinition);
             }
         }
     }

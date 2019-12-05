@@ -1,32 +1,62 @@
-[
-  {
-    "fileTypeGroup": "java",
-    "fileType": "Entity",
-    "fileSuffix": "",
-    "packageSuffix": ".repository.entity",
-    "fileKeyword": "数据库实体",
-    "fileNote": "数据库实体",
-    "filePath": "classpath:template/generator/repository/Entity.vm",
-    "fileOpType": "load"
-  },
-  {
-    "fileTypeGroup": "java",
-    "fileType": "Repository",
-    "fileSuffix": "Repository",
-    "packageSuffix": ".repository.dao",
-    "fileKeyword": "数据库接口",
-    "fileNote": "数据库接口",
-    "filePath": "classpath:template/generator/repository/Repository.vm",
-    "fileOpType": "load"
-  },
-  {
-    "fileTypeGroup": "java",
-    "fileType": "BizService",
-    "fileSuffix": "BizService",
-    "packageSuffix": ".service.biz",
-    "fileKeyword": "业务细化",
-    "fileNote": "业务细化",
-    "filePath": "classpath:template/generator/service/BizService.vm",
-    "fileOpType": "load"
-  }
-]
+{
+  "loadCodeTemplate": [
+    {
+      "fileTypeGroup": "java",
+      "fileType": "Entity",
+      "fileKeyword": "数据库实体",
+      "fileNote": "数据库实体",
+      "filePath": "classpath:template/generator/repository/Entity.vm"
+    },
+    {
+      "fileTypeGroup": "java",
+      "fileType": "Repository",
+      "fileKeyword": "数据库接口",
+      "fileNote": "数据库接口",
+      "filePath": "classpath:template/generator/repository/Repository.vm"
+    },
+    {
+      "fileTypeGroup": "java",
+      "fileType": "BizService",
+      "fileKeyword": "业务细化",
+      "fileNote": "业务细化",
+      "filePath": "classpath:template/generator/service/BizService.vm"
+    }
+  ],
+  "loadCodeSuffix": [
+    {
+      "fileTypeGroup": "java",
+      "fileType": "Entity",
+      "fileSuffix": "",
+      "packageSuffix": ".repository.entity"
+    },
+    {
+      "fileTypeGroup": "java",
+      "fileType": "Repository",
+      "fileSuffix": "Repository",
+      "packageSuffix": ".repository.dao"
+    },
+    {
+      "fileTypeGroup": "java",
+      "fileType": "BizService",
+      "fileSuffix": "BizService",
+      "packageSuffix": ".service.biz"
+    }
+  ],
+  "loadCodeClass": [
+    {
+      "fileTypeGroup": "java",
+      "fileType": "IdStrategy",
+      "codeClass": "com.chitic.module.core.constant.ChiticCoreConstant.ID_GENERATOR_COMMON"
+    },
+    {
+      "fileTypeGroup": "java",
+      "fileType": "Exception",
+      "codeClass": "cn.iba8.module.generator.common.BaseException"
+    },
+    {
+      "fileTypeGroup": "java",
+      "fileType": "ResponseCode",
+      "codeClass": "cn.iba8.module.generator.common.ResponseCode"
+    }
+  ]
+}

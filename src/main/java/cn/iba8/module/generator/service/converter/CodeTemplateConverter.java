@@ -6,7 +6,7 @@ import cn.iba8.module.generator.repository.entity.CodeTemplate;
 
 public abstract class CodeTemplateConverter {
 
-    public static CodeTemplate toCodeTemplate(CodeTemplate origin, FileTemplateDefinition fileTemplateDefinition, String content) {
+    public static CodeTemplate toCodeTemplate(CodeTemplate origin, FileTemplateDefinition.FileTemplateClassDefinition fileTemplateDefinition, String content) {
         CodeTemplate target = new CodeTemplate();
         String path = fileTemplateDefinition.getFilePath();
         int i = path.lastIndexOf("/");
@@ -24,8 +24,6 @@ public abstract class CodeTemplateConverter {
         target.setType(fileTemplateDefinition.getFileType());
         target.setNote(fileTemplateDefinition.getFileNote());
         target.setTypeGroup(fileTemplateDefinition.getFileTypeGroup());
-        target.setFileSuffix(fileTemplateDefinition.getFileSuffix());
-        target.setPackageSuffix(fileTemplateDefinition.getPackageSuffix());
         target.setKeyword(fileTemplateDefinition.getFileKeyword());
         return target;
     }

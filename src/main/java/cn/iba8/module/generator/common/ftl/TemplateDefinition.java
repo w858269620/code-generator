@@ -3,15 +3,13 @@ package cn.iba8.module.generator.common.ftl;
 import cn.iba8.module.generator.common.enums.DataTypeMappingEnum;
 import cn.iba8.module.generator.common.util.CopyUtil;
 import cn.iba8.module.generator.common.util.TemplateUtil;
-import cn.iba8.module.generator.repository.entity.CodeTemplate;
-import cn.iba8.module.generator.repository.entity.MetaDatabaseTable;
-import cn.iba8.module.generator.repository.entity.MetaDatabaseTableColumn;
-import cn.iba8.module.generator.repository.entity.Module;
+import cn.iba8.module.generator.repository.entity.*;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Data
 public class TemplateDefinition {
@@ -25,17 +23,18 @@ public class TemplateDefinition {
 
         private String content;
 
-        public static List<TemplateFileBean> of(TableColumnBean tableColumnBean, List<CodeTemplate> codeTemplates) {
+        public static List<TemplateFileBean> of(TableColumnBean tableColumnBean, List<CodeTemplate> codeTemplates, Map<String, CodeTemplateSuffix> codeTemplateSuffixMap, Map<String, CodeTemplateCodeClass> codeTemplateCodeClassMap) {
             List<TemplateFileBean> target = new ArrayList<>();
             Module module = tableColumnBean.getModule();
             String packagePrefix = module.getPackageName();
             MetaDatabaseTable metaDatabaseTable = tableColumnBean.getMetaDatabaseTable();
             for (CodeTemplate r : codeTemplates) {
-                String content = TemplateUtil.getContent(packagePrefix, r, tableColumnBean);
+                CodeTemplateSuffix codeTemplateSuffix = codeTemplateSuffixMap.get(r.getType());
+                String content = TemplateUtil.getContent(packagePrefix, r, codeTemplateSuffixMap, codeTemplateCodeClassMap, tableColumnBean);
                 TemplateFileBean templateFileBean = new TemplateFileBean();
                 templateFileBean.setContent(content);
-                templateFileBean.setFileDir(packagePrefix + r.getPackageSuffix());
-                templateFileBean.setFilename(TemplateUtil.toClassName(metaDatabaseTable.getTableName()) + r.getFileSuffix());
+                templateFileBean.setFileDir(packagePrefix + codeTemplateSuffix.getPackageSuffix());
+                templateFileBean.setFilename(TemplateUtil.toClassName(metaDatabaseTable.getTableName()) + codeTemplateSuffix.getFileSuffix());
                 target.add(templateFileBean);
             }
             return target;

@@ -1,6 +1,6 @@
-package #if($packagePrefix) $packagePrefix#end.repository.dao;
+package $packagePrefix$packageSuffix;
 
-import #if($packagePrefix) $packagePrefix#end.repository.entity.$entityName;
+import ${packagePrefix}${codeTemplateSuffix.get('Entity').packageSuffix}.${entityName}${codeTemplateSuffix.get('Entity').fileSuffix};
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

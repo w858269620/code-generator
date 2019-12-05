@@ -31,6 +31,10 @@ public class CodeGenerateBizService {
 
     private final MetaDatabaseTableRepository metaDatabaseTableRepository;
 
+    private final CodeTemplateSuffixRepository codeTemplateSuffixRepository;
+
+    private final CodeTemplateCodeClassRepository codeTemplateCodeClassRepository;
+
     public List<TemplateDefinition.TemplateFileBean> getCodeFiles(String moduleCode, String version, String typeGroup) {
         Module module = moduleRepository.findFirstByCodeAndVersion(moduleCode, version);
         if (null == module) {
@@ -53,6 +57,13 @@ public class CodeGenerateBizService {
         if (CollectionUtils.isEmpty(metaDatabaseTables)) {
             return null;
         }
+        List<CodeTemplateSuffix> codeTemplateSuffixes = codeTemplateSuffixRepository.findAllByTypeGroup(typeGroup);
+        if (CollectionUtils.isEmpty(codeTemplateSuffixes)) {
+            return null;
+        }
+        List<CodeTemplateCodeClass> codeTemplateCodeClasses = codeTemplateCodeClassRepository.findAllByTypeGroup(typeGroup);
+        Map<String, CodeTemplateCodeClass> codeTemplateCodeClassMap = codeTemplateCodeClasses.stream().collect(Collectors.toMap(CodeTemplateCodeClass::getType, r -> r, (k1, k2) -> k2));
+        Map<String, CodeTemplateSuffix> codeTemplateSuffixMap = codeTemplateSuffixes.stream().collect(Collectors.toMap(CodeTemplateSuffix::getType, r -> r, (k1, k2) -> k2));
         Map<Long, List<MetaDatabaseTableColumn>> columnsMap = metaDatabaseTableIdIn.stream().collect(Collectors.groupingBy(MetaDatabaseTableColumn::getMetaDatabaseTableId));
         List<TemplateDefinition.TemplateFileBean> templateFileBeanList = new ArrayList<>();
         for (MetaDatabaseTable metaDatabaseTable : metaDatabaseTables) {
@@ -61,7 +72,7 @@ public class CodeGenerateBizService {
                 continue;
             }
             TemplateDefinition.TableColumnBean tableColumnBean = TemplateDefinition.TableColumnBean.of(module, metaDatabaseTable, metaDatabaseTableColumns);
-            List<TemplateDefinition.TemplateFileBean> templateFileBeans = TemplateDefinition.TemplateFileBean.of(tableColumnBean, codeTemplates);
+            List<TemplateDefinition.TemplateFileBean> templateFileBeans = TemplateDefinition.TemplateFileBean.of(tableColumnBean, codeTemplates, codeTemplateSuffixMap, codeTemplateCodeClassMap);
             templateFileBeanList.addAll(templateFileBeans);
         }
         return templateFileBeanList;
