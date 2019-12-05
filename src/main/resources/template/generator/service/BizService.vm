@@ -3,7 +3,7 @@ package $packagePrefix$packageSuffix;
 import ${codeTemplateClass.get('Exception').codeClass};
 import ${codeTemplateClass.get('ResponseCode').codeClass};
 import ${packagePrefix}${codeTemplateSuffix.get('Entity').packageSuffix}.${entityName}${codeTemplateSuffix.get('Entity').fileSuffix};
-import ${packagePrefix}${codeTemplateSuffix.get('Repository').packageSuffix}.${entityName}${entityName}${codeTemplateSuffix.get('Repository').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('Repository').packageSuffix}.${entityName}${codeTemplateSuffix.get('Repository').fileSuffix};
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
