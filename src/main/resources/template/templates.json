@@ -4,6 +4,8 @@
     "fileType": "Entity",
     "fileSuffix": "",
     "packageSuffix": ".repository.entity",
+    "fileKeyword": "数据库实体",
+    "fileNote": "数据库实体",
     "filePath": "classpath:template/generator/repository/Entity.vm",
     "fileOpType": "load"
   },
@@ -12,6 +14,8 @@
     "fileType": "Repository",
     "fileSuffix": "Repository",
     "packageSuffix": ".repository.dao",
+    "fileKeyword": "数据库接口",
+    "fileNote": "数据库接口",
     "filePath": "classpath:template/generator/repository/Repository.vm",
     "fileOpType": "load"
   },
@@ -20,6 +24,8 @@
     "fileType": "BizService",
     "fileSuffix": "BizService",
     "packageSuffix": ".service.biz",
+    "fileKeyword": "业务细化",
+    "fileNote": "业务细化",
     "filePath": "classpath:template/generator/service/BizService.vm",
     "fileOpType": "load"
   }

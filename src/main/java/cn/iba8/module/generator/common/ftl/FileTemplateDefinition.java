@@ -1,8 +1,6 @@
 package cn.iba8.module.generator.common.ftl;
 
-import cn.iba8.module.generator.common.enums.FileOpTypeEnum;
-import cn.iba8.module.generator.common.enums.FileTypeGroupEnum;
-import cn.iba8.module.generator.common.enums.TemplateTypeEnum;
+import cn.iba8.module.generator.common.util.MD5;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
@@ -19,10 +17,19 @@ public class FileTemplateDefinition implements Serializable {
     private String filePath;
     private String fileOpType;
     private String fileSuffix;
+    private String fileKeyword;
+    private String fileNote;
     private String packageSuffix;
 
+    public String md5() {
+        return MD5.getMD5Str(toString());
+    }
+
     public boolean valid() {
-        return StringUtils.isNotBlank(filePath) && TemplateTypeEnum.contains(fileType) && FileOpTypeEnum.contains(fileOpType) && FileTypeGroupEnum.contains(fileTypeGroup);
+        return StringUtils.isNotBlank(filePath)
+                && StringUtils.isNotBlank(fileType)
+                && StringUtils.isNotBlank(fileOpType)
+                && StringUtils.isNotBlank(fileTypeGroup);
     }
 
     public static List<FileTemplateDefinition> ofJson(String json) {

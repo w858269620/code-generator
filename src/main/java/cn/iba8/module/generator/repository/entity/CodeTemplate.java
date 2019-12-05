@@ -48,4 +48,7 @@ public class CodeTemplate implements Serializable {
     @Column(name = "package_suffix")
     private String packageSuffix;
 
+    @Column(name = "keyword")
+    private String keyword;
+
 }

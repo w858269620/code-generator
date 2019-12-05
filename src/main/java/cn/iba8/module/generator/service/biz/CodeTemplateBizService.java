@@ -3,7 +3,6 @@ package cn.iba8.module.generator.service.biz;
 import cn.iba8.module.generator.common.BaseException;
 import cn.iba8.module.generator.common.ResponseCode;
 import cn.iba8.module.generator.common.ftl.FileTemplateDefinition;
-import cn.iba8.module.generator.common.util.MD5;
 import cn.iba8.module.generator.repository.dao.CodeTemplateRepository;
 import cn.iba8.module.generator.repository.entity.CodeTemplate;
 import cn.iba8.module.generator.service.converter.CodeTemplateConverter;
@@ -48,7 +47,7 @@ public class CodeTemplateBizService {
         }
         CodeTemplate origin = codeTemplateRepository.findFirstByCodeOrderByVersionDesc(fileTemplateDefinition.getFilePath());
         if (null != origin) {
-            if (origin.getMd5().equals(MD5.getMD5Str(content))) {
+            if (origin.getMd5().equals(fileTemplateDefinition.md5())) {
                 return;
             }
         }
