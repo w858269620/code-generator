@@ -1,69 +1,61 @@
 package cn.iba8.module.generator.common.util;
 
-import cn.iba8.module.generator.common.BaseException;
-import cn.iba8.module.generator.common.ResponseCode;
 import cn.iba8.module.generator.common.ftl.TemplateDefinition;
 import cn.iba8.module.generator.repository.entity.CodeTemplate;
 import cn.iba8.module.generator.repository.entity.MetaDatabaseTable;
-import cn.iba8.module.generator.repository.entity.MetaDatabaseTableColumn;
-import cn.iba8.module.generator.repository.entity.Module;
-import freemarker.template.Configuration;
-import org.apache.commons.io.IOUtils;
+import com.google.common.base.CaseFormat;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.springframework.util.CollectionUtils;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class TemplateUtil {
 
-    public static void main(String[] args) {
-        String template = "#foreach ($column in $columns)\n" +
-                "#if($column.columnName != 'id' && $column.columnName != 'creator' && $column.columnName != 'create_date')\n" +
-                "    /**\n" +
-                "     * $column.columnName\n" +
-                "     */\n" +
-                "\tprivate $column.columnComment;\n" +
-                "#end\n" +
-                "#end";
+    public static String toPath(String packageDir) {
+        String[] split = packageDir.split("\\.");
+        return StringUtils.join(split, "/");
+    }
+
+    public static String toClassName(String tableName) {
+        String str = CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_CAMEL, tableName);
+        return str.substring(0,1).toUpperCase().concat(str.substring(1).toLowerCase());
+    }
+
+    public static String toJavaField(String dbField) {
+        String s = dbField.toLowerCase();
+        return CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_CAMEL, s);
+    }
+
+    public static String entityName(String table) {
+        return NameConvertUtil.toCapitalizeCamelCase(table);
+    }
+
+    public static String getContent(String packagePrefix, CodeTemplate codeTemplate, TemplateDefinition.TableColumnBean tableColumnBean) {
+        Map<String, Object> map = new HashMap<>();
+        MetaDatabaseTable metaDatabaseTable = tableColumnBean.getMetaDatabaseTable();
+        String entityName = toClassName(metaDatabaseTable.getTableName());
+        map.put("entityName", entityName);
+        map.put("clazzName", entityName + codeTemplate.getFileSuffix());
+        map.put("packagePrefix", packagePrefix);
+        map.put("columns", tableColumnBean.getMetaDatabaseTableColumns());
+        map.put("tableName", metaDatabaseTable.getTableName());
+        return getContent(codeTemplate.getTemplate(), map);
+    }
+
+    private static String getContent(String template, Map<String, Object> map) {
         VelocityEngine engine = new VelocityEngine();
         engine.init();
         VelocityContext context = new VelocityContext();
-        List<MetaDatabaseTableColumn> columns = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            MetaDatabaseTableColumn column = new MetaDatabaseTableColumn();
-            column.setColumnName("name" + i);
-            column.setColumnComment("comment" + i);
-            columns.add(column);
+        if (null != map && !CollectionUtils.isEmpty(map.keySet())) {
+            map.keySet().forEach(r -> context.put(r, map.get(r)));
         }
-        context.put("columns", columns);
         StringWriter writer = new StringWriter();
-        engine.evaluate(context, writer, "", template);
-        System.out.println(writer.toString());
+        engine.evaluate(context, writer, "", template.replaceAll("[ ]*(#if|#else|#elseif|#end|#set|#foreach)", "$1"));
+        return writer.toString();
     }
-
-    public byte[] generatorCode(List<CodeTemplate> codeTemplates, Module module, MetaDatabaseTable metaDatabaseTables, List<MetaDatabaseTableColumn> metaDatabaseTableColumns) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ZipOutputStream zip = new ZipOutputStream(outputStream);
-
-        List<TemplateDefinition.TemplateFileBean> templateFileBeans = TemplateDataUtil.getTemplateFileBeanList(module, metaDatabaseTables, metaDatabaseTableColumns, codeTemplates);
-        for (TemplateDefinition.TemplateFileBean templateFileBean : templateFileBeans) {
-            try {
-                zip.putNextEntry(new ZipEntry(FileNameUtil.toPath(templateFileBean.getFileDir())));
-                IOUtils.write(templateFileBean.getContent(), zip, "UTF-8");
-                zip.closeEntry();
-            } catch (IOException e) {
-                throw BaseException.of(ResponseCode.SYSTEM_ERROR.getCode(), "渲染模板失败，表名：" + metaDatabaseTables.getTableName());
-            }
-        }
-        IOUtils.closeQuietly(zip);
-        return outputStream.toByteArray();
-    }
-
 
 }

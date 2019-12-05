@@ -2,8 +2,8 @@ package cn.iba8.module.generator.controller;
 
 import cn.iba8.module.generator.common.ftl.TemplateDefinition;
 import cn.iba8.module.generator.common.response.BaseResponse;
-import cn.iba8.module.generator.common.util.FileNameUtil;
 import cn.iba8.module.generator.common.util.SpringUtils;
+import cn.iba8.module.generator.common.util.TemplateUtil;
 import cn.iba8.module.generator.config.CodeGeneratorProperties;
 import cn.iba8.module.generator.service.CodeGenerateService;
 import lombok.AllArgsConstructor;
@@ -34,7 +34,7 @@ public class CodeGenerateController {
             for (TemplateDefinition.TemplateFileBean templateFileBean : templateFileBeans) {
                 try {
                     String fileDir = templateFileBean.getFileDir();
-                    String path = tmp + "/" + FileNameUtil.toPath(fileDir);
+                    String path = tmp + "/" + TemplateUtil.toPath(fileDir);
                     File parent = new File(path);
                     if (!parent.exists()) {
                         parent.mkdirs();

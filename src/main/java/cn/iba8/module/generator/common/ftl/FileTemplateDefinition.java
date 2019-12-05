@@ -18,6 +18,8 @@ public class FileTemplateDefinition implements Serializable {
     private String fileType;
     private String filePath;
     private String fileOpType;
+    private String fileSuffix;
+    private String packageSuffix;
 
     public boolean valid() {
         return StringUtils.isNotBlank(filePath) && TemplateTypeEnum.contains(fileType) && FileOpTypeEnum.contains(fileOpType) && FileTypeGroupEnum.contains(fileTypeGroup);

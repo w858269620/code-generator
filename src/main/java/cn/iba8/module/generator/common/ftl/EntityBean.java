@@ -1,8 +1,8 @@
 package cn.iba8.module.generator.common.ftl;
 
 import cn.iba8.module.generator.common.enums.DataTypeMappingEnum;
-import cn.iba8.module.generator.common.util.ClazzNameUtil;
 import cn.iba8.module.generator.common.util.NameConvertUtil;
+import cn.iba8.module.generator.common.util.TemplateUtil;
 import cn.iba8.module.generator.repository.entity.MetaDatabaseTable;
 import cn.iba8.module.generator.repository.entity.MetaDatabaseTableColumn;
 import lombok.Data;
@@ -31,7 +31,7 @@ public class EntityBean implements Serializable {
 
     public static EntityBean of(MetaDatabaseTable table, List<MetaDatabaseTableColumn> tableColumns) {
         EntityBean bean = new EntityBean();
-        bean.setClazzName(ClazzNameUtil.entityName(table.getTableName()));
+        bean.setClazzName(TemplateUtil.entityName(table.getTableName()));
         if (StringUtils.isNotBlank(table.getIdStrategy())) {
             bean.setIdStrategyClazz(table.getIdStrategy());
         }

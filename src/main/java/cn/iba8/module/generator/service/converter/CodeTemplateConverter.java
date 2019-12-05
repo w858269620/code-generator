@@ -26,6 +26,8 @@ public abstract class CodeTemplateConverter {
         target.setMd5(MD5.getMD5Str(content));
         target.setLatest(1);
         target.setTypeGroup(fileTemplateDefinition.getFileTypeGroup());
+        target.setFileSuffix(fileTemplateDefinition.getFileSuffix());
+        target.setPackageSuffix(fileTemplateDefinition.getPackageSuffix());
         return target;
     }
 

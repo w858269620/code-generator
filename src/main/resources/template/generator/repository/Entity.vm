@@ -23,7 +23,7 @@ public class $clazzName implements Serializable {
             #end
         #end
     @Column(name = "$column.columnName"#if($column.columnSize > 0), length = $column.columnSize#end)
-    private $column.columnType $column.columnName;
+    private $column.javaType $column.javaName;
 
     #end
 #end

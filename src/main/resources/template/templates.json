@@ -2,19 +2,25 @@
   {
     "fileTypeGroup": "java",
     "fileType": "Entity",
+    "fileSuffix": "",
+    "packageSuffix": ".repository.entity",
     "filePath": "classpath:template/generator/repository/Entity.vm",
     "fileOpType": "load"
   },
   {
     "fileTypeGroup": "java",
     "fileType": "Repository",
+    "fileSuffix": "Repository",
+    "packageSuffix": ".repository.dao",
     "filePath": "classpath:template/generator/repository/Repository.vm",
     "fileOpType": "load"
   },
   {
     "fileTypeGroup": "java",
-    "fileType": "ServiceBiz",
-    "filePath": "classpath:template/generator/service/ServiceBiz.vm",
+    "fileType": "BizService",
+    "fileSuffix": "BizService",
+    "packageSuffix": ".service.biz",
+    "filePath": "classpath:template/generator/service/BizService.vm",
     "fileOpType": "load"
   }
 ]
