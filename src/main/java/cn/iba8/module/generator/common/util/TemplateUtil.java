@@ -52,6 +52,7 @@ public abstract class TemplateUtil {
         map.put("module", module);
         map.put("packageSuffix", codeTemplateSuffix.getPackageSuffix());
         map.put("columns", tableColumnBean.getMetaDatabaseTableColumns());
+        map.put("tableColumns", tableColumnBean);
         map.put("tableName", metaDatabaseTable.getTableName());
         map.put("table", metaDatabaseTable);
         map.put("codeTemplateSuffix", codeTemplateSuffixMap);

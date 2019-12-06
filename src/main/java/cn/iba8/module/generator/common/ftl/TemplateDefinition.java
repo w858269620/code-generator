@@ -6,11 +6,10 @@ import cn.iba8.module.generator.common.util.TemplateUtil;
 import cn.iba8.module.generator.repository.entity.*;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Data
 public class TemplateDefinition {
@@ -66,6 +65,7 @@ public class TemplateDefinition {
             templateContent.setModule(module);
             templateContent.setCodeTemplateCodeClassMap(codeTemplateCodeClassMap);
             templateContent.setCodeTemplateSuffixMap(codeTemplateSuffixMap);
+            tableColumnBean.constrains();
             templateContent.setTableColumnBean(tableColumnBean);
             return templateContent;
         }
@@ -77,6 +77,33 @@ public class TemplateDefinition {
         private Module module;
         private MetaDatabaseTable metaDatabaseTable;
         private List<TableColumnJavaBean> metaDatabaseTableColumns = new ArrayList<>();
+        private List<String> constrainImports = new ArrayList<>();
+
+        public void constrains() {
+            Set<String> importSet = new HashSet<>();
+            for (TableColumnJavaBean tableColumnJavaBean : metaDatabaseTableColumns) {
+                Set<String> annos = new HashSet<>();
+                if (tableColumnJavaBean.getColumnSize() > 0 && "String".equals(tableColumnJavaBean.getJavaType())) {
+                    importSet.add("import org.hibernate.validator.constraints.Length;");
+                    annos.add("@Length(max = " + tableColumnJavaBean.getColumnSize() + ")");
+                }
+                if (tableColumnJavaBean.getNullable() == 0 && !"id".equals(tableColumnJavaBean.getJavaName())) {
+                    if ("String".equals(tableColumnJavaBean.getJavaType())) {
+                        importSet.add("import javax.validation.constraints.NotBlank;");
+                        annos.add("@NotBlank(message = \"\")");
+                    } else {
+                        importSet.add("import javax.validation.constraints.NotNull;");
+                        annos.add("@NotNull(message = \"\")");
+                    }
+                }
+                if (!CollectionUtils.isEmpty(annos)) {
+                    tableColumnJavaBean.setConstrains(new ArrayList<>(annos));
+                }
+            }
+            if (!CollectionUtils.isEmpty(importSet)) {
+                constrainImports = new ArrayList<>(importSet);
+            }
+        }
 
         public static TableColumnBean of(Module module, MetaDatabaseTable metaDatabaseTable, List<MetaDatabaseTableColumn> metaDatabaseTableColumns) {
             TableColumnBean tableColumnBean = new TableColumnBean();
@@ -102,12 +129,16 @@ public class TemplateDefinition {
         private boolean primaryKey;
         private String javaName;
         private String javaType;
+        private List<String> constrains = new ArrayList<>();
+
+
 
         public static List<TableColumnJavaBean> ofList(List<MetaDatabaseTableColumn> metaDatabaseTableColumns) {
             List<TableColumnJavaBean> idList = new ArrayList<>();
             List<TableColumnJavaBean> otherList = new ArrayList<>();
             for (MetaDatabaseTableColumn metaDatabaseTableColumn : metaDatabaseTableColumns) {
                 TableColumnJavaBean tableColumnJavaBean = TableColumnJavaBean.of(metaDatabaseTableColumn);
+
                 if (tableColumnJavaBean.isPrimaryKey()) {
                     idList.add(tableColumnJavaBean);
                 } else {

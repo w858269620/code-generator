@@ -1,9 +1,10 @@
 package $packagePrefix$packageSuffix;
 
-import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import ${codeTemplateClass.get('PageRequest').codeClass};
 
 /**
 * @Author auto generate
@@ -11,7 +12,7 @@ import lombok.Data;
 * @Date ${datetime}
 */
 @Data
-public class $clazzName implements Serializable {
+public class $clazzName extends ${codeTemplateClass.get('PageRequest').type} {
 
 #if($columns)
     #foreach($column in $columns)

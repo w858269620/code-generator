@@ -4,6 +4,11 @@ import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+#if($tableColumns.constrainImports)
+    #foreach($i in $tableColumns.constrainImports)
+$i
+    #end
+#end
 
 /**
 * @Author auto generate
@@ -17,6 +22,11 @@ public class $clazzName implements Serializable {
     #foreach($column in $columns)
     @JsonProperty("$column.javaName")
     @ApiModelProperty("#if($column.columnComment && $column.columnComment != '')$column.columnComment#end")
+    #if($column.constrains)
+        #foreach($i in $column.constrains)
+    $i
+        #end
+    #end
     private $column.javaType $column.javaName;
 
     #end
