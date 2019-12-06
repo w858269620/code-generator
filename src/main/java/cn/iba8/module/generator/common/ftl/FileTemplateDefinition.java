@@ -43,6 +43,7 @@ public class FileTemplateDefinition implements Serializable {
         private String fileType;
         private String fileTypeGroup;
         private String filePath;
+        private String fileLevel;
         private String fileKeyword;
         private String fileNote;
         public String md5(String content) {

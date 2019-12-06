@@ -25,6 +25,7 @@ public abstract class CodeTemplateConverter {
         target.setNote(fileTemplateDefinition.getFileNote());
         target.setTypeGroup(fileTemplateDefinition.getFileTypeGroup());
         target.setKeyword(fileTemplateDefinition.getFileKeyword());
+        target.setLevel(fileTemplateDefinition.getFileLevel());
         return target;
     }
 

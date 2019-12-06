@@ -1,6 +1,7 @@
 package cn.iba8.module.generator.common.ftl;
 
 import cn.iba8.module.generator.common.enums.DataTypeMappingEnum;
+import cn.iba8.module.generator.common.enums.TemplateLevelEnum;
 import cn.iba8.module.generator.common.util.CopyUtil;
 import cn.iba8.module.generator.common.util.TemplateUtil;
 import cn.iba8.module.generator.repository.entity.*;
@@ -10,6 +11,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Data
 public class TemplateDefinition {
@@ -36,20 +38,39 @@ public class TemplateDefinition {
                     metaDatabaseTable.setTableComment(tableComment);
                 }
             }
-            for (CodeTemplate r : codeTemplates) {
-                CodeTemplateSuffix codeTemplateSuffix = codeTemplateSuffixMap.get(r.getType());
-                TemplateContent templateContent = TemplateContent.of(module, r, codeTemplateSuffixMap, codeTemplateCodeClassMap, tableColumnBean);
-                String content = TemplateUtil.getContent(templateContent);
-                TemplateFileBean templateFileBean = new TemplateFileBean();
-                templateFileBean.setContent(content);
-                templateFileBean.setFileDir(packagePrefix + codeTemplateSuffix.getPackageSuffix());
-                templateFileBean.setFilename(TemplateUtil.toClassName(metaDatabaseTable.getTableName()) + codeTemplateSuffix.getFileSuffix());
-                target.add(templateFileBean);
+            Map<String, List<CodeTemplate>> levelTemplateMap = codeTemplates.stream().collect(Collectors.groupingBy(CodeTemplate::getLevel));
+            List<CodeTemplate> tableTemplates = levelTemplateMap.get(TemplateLevelEnum.TABLE.getName());
+            List<CodeTemplate> moduleTemplates = levelTemplateMap.get(TemplateLevelEnum.MODULE.getName());
+            Map<String, String> constantMap = new HashMap<>();
+            if (!CollectionUtils.isEmpty(tableTemplates)) {
+                for (CodeTemplate r : tableTemplates) {
+                    CodeTemplateSuffix codeTemplateSuffix = codeTemplateSuffixMap.get(r.getType());
+                    TemplateContent templateContent = TemplateContent.of(module, r, codeTemplateSuffixMap, codeTemplateCodeClassMap, tableColumnBean);
+                    String content = TemplateUtil.getContent(templateContent);
+                    TemplateFileBean templateFileBean = new TemplateFileBean();
+                    templateFileBean.setContent(content);
+                    templateFileBean.setFileDir(packagePrefix + codeTemplateSuffix.getPackageSuffix());
+                    templateFileBean.setFilename(TemplateUtil.toClassName(metaDatabaseTable.getTableName()) + codeTemplateSuffix.getFileSuffix());
+                    target.add(templateFileBean);
+                }
+            }
+            if (!CollectionUtils.isEmpty(moduleTemplates)) {
+                for (CodeTemplate r : moduleTemplates) {
+                    CodeTemplateSuffix codeTemplateSuffix = codeTemplateSuffixMap.get(r.getType());
+                    TemplateContent templateContent = TemplateContent.of(module, r, codeTemplateSuffixMap, codeTemplateCodeClassMap, tableColumnBean);
+                    String content = TemplateUtil.getContent(templateContent);
+                    TemplateFileBean templateFileBean = new TemplateFileBean();
+                    templateFileBean.setContent(content);
+                    templateFileBean.setFileDir(packagePrefix + codeTemplateSuffix.getPackageSuffix());
+                    templateFileBean.setFilename(TemplateUtil.toClassName(metaDatabaseTable.getTableName()) + codeTemplateSuffix.getFileSuffix());
+                    target.add(templateFileBean);
+                }
             }
             return target;
         }
-
     }
+
+
 
     @Data
     public static class TemplateContent implements Serializable {

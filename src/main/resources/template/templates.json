@@ -3,6 +3,7 @@
     {
       "fileTypeGroup": "java",
       "fileType": "Entity",
+      "fileLevel": "table",
       "fileKeyword": "数据库实体",
       "fileNote": "数据库实体",
       "filePath": "classpath:template/generator/repository/Entity.vm"
@@ -10,6 +11,7 @@
     {
       "fileTypeGroup": "java",
       "fileType": "Repository",
+      "fileLevel": "table",
       "fileKeyword": "数据库接口",
       "fileNote": "数据库接口",
       "filePath": "classpath:template/generator/repository/Repository.vm"
@@ -17,6 +19,7 @@
     {
       "fileTypeGroup": "java",
       "fileType": "BizService",
+      "fileLevel": "table",
       "fileKeyword": "业务细化",
       "fileNote": "业务细化",
       "filePath": "classpath:template/generator/service/BizService.vm"
@@ -24,6 +27,7 @@
     {
       "fileTypeGroup": "java",
       "fileType": "Converter",
+      "fileLevel": "table",
       "fileKeyword": "对象转换",
       "fileNote": "对象转换",
       "filePath": "classpath:template/generator/service/Converter.vm"
@@ -31,6 +35,7 @@
     {
       "fileTypeGroup": "java",
       "fileType": "Service",
+      "fileLevel": "table",
       "fileKeyword": "业务",
       "fileNote": "业务",
       "filePath": "classpath:template/generator/service/Service.vm"
@@ -38,6 +43,7 @@
     {
       "fileTypeGroup": "java",
       "fileType": "ServiceImpl",
+      "fileLevel": "table",
       "fileKeyword": "业务实现",
       "fileNote": "业务实现",
       "filePath": "classpath:template/generator/service/ServiceImpl.vm"
@@ -45,6 +51,7 @@
     {
       "fileTypeGroup": "java",
       "fileType": "Api",
+      "fileLevel": "table",
       "fileKeyword": "对外接口",
       "fileNote": "对外接口",
       "filePath": "classpath:template/generator/api/Api.vm"
@@ -52,6 +59,7 @@
     {
       "fileTypeGroup": "java",
       "fileType": "ApiImpl",
+      "fileLevel": "table",
       "fileKeyword": "对外接口实现",
       "fileNote": "对外接口实现",
       "filePath": "classpath:template/generator/controller/ApiImpl.vm"
@@ -59,6 +67,7 @@
     {
       "fileTypeGroup": "java",
       "fileType": "SaveRequest",
+      "fileLevel": "table",
       "fileKeyword": "新增请求",
       "fileNote": "新增请求",
       "filePath": "classpath:template/generator/api/request/SaveRequest.vm"
@@ -66,6 +75,7 @@
     {
       "fileTypeGroup": "java",
       "fileType": "PageRequest",
+      "fileLevel": "table",
       "fileKeyword": "分页请求",
       "fileNote": "分页请求",
       "filePath": "classpath:template/generator/api/request/PageRequest.vm"
@@ -73,6 +83,7 @@
     {
       "fileTypeGroup": "java",
       "fileType": "ListRequest",
+      "fileLevel": "table",
       "fileKeyword": "列表请求",
       "fileNote": "列表请求",
       "filePath": "classpath:template/generator/api/request/ListRequest.vm"
@@ -80,6 +91,7 @@
     {
       "fileTypeGroup": "java",
       "fileType": "ExcelImportRequest",
+      "fileLevel": "table",
       "fileKeyword": "Excel导入请求",
       "fileNote": "Excel导入请求",
       "filePath": "classpath:template/generator/common/request/ExcelImportRequest.vm"
@@ -87,6 +99,7 @@
     {
       "fileTypeGroup": "java",
       "fileType": "ExcelExportRequest",
+      "fileLevel": "table",
       "fileKeyword": "Excel导出请求",
       "fileNote": "Excel导出请求",
       "filePath": "classpath:template/generator/common/request/ExcelExportRequest.vm"
@@ -94,6 +107,7 @@
     {
       "fileTypeGroup": "java",
       "fileType": "SaveResponse",
+      "fileLevel": "table",
       "fileKeyword": "新增响应",
       "fileNote": "新增响应",
       "filePath": "classpath:template/generator/api/response/SaveResponse.vm"
@@ -101,6 +115,7 @@
     {
       "fileTypeGroup": "java",
       "fileType": "DetailResponse",
+      "fileLevel": "table",
       "fileKeyword": "详情响应",
       "fileNote": "详情响应",
       "filePath": "classpath:template/generator/api/response/DetailResponse.vm"
@@ -108,6 +123,7 @@
     {
       "fileTypeGroup": "java",
       "fileType": "PageResponse",
+      "fileLevel": "table",
       "fileKeyword": "分页响应",
       "fileNote": "分页响应",
       "filePath": "classpath:template/generator/api/response/PageResponse.vm"
@@ -115,6 +131,7 @@
     {
       "fileTypeGroup": "java",
       "fileType": "ListResponse",
+      "fileLevel": "table",
       "fileKeyword": "列表响应",
       "fileNote": "列表响应",
       "filePath": "classpath:template/generator/api/response/ListResponse.vm"
@@ -122,6 +139,7 @@
     {
       "fileTypeGroup": "java",
       "fileType": "ExcelImportResponse",
+      "fileLevel": "table",
       "fileKeyword": "Excel导入响应",
       "fileNote": "Excel导入响应",
       "filePath": "classpath:template/generator/common/response/ExcelImportResponse.vm"
@@ -129,9 +147,26 @@
     {
       "fileTypeGroup": "java",
       "fileType": "ExcelExportResponse",
+      "fileLevel": "table",
       "fileKeyword": "Excel导出响应",
       "fileNote": "Excel导出响应",
       "filePath": "classpath:template/generator/common/response/ExcelExportResponse.vm"
+    },
+    {
+      "fileTypeGroup": "java",
+      "fileType": "Enum",
+      "fileLevel": "module",
+      "fileKeyword": "模块枚举文件",
+      "fileNote": "模块枚举文件",
+      "filePath": "classpath:template/generator/common/enums/Enum.vm"
+    },
+    {
+      "fileTypeGroup": "java",
+      "fileType": "Constant",
+      "fileLevel": "module",
+      "fileKeyword": "模块常量文件",
+      "fileNote": "模块常量文件",
+      "filePath": "classpath:template/generator/common/constants/Constant.vm"
     }
   ],
   "loadCodeSuffix": [
@@ -248,6 +283,18 @@
       "fileType": "ExcelExportResponse",
       "fileSuffix": "ExcelExportResponse",
       "packageSuffix": ".common.response"
+    },
+    {
+      "fileTypeGroup": "java",
+      "fileType": "Enum",
+      "fileSuffix": "Enum",
+      "packageSuffix": ".common.enums"
+    },
+    {
+      "fileTypeGroup": "java",
+      "fileType": "Constant",
+      "fileSuffix": "Constant",
+      "packageSuffix": ".common.constants"
     }
   ],
   "loadCodeClass": [

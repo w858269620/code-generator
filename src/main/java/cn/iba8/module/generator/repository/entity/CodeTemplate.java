@@ -45,4 +45,7 @@ public class CodeTemplate implements Serializable {
     @Column(name = "keyword")
     private String keyword;
 
+    @Column(name = "level")
+    private String level;
+
 }
