@@ -1,5 +1,83 @@
 package $packagePrefix$packageSuffix;
 
-public class ${clazzName} {
+import ${packagePrefix}${codeTemplateSuffix.get('Entity').packageSuffix}.${entityName}${codeTemplateSuffix.get('Entity').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('SaveRequest').packageSuffix}.${entityName}${codeTemplateSuffix.get('SaveRequest').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('PageRequest').packageSuffix}.${entityName}${codeTemplateSuffix.get('PageRequest').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('ListRequest').packageSuffix}.${entityName}${codeTemplateSuffix.get('ListRequest').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('ExcelImportRequest').packageSuffix}.${entityName}${codeTemplateSuffix.get('ExcelImportRequest').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('ExcelExportRequest').packageSuffix}.${entityName}${codeTemplateSuffix.get('ExcelExportRequest').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('SaveResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('SaveResponse').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('DetailResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('DetailResponse').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('ListResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('ListResponse').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('ListResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('PageResponse').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('ExcelImportResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('ExcelImportResponse').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('ExcelExportResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('ExcelExportResponse').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('Service').packageSuffix}.${entityName}${codeTemplateSuffix.get('Service').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('BizService').packageSuffix}.${entityName}${codeTemplateSuffix.get('BizService').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('Repository').packageSuffix}.${entityName}${codeTemplateSuffix.get('Repository').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('Converter').packageSuffix}.${entityName}${codeTemplateSuffix.get('Converter').fileSuffix};
+import ${codeTemplateClass.get('PageResponse').codeClass};
+
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@AllArgsConstructor
+@Slf4j
+public class ${clazzName} implements ${entityName}${codeTemplateSuffix.get('Service').fileSuffix} {
+
+    private final ${entityName}${codeTemplateSuffix.get('BizService').fileSuffix} ${fieldEntityName}${codeTemplateSuffix.get('BizService').fileSuffix};
+
+    private final ${entityName}${codeTemplateSuffix.get('Repository').fileSuffix} ${fieldEntityName}${codeTemplateSuffix.get('Repository').fileSuffix};
+
+    @Override
+    public ${codeTemplateClass.get('PageResponse').type}<${entityName}${codeTemplateSuffix.get('PageResponse').fileSuffix}> page(${entityName}${codeTemplateSuffix.get('PageRequest').fileSuffix} request) {
+        return null;
+    }
+
+    @Override
+    public List<${entityName}${codeTemplateSuffix.get('ListResponse').fileSuffix}> list(${entityName}${codeTemplateSuffix.get('ListRequest').fileSuffix} request) {
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public ${entityName}${codeTemplateSuffix.get('SaveResponse').fileSuffix} save(${entityName}${codeTemplateSuffix.get('SaveRequest').fileSuffix} request) {
+        return null;
+    }
+
+    @Override
+    public ${entityName}${codeTemplateSuffix.get('DetailResponse').fileSuffix} detail(Long id) {
+        Optional<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}> optional = ${fieldEntityName}${codeTemplateSuffix.get('Repository').fileSuffix}.findById(id);
+        if (!optional.isPresent()) {
+
+        }
+        ${entityName}${codeTemplateSuffix.get('DetailResponse').fileSuffix} target = ${entityName}${codeTemplateSuffix.get('Converter').fileSuffix}.to${entityName}${codeTemplateSuffix.get('DetailResponse').fileSuffix}(optional.get());
+        return target;
+    }
+
+    @Override
+    @Transactional
+    public List<${entityName}${codeTemplateSuffix.get('ExcelImportResponse').fileSuffix}> excelImport(List<${entityName}${codeTemplateSuffix.get('ExcelImportRequest').fileSuffix}> request) {
+        List<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}> originList = ${entityName}${codeTemplateSuffix.get('Converter').fileSuffix}.to${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}ImportSave(request);
+        if (CollectionUtils.isEmpty(originList)) {
+            return new ArrayList<>();
+        }
+        List<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}> list = ${fieldEntityName}${codeTemplateSuffix.get('Repository').fileSuffix}.saveAll(originList);
+        List<${entityName}${codeTemplateSuffix.get('ExcelImportResponse').fileSuffix}> target = ${entityName}${codeTemplateSuffix.get('Converter').fileSuffix}.to${entityName}${codeTemplateSuffix.get('ExcelImportResponse').fileSuffix}(list);
+        return target;
+    }
+
+    @Override
+    public List<${entityName}${codeTemplateSuffix.get('ExcelExportResponse').fileSuffix}> excelExport(${entityName}${codeTemplateSuffix.get('ExcelExportRequest').fileSuffix} request) {
+        return null;
+    }
 
 }

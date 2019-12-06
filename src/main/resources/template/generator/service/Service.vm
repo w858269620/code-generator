@@ -1,5 +1,79 @@
 package $packagePrefix$packageSuffix;
 
-public class ${clazzName} {
+import ${packagePrefix}${codeTemplateSuffix.get('SaveRequest').packageSuffix}.${entityName}${codeTemplateSuffix.get('SaveRequest').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('PageRequest').packageSuffix}.${entityName}${codeTemplateSuffix.get('PageRequest').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('ListRequest').packageSuffix}.${entityName}${codeTemplateSuffix.get('ListRequest').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('ExcelImportRequest').packageSuffix}.${entityName}${codeTemplateSuffix.get('ExcelImportRequest').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('ExcelExportRequest').packageSuffix}.${entityName}${codeTemplateSuffix.get('ExcelExportRequest').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('SaveResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('SaveResponse').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('DetailResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('DetailResponse').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('ListResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('ListResponse').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('ListResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('PageResponse').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('ExcelImportResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('ExcelImportResponse').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('ExcelExportResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('ExcelExportResponse').fileSuffix};
+import ${codeTemplateClass.get('PageResponse').codeClass};
+
+import java.util.List;
+
+/**
+* @Author auto generate
+* @Description ${table.tableComment}
+* @Date ${datetime}
+*/
+public interface ${clazzName} {
+
+    /**
+    * @Author auto generate
+    * @Description 分页
+    * @Param
+    * @return
+    * @Date ${datetime}
+    */
+    ${codeTemplateClass.get('PageResponse').type}<${entityName}${codeTemplateSuffix.get('PageResponse').fileSuffix}> page(${entityName}${codeTemplateSuffix.get('PageRequest').fileSuffix} request);
+
+    /**
+    * @Author auto generate
+    * @Description 列表
+    * @Param
+    * @return
+    * @Date ${datetime}
+    */
+    List<${entityName}${codeTemplateSuffix.get('ListResponse').fileSuffix}> list(${entityName}${codeTemplateSuffix.get('ListRequest').fileSuffix} request);
+
+    /**
+    * @Author auto generate
+    * @Description 新增
+    * @Param
+    * @return
+    * @Date ${datetime}
+    */
+    ${entityName}${codeTemplateSuffix.get('SaveResponse').fileSuffix} save(${entityName}${codeTemplateSuffix.get('SaveRequest').fileSuffix} request);
+
+    /**
+    * @Author auto generate
+    * @Description 详情
+    * @Param
+    * @return
+    * @Date ${datetime}
+    */
+    ${entityName}${codeTemplateSuffix.get('DetailResponse').fileSuffix} detail(Long id);
+
+    /**
+    * @Author auto generate
+    * @Description excel导入
+    * @Param
+    * @return
+    * @Date ${datetime}
+    */
+    List<${entityName}${codeTemplateSuffix.get('ExcelImportResponse').fileSuffix}> excelImport(List<${entityName}${codeTemplateSuffix.get('ExcelImportRequest').fileSuffix}> request);
+
+    /**
+    * @Author auto generate
+    * @Description excel导出
+    * @Param
+    * @return
+    * @Date ${datetime}
+    */
+    List<${entityName}${codeTemplateSuffix.get('ExcelExportResponse').fileSuffix}> excelExport(${entityName}${codeTemplateSuffix.get('ExcelExportRequest').fileSuffix} request);
 
 }

@@ -275,6 +275,11 @@
       "fileTypeGroup": "java",
       "fileType": "PageRequest",
       "codeClass": "cn.iba8.module.generator.common.request.PageRequest"
+    },
+    {
+      "fileTypeGroup": "java",
+      "fileType": "PageResponse",
+      "codeClass": "cn.iba8.module.generator.common.response.PageResponse"
     }
   ]
 }

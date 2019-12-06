@@ -2,6 +2,7 @@ package $packagePrefix$packageSuffix;
 
 import ${packagePrefix}${codeTemplateSuffix.get('Entity').packageSuffix}.${entityName}${codeTemplateSuffix.get('Entity').fileSuffix};
 import ${packagePrefix}${codeTemplateSuffix.get('SaveRequest').packageSuffix}.${entityName}${codeTemplateSuffix.get('SaveRequest').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('SaveRequest').packageSuffix}.${entityName}${codeTemplateSuffix.get('ExcelImportRequest').fileSuffix};
 import ${packagePrefix}${codeTemplateSuffix.get('SaveResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('SaveResponse').fileSuffix};
 import ${packagePrefix}${codeTemplateSuffix.get('DetailResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('DetailResponse').fileSuffix};
 import ${packagePrefix}${codeTemplateSuffix.get('ListResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('ListResponse').fileSuffix};
@@ -13,34 +14,38 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 @Slf4j
-public abstract class ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}Converter {
+public abstract class ${clazzName} {
 
     public static ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix} to${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}(${entityName}${codeTemplateSuffix.get('Entity').fileSuffix} origin, ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}SaveRequest request) {
-        ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix} target = CopyUtil.copy(request, ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}.class);
+        ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix} target = ${codeTemplateClass.get('CopyUtil').type}.copy(request, ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}.class);
         if (null != origin) {
             target.setId(origin.getId());
         }
         return target;
     }
 
-    public static List<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}ListResponse> to${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}List(List<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}> list) {
-        return CopyUtil.copyList(list, ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}ListResponse.class);
+    public static List<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}> toSvcpinstanceImportSave(List<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}${codeTemplateSuffix.get('ExcelImportRequest').fileSuffix}> request) {
+        return  ${codeTemplateClass.get('CopyUtil').type}.copyList(request, ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}.class);
     }
 
-    public static ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}DetailResponse to${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}DetailResponse(${entityName}${codeTemplateSuffix.get('Entity').fileSuffix} origin) {
-        return CopyUtil.copy(origin, ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}DetailResponse.class);
+    public static List<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}${codeTemplateSuffix.get('ListResponse').fileSuffix}> to${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}List(List<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}> list) {
+        return ${codeTemplateClass.get('CopyUtil').type}.copyList(list, ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}${codeTemplateSuffix.get('ListResponse').fileSuffix}.class);
     }
 
-    public static ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}SaveResponse to${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}SaveResponse(${entityName}${codeTemplateSuffix.get('Entity').fileSuffix} origin) {
-        return CopyUtil.copy(origin, ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}SaveResponse.class);
+    public static ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}${codeTemplateSuffix.get('DetailResponse').fileSuffix} to${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}${codeTemplateSuffix.get('DetailResponse').fileSuffix}(${entityName}${codeTemplateSuffix.get('Entity').fileSuffix} origin) {
+        return ${codeTemplateClass.get('CopyUtil').type}.copy(origin, ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}${codeTemplateSuffix.get('DetailResponse').fileSuffix}.class);
     }
 
-    public static List<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}ExcelImportResponse> to${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}ExcelImportResponse(List<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}> list) {
-        return CopyUtil.copyList(list, ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}ExcelImportResponse.class);
+    public static ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}${codeTemplateSuffix.get('SaveResponse').fileSuffix} to${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}${codeTemplateSuffix.get('SaveResponse').fileSuffix}(${entityName}${codeTemplateSuffix.get('Entity').fileSuffix} origin) {
+        return ${codeTemplateClass.get('CopyUtil').type}.copy(origin, ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}${codeTemplateSuffix.get('SaveResponse').fileSuffix}.class);
     }
 
-    public static List<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}ExcelExportResponse> to${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}ExcelExportResponse(List<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}> list) {
-        return CopyUtil.copyList(list, ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}ExcelExportResponse.class);
+    public static List<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}${codeTemplateSuffix.get('ExcelImportResponse').fileSuffix}> to${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}${codeTemplateSuffix.get('ExcelImportResponse').fileSuffix}(List<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}> list) {
+        return ${codeTemplateClass.get('CopyUtil').type}.copyList(list, ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}${codeTemplateSuffix.get('ExcelImportResponse').fileSuffix}.class);
+    }
+
+    public static List<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}${codeTemplateSuffix.get('ExcelExportResponse').fileSuffix}> to${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}${codeTemplateSuffix.get('ExcelExportResponse').fileSuffix}(List<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}> list) {
+        return ${codeTemplateClass.get('CopyUtil').type}.copyList(list, ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}${codeTemplateSuffix.get('ExcelExportResponse').fileSuffix}.class);
     }
 
 }

@@ -5,6 +5,7 @@ import cn.iba8.module.generator.common.util.CopyUtil;
 import cn.iba8.module.generator.common.util.TemplateUtil;
 import cn.iba8.module.generator.repository.entity.*;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,6 +29,14 @@ public class TemplateDefinition {
             Module module = tableColumnBean.getModule();
             String packagePrefix = module.getPackageName();
             MetaDatabaseTable metaDatabaseTable = tableColumnBean.getMetaDatabaseTable();
+            String tableComment = metaDatabaseTable.getTableComment();
+            if (StringUtils.isNotBlank(tableComment)) {
+                int i = tableComment.lastIndexOf("表");
+                if (i > 0) {
+                    tableComment = tableComment.substring(0, i);
+                    metaDatabaseTable.setTableComment(tableComment);
+                }
+            }
             for (CodeTemplate r : codeTemplates) {
                 CodeTemplateSuffix codeTemplateSuffix = codeTemplateSuffixMap.get(r.getType());
                 String content = TemplateUtil.getContent(packagePrefix, r, codeTemplateSuffixMap, codeTemplateCodeClassMap, tableColumnBean);

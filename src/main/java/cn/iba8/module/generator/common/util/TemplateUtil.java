@@ -12,6 +12,8 @@ import org.apache.velocity.app.VelocityEngine;
 import org.springframework.util.CollectionUtils;
 
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,8 +50,11 @@ public abstract class TemplateUtil {
         map.put("packageSuffix", codeTemplateSuffix.getPackageSuffix());
         map.put("columns", tableColumnBean.getMetaDatabaseTableColumns());
         map.put("tableName", metaDatabaseTable.getTableName());
+        map.put("table", metaDatabaseTable);
         map.put("codeTemplateSuffix", codeTemplateSuffixMap);
         map.put("codeTemplateClass", codeTemplateCodeClassMap);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        map.put("datetime", sdf.format(new Date()));
         return getContent(codeTemplate.getTemplate(), map);
     }
 
