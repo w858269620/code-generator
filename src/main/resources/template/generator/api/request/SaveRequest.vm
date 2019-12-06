@@ -1,5 +1,24 @@
 package $packagePrefix$packageSuffix;
 
-public class ${clazzName} {
+import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
+/**
+* @Author auto generate
+* @Description ${table.tableComment}新增或修改请求
+* @Date ${datetime}
+*/
+@Data
+public class $clazzName implements Serializable {
+
+#if($columns)
+    #foreach($column in $columns)
+    @JsonProperty("$column.javaName")
+    @ApiModelProperty("#if($column.columnComment && $column.columnComment != '')$column.columnComment#end")
+    private $column.javaType $column.javaName;
+
+    #end
+#end
 }

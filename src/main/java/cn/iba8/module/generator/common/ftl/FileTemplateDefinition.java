@@ -45,8 +45,8 @@ public class FileTemplateDefinition implements Serializable {
         private String filePath;
         private String fileKeyword;
         private String fileNote;
-        public String md5() {
-            return MD5.getMD5Str(toString());
+        public String md5(String content) {
+            return MD5.getMD5Str(toString() + content);
         }
     }
 

@@ -7,7 +7,7 @@ import lombok.Data;
 
 /**
 * @Author auto generate
-* @Description ${table.tableComment}新增响应
+* @Description ${table.tableComment}Excel导入响应
 * @Date ${datetime}
 */
 @Data

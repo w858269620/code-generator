@@ -27,6 +27,12 @@ public class Module implements Serializable {
 	@Column(name = "version")
 	private String version;
 
+	@Column(name = "rest_client")
+	private String restClient;
+
+	@Column(name = "rest_client_route")
+	private String restClientRoute;
+
 	@Column(name = "note")
 	private String note;
 

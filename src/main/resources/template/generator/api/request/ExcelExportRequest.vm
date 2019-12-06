@@ -1,5 +1,0 @@
-package $packagePrefix$packageSuffix;
-
-public class ${clazzName} {
-
-}

@@ -39,7 +39,8 @@ public class TemplateDefinition {
             }
             for (CodeTemplate r : codeTemplates) {
                 CodeTemplateSuffix codeTemplateSuffix = codeTemplateSuffixMap.get(r.getType());
-                String content = TemplateUtil.getContent(packagePrefix, r, codeTemplateSuffixMap, codeTemplateCodeClassMap, tableColumnBean);
+                TemplateContent templateContent = TemplateContent.of(module, r, codeTemplateSuffixMap, codeTemplateCodeClassMap, tableColumnBean);
+                String content = TemplateUtil.getContent(templateContent);
                 TemplateFileBean templateFileBean = new TemplateFileBean();
                 templateFileBean.setContent(content);
                 templateFileBean.setFileDir(packagePrefix + codeTemplateSuffix.getPackageSuffix());
@@ -47,6 +48,26 @@ public class TemplateDefinition {
                 target.add(templateFileBean);
             }
             return target;
+        }
+
+    }
+
+    @Data
+    public static class TemplateContent implements Serializable {
+        private Module module;
+        private CodeTemplate codeTemplate;
+        private Map<String, CodeTemplateSuffix> codeTemplateSuffixMap;
+        private Map<String, CodeTemplateCodeClass> codeTemplateCodeClassMap;
+        private TemplateDefinition.TableColumnBean tableColumnBean;
+
+        public static TemplateContent of(Module module, CodeTemplate codeTemplate, Map<String, CodeTemplateSuffix> codeTemplateSuffixMap, Map<String, CodeTemplateCodeClass> codeTemplateCodeClassMap, TemplateDefinition.TableColumnBean tableColumnBean) {
+            TemplateContent templateContent = new TemplateContent();
+            templateContent.setCodeTemplate(codeTemplate);
+            templateContent.setModule(module);
+            templateContent.setCodeTemplateCodeClassMap(codeTemplateCodeClassMap);
+            templateContent.setCodeTemplateSuffixMap(codeTemplateSuffixMap);
+            templateContent.setTableColumnBean(tableColumnBean);
+            return templateContent;
         }
 
     }

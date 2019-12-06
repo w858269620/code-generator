@@ -82,14 +82,14 @@
       "fileType": "ExcelImportRequest",
       "fileKeyword": "Excel导入请求",
       "fileNote": "Excel导入请求",
-      "filePath": "classpath:template/generator/api/request/ExcelImportRequest.vm"
+      "filePath": "classpath:template/generator/common/request/ExcelImportRequest.vm"
     },
     {
       "fileTypeGroup": "java",
       "fileType": "ExcelExportRequest",
       "fileKeyword": "Excel导出请求",
       "fileNote": "Excel导出请求",
-      "filePath": "classpath:template/generator/api/request/ExcelExportRequest.vm"
+      "filePath": "classpath:template/generator/common/request/ExcelExportRequest.vm"
     },
     {
       "fileTypeGroup": "java",
@@ -124,14 +124,14 @@
       "fileType": "ExcelImportResponse",
       "fileKeyword": "Excel导入响应",
       "fileNote": "Excel导入响应",
-      "filePath": "classpath:template/generator/api/response/ExcelImportResponse.vm"
+      "filePath": "classpath:template/generator/common/response/ExcelImportResponse.vm"
     },
     {
       "fileTypeGroup": "java",
       "fileType": "ExcelExportResponse",
       "fileKeyword": "Excel导出响应",
       "fileNote": "Excel导出响应",
-      "filePath": "classpath:template/generator/api/response/ExcelExportResponse.vm"
+      "filePath": "classpath:template/generator/common/response/ExcelExportResponse.vm"
     }
   ],
   "loadCodeSuffix": [
@@ -205,13 +205,13 @@
       "fileTypeGroup": "java",
       "fileType": "ExcelImportRequest",
       "fileSuffix": "ExcelImportRequest",
-      "packageSuffix": ".api.request"
+      "packageSuffix": ".common.request"
     },
     {
       "fileTypeGroup": "java",
       "fileType": "ExcelExportRequest",
       "fileSuffix": "ExcelExportRequest",
-      "packageSuffix": ".api.request"
+      "packageSuffix": ".common.request"
     },
     {
       "fileTypeGroup": "java",
@@ -241,13 +241,13 @@
       "fileTypeGroup": "java",
       "fileType": "ExcelImportResponse",
       "fileSuffix": "ExcelImportResponse",
-      "packageSuffix": ".api.response"
+      "packageSuffix": ".common.response"
     },
     {
       "fileTypeGroup": "java",
       "fileType": "ExcelExportResponse",
       "fileSuffix": "ExcelExportResponse",
-      "packageSuffix": ".api.response"
+      "packageSuffix": ".common.response"
     }
   ],
   "loadCodeClass": [
@@ -270,6 +270,11 @@
       "fileTypeGroup": "java",
       "fileType": "CopyUtil",
       "codeClass": "cn.iba8.module.generator.common.util.CopyUtil"
+    },
+    {
+      "fileTypeGroup": "java",
+      "fileType": "BaseResponse",
+      "codeClass": "cn.iba8.module.generator.common.response.BaseResponse"
     },
     {
       "fileTypeGroup": "java",

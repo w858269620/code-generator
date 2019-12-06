@@ -3,11 +3,12 @@ package $packagePrefix$packageSuffix;
 import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import lombok.Data;
 
 /**
 * @Author auto generate
-* @Description ${table.tableComment}新增响应
+* @Description ${table.tableComment}Excel导入请求
 * @Date ${datetime}
 */
 @Data
@@ -17,6 +18,7 @@ public class $clazzName implements Serializable {
     #foreach($column in $columns)
     @JsonProperty("$column.javaName")
     @ApiModelProperty("#if($column.columnComment && $column.columnComment != '')$column.columnComment#end")
+    @Excel(name = "#if($column.columnComment && $column.columnComment != '')${column.columnComment}#else${column.javaName}#end")
     private $column.javaType $column.javaName;
 
     #end

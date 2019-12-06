@@ -2,7 +2,7 @@ package $packagePrefix$packageSuffix;
 
 import ${packagePrefix}${codeTemplateSuffix.get('Entity').packageSuffix}.${entityName}${codeTemplateSuffix.get('Entity').fileSuffix};
 import ${packagePrefix}${codeTemplateSuffix.get('SaveRequest').packageSuffix}.${entityName}${codeTemplateSuffix.get('SaveRequest').fileSuffix};
-import ${packagePrefix}${codeTemplateSuffix.get('SaveRequest').packageSuffix}.${entityName}${codeTemplateSuffix.get('ExcelImportRequest').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('ExcelImportRequest').packageSuffix}.${entityName}${codeTemplateSuffix.get('ExcelImportRequest').fileSuffix};
 import ${packagePrefix}${codeTemplateSuffix.get('SaveResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('SaveResponse').fileSuffix};
 import ${packagePrefix}${codeTemplateSuffix.get('DetailResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('DetailResponse').fileSuffix};
 import ${packagePrefix}${codeTemplateSuffix.get('ListResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('ListResponse').fileSuffix};

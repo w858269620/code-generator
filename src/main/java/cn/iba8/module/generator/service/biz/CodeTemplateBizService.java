@@ -49,7 +49,7 @@ public class CodeTemplateBizService {
         }
         CodeTemplate origin = codeTemplateRepository.findFirstByCodeOrderByVersionDesc(fileTemplateDefinition.getFilePath());
         if (null != origin) {
-            if (origin.getMd5().equals(fileTemplateDefinition.md5())) {
+            if (origin.getMd5().equals(fileTemplateDefinition.md5(content))) {
                 return;
             }
         }

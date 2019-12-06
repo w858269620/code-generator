@@ -1,10 +1,7 @@
 package cn.iba8.module.generator.common.util;
 
 import cn.iba8.module.generator.common.ftl.TemplateDefinition;
-import cn.iba8.module.generator.repository.entity.CodeTemplate;
-import cn.iba8.module.generator.repository.entity.CodeTemplateCodeClass;
-import cn.iba8.module.generator.repository.entity.CodeTemplateSuffix;
-import cn.iba8.module.generator.repository.entity.MetaDatabaseTable;
+import cn.iba8.module.generator.repository.entity.*;
 import com.google.common.base.CaseFormat;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.VelocityContext;
@@ -38,7 +35,12 @@ public abstract class TemplateUtil {
         return NameConvertUtil.toCapitalizeCamelCase(table);
     }
 
-    public static String getContent(String packagePrefix, CodeTemplate codeTemplate, Map<String, CodeTemplateSuffix> codeTemplateSuffixMap, Map<String, CodeTemplateCodeClass> codeTemplateCodeClassMap, TemplateDefinition.TableColumnBean tableColumnBean) {
+    public static String getContent(TemplateDefinition.TemplateContent templateContent) {
+        Module module = templateContent.getModule();
+        CodeTemplate codeTemplate = templateContent.getCodeTemplate();
+        Map<String, CodeTemplateSuffix> codeTemplateSuffixMap = templateContent.getCodeTemplateSuffixMap();
+        Map<String, CodeTemplateCodeClass> codeTemplateCodeClassMap = templateContent.getCodeTemplateCodeClassMap();
+        TemplateDefinition.TableColumnBean tableColumnBean = templateContent.getTableColumnBean();
         Map<String, Object> map = new HashMap<>();
         MetaDatabaseTable metaDatabaseTable = tableColumnBean.getMetaDatabaseTable();
         String entityName = toClassName(metaDatabaseTable.getTableName());
@@ -46,7 +48,8 @@ public abstract class TemplateUtil {
         map.put("entityName", entityName);
         map.put("fieldEntityName", toJavaField(entityName));
         map.put("clazzName", entityName + codeTemplateSuffix.getFileSuffix());
-        map.put("packagePrefix", packagePrefix);
+        map.put("packagePrefix", module.getPackageName());
+        map.put("module", module);
         map.put("packageSuffix", codeTemplateSuffix.getPackageSuffix());
         map.put("columns", tableColumnBean.getMetaDatabaseTableColumns());
         map.put("tableName", metaDatabaseTable.getTableName());

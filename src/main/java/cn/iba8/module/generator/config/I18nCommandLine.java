@@ -17,9 +17,11 @@ public class I18nCommandLine implements CommandLineRunner {
         String inputDir = codeGeneratorProperties.getInputDir();
         String outputDir = codeGeneratorProperties.getOutputDir();
         String inputHistory = codeGeneratorProperties.getInputHistory();
+        String codeOutputTmp = codeGeneratorProperties.getCodeOutputTmp();
         File inputFile = new File(inputDir);
         File outputFile = new File(outputDir);
         File inputHistoryFile = new File(inputHistory);
+        File codeOutputTmpFile = new File(codeOutputTmp);
         if (!inputFile.exists()) {
             inputFile.mkdirs();
         }
@@ -28,6 +30,9 @@ public class I18nCommandLine implements CommandLineRunner {
         }
         if (!inputHistoryFile.exists()) {
             inputHistoryFile.mkdirs();
+        }
+        if (!codeOutputTmpFile.exists()) {
+            codeOutputTmpFile.mkdirs();
         }
     }
 }

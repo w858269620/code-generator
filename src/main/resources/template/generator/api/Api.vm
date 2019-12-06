@@ -1,5 +1,66 @@
 package $packagePrefix$packageSuffix;
 
-public class ${clazzName} {
+import ${packagePrefix}${codeTemplateSuffix.get('SaveRequest').packageSuffix}.${entityName}${codeTemplateSuffix.get('SaveRequest').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('PageRequest').packageSuffix}.${entityName}${codeTemplateSuffix.get('PageRequest').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('ListRequest').packageSuffix}.${entityName}${codeTemplateSuffix.get('ListRequest').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('SaveResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('SaveResponse').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('DetailResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('DetailResponse').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('ListResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('ListResponse').fileSuffix};
+import ${packagePrefix}${codeTemplateSuffix.get('ListResponse').packageSuffix}.${entityName}${codeTemplateSuffix.get('PageResponse').fileSuffix};
+import ${codeTemplateClass.get('PageResponse').codeClass};
+import ${codeTemplateClass.get('BaseResponse').codeClass};
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
+
+/**
+* @Author auto generate
+* @Description ${table.tableComment}API接口
+* @Date ${datetime}
+*/
+${module.restClient}
+public interface ${clazzName} {
+
+    /**
+    * @Author auto generate
+    * @Description 分页
+    * @Param
+    * @return
+    * @Date ${datetime}
+    */
+    @PostMapping("${module.restClientRoute}/${fieldEntityName}/page")
+    ${codeTemplateClass.get('BaseResponse').type}<${codeTemplateClass.get('PageResponse').type}<${entityName}${codeTemplateSuffix.get('PageResponse').fileSuffix}>> page(${entityName}${codeTemplateSuffix.get('PageRequest').fileSuffix} request);
+
+    /**
+    * @Author auto generate
+    * @Description 列表
+    * @Param
+    * @return
+    * @Date ${datetime}
+    */
+    @PostMapping("${module.restClientRoute}/${fieldEntityName}/list")
+    ${codeTemplateClass.get('BaseResponse').type}<List<${entityName}${codeTemplateSuffix.get('ListResponse').fileSuffix}>> list(${entityName}${codeTemplateSuffix.get('ListRequest').fileSuffix} request);
+
+    /**
+    * @Author auto generate
+    * @Description 新增
+    * @Param
+    * @return
+    * @Date ${datetime}
+    */
+    @PostMapping("${module.restClientRoute}/${fieldEntityName}/save")
+    ${codeTemplateClass.get('BaseResponse').type}<${entityName}${codeTemplateSuffix.get('SaveResponse').fileSuffix}> save(${entityName}${codeTemplateSuffix.get('SaveRequest').fileSuffix} request);
+
+    /**
+    * @Author auto generate
+    * @Description 详情
+    * @Param
+    * @return
+    * @Date ${datetime}
+    */
+    @GetMapping("${module.restClientRoute}/${fieldEntityName}/detail")
+    ${codeTemplateClass.get('BaseResponse').type}<${entityName}${codeTemplateSuffix.get('DetailResponse').fileSuffix}> detail(Long id);
 
 }
