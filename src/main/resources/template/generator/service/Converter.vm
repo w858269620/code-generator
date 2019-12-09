@@ -24,7 +24,7 @@ public abstract class ${clazzName} {
         return target;
     }
 
-    public static List<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}> toSvcpinstanceImportSave(List<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}${codeTemplateSuffix.get('ExcelImportRequest').fileSuffix}> request) {
+    public static List<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}> to${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}ImportSave(List<${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}${codeTemplateSuffix.get('ExcelImportRequest').fileSuffix}> request) {
         return  ${codeTemplateClass.get('CopyUtil').type}.copyList(request, ${entityName}${codeTemplateSuffix.get('Entity').fileSuffix}.class);
     }
 
