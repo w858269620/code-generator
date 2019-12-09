@@ -32,23 +32,23 @@ public class ${clazzName} implements ${entityName}${codeTemplateSuffix.get('Api'
     private final ${entityName}${codeTemplateSuffix.get('Service').fileSuffix} ${fieldEntityName}${codeTemplateSuffix.get('Service').fileSuffix};
 
     @ApiOperation(value = "分页", notes = "分页")
-    public ${codeTemplateClass.get('BaseResponse').type}<${codeTemplateClass.get('PageResponse').type}<${entityName}${codeTemplateSuffix.get('PageResponse').fileSuffix}>> page(@RequestBody @Valid ${entityName}${codeTemplateSuffix.get('PageRequest').fileSuffix} request) {
-        return ${codeTemplateClass.get('BaseResponse').type}.success(${fieldEntityName}${codeTemplateSuffix.get('Service').fileSuffix}.page(request));
+    public ${codeTemplateClass.get('BaseResponse').codeClassName}<${codeTemplateClass.get('PageResponse').codeClassName}<${entityName}${codeTemplateSuffix.get('PageResponse').fileSuffix}>> page(@RequestBody @Valid ${entityName}${codeTemplateSuffix.get('PageRequest').fileSuffix} request) {
+        return ${codeTemplateClass.get('BaseResponse').codeClassName}.success(${fieldEntityName}${codeTemplateSuffix.get('Service').fileSuffix}.page(request));
     }
 
     @ApiOperation(value = "列表", notes = "列表")
-    public ${codeTemplateClass.get('BaseResponse').type}<List<${entityName}${codeTemplateSuffix.get('ListResponse').fileSuffix}>> list(@RequestBody @Valid ${entityName}${codeTemplateSuffix.get('ListRequest').fileSuffix} request) {
-        return ${codeTemplateClass.get('BaseResponse').type}.success(${fieldEntityName}${codeTemplateSuffix.get('Service').fileSuffix}.list(request));
+    public ${codeTemplateClass.get('BaseResponse').codeClassName}<List<${entityName}${codeTemplateSuffix.get('ListResponse').fileSuffix}>> list(@RequestBody @Valid ${entityName}${codeTemplateSuffix.get('ListRequest').fileSuffix} request) {
+        return ${codeTemplateClass.get('BaseResponse').codeClassName}.success(${fieldEntityName}${codeTemplateSuffix.get('Service').fileSuffix}.list(request));
     }
 
     @ApiOperation(value = "新增或修改", notes = "新增或修改")
-    public ${codeTemplateClass.get('BaseResponse').type}<${entityName}${codeTemplateSuffix.get('SaveResponse').fileSuffix}> save(@RequestBody @Valid ${entityName}${codeTemplateSuffix.get('SaveRequest').fileSuffix} request) {
-        return ${codeTemplateClass.get('BaseResponse').type}.success(${fieldEntityName}${codeTemplateSuffix.get('Service').fileSuffix}.save(request));
+    public ${codeTemplateClass.get('BaseResponse').codeClassName}<${entityName}${codeTemplateSuffix.get('SaveResponse').fileSuffix}> save(@RequestBody @Valid ${entityName}${codeTemplateSuffix.get('SaveRequest').fileSuffix} request) {
+        return ${codeTemplateClass.get('BaseResponse').codeClassName}.success(${fieldEntityName}${codeTemplateSuffix.get('Service').fileSuffix}.save(request));
     }
 
     @ApiOperation(value = "详情", notes = "详情")
-    public ${codeTemplateClass.get('BaseResponse').type}<${entityName}${codeTemplateSuffix.get('DetailResponse').fileSuffix}> detail(@RequestParam Long id) {
-        return ${codeTemplateClass.get('BaseResponse').type}.success(${fieldEntityName}${codeTemplateSuffix.get('Service').fileSuffix}.detail(id));
+    public ${codeTemplateClass.get('BaseResponse').codeClassName}<${entityName}${codeTemplateSuffix.get('DetailResponse').fileSuffix}> detail(@RequestParam Long id) {
+        return ${codeTemplateClass.get('BaseResponse').codeClassName}.success(${fieldEntityName}${codeTemplateSuffix.get('Service').fileSuffix}.detail(id));
     }
 
 }
