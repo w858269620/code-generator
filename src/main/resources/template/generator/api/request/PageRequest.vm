@@ -12,7 +12,7 @@ import ${codeTemplateClass.get('PageRequest').codeClass};
 * @Date ${datetime}
 */
 @Data
-public class $clazzName extends ${codeTemplateClass.get('PageRequest').type} {
+public class $clazzName extends ${codeTemplateClass.get('PageRequest').codeClassName} {
 
 #if($columns)
     #foreach($column in $columns)

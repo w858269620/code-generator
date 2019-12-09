@@ -31,7 +31,7 @@ public interface ${clazzName} {
     * @Date ${datetime}
     */
     @PostMapping("${module.restClientRoute}/${fieldEntityName}/page")
-    ${codeTemplateClass.get('BaseResponse').type}<${codeTemplateClass.get('PageResponse').type}<${entityName}${codeTemplateSuffix.get('PageResponse').fileSuffix}>> page(${entityName}${codeTemplateSuffix.get('PageRequest').fileSuffix} request);
+    ${codeTemplateClass.get('BaseResponse').codeClassName}<${codeTemplateClass.get('PageResponse').codeClassName}<${entityName}${codeTemplateSuffix.get('PageResponse').fileSuffix}>> page(${entityName}${codeTemplateSuffix.get('PageRequest').fileSuffix} request);
 
     /**
     * @Author auto generate
@@ -41,7 +41,7 @@ public interface ${clazzName} {
     * @Date ${datetime}
     */
     @PostMapping("${module.restClientRoute}/${fieldEntityName}/list")
-    ${codeTemplateClass.get('BaseResponse').type}<List<${entityName}${codeTemplateSuffix.get('ListResponse').fileSuffix}>> list(${entityName}${codeTemplateSuffix.get('ListRequest').fileSuffix} request);
+    ${codeTemplateClass.get('BaseResponse').codeClassName}<List<${entityName}${codeTemplateSuffix.get('ListResponse').fileSuffix}>> list(${entityName}${codeTemplateSuffix.get('ListRequest').fileSuffix} request);
 
     /**
     * @Author auto generate
@@ -51,7 +51,7 @@ public interface ${clazzName} {
     * @Date ${datetime}
     */
     @PostMapping("${module.restClientRoute}/${fieldEntityName}/save")
-    ${codeTemplateClass.get('BaseResponse').type}<${entityName}${codeTemplateSuffix.get('SaveResponse').fileSuffix}> save(${entityName}${codeTemplateSuffix.get('SaveRequest').fileSuffix} request);
+    ${codeTemplateClass.get('BaseResponse').codeClassName}<${entityName}${codeTemplateSuffix.get('SaveResponse').fileSuffix}> save(${entityName}${codeTemplateSuffix.get('SaveRequest').fileSuffix} request);
 
     /**
     * @Author auto generate
@@ -61,6 +61,6 @@ public interface ${clazzName} {
     * @Date ${datetime}
     */
     @GetMapping("${module.restClientRoute}/${fieldEntityName}/detail")
-    ${codeTemplateClass.get('BaseResponse').type}<${entityName}${codeTemplateSuffix.get('DetailResponse').fileSuffix}> detail(Long id);
+    ${codeTemplateClass.get('BaseResponse').codeClassName}<${entityName}${codeTemplateSuffix.get('DetailResponse').fileSuffix}> detail(Long id);
 
 }

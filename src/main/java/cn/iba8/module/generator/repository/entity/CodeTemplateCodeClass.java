@@ -1,6 +1,7 @@
 package cn.iba8.module.generator.repository.entity;
 
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,5 +24,15 @@ public class CodeTemplateCodeClass implements Serializable {
 
     @Column(name = "code_class")
     private String codeClass;
+
+    public String getCodeClassName() {
+        if (StringUtils.isNotBlank(codeClass)) {
+            int i = codeClass.lastIndexOf(".");
+            if (i > 0) {
+                return codeClass.substring(i + 1);
+            }
+        }
+        return "";
+    }
 
 }
