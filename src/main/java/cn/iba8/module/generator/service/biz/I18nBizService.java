@@ -46,11 +46,11 @@ public class I18nBizService {
     private final I18nFileTargetRepository i18nFileTargetRepository;
 
     @Transactional(rollbackFor = Exception.class)
-    public void loadI18n() {
+    public Set<String> loadI18n() {
         String inputDir = codeGeneratorProperties.getInputDir();
         I18nFileDefinition i18nFileDefinition = I18nFileDefinition.of(inputDir);
         if (null == i18nFileDefinition || CollectionUtils.isEmpty(i18nFileDefinition.getModules())) {
-            return;
+            return null;
         }
         List<I18nFileDefinition.I18nFileDefinitionModule> modules = i18nFileDefinition.getModules();
         List<Module> targetModules = new ArrayList<>();
@@ -120,7 +120,7 @@ public class I18nBizService {
         if (!CollectionUtils.isEmpty(targetFileOrigins)) {
             i18nFileOriginRepository.saveAll(targetFileOrigins);
         }
-        I18nConverter.transferFiles(filePaths);
+        return filePaths;
     }
 
 

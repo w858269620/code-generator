@@ -1,7 +1,6 @@
 package cn.iba8.module.generator.common.i18n;
 
 import cn.iba8.module.generator.common.util.MD5;
-import com.alibaba.fastjson.JSON;
 import lombok.Data;
 
 import java.io.File;
@@ -15,11 +14,6 @@ import java.util.List;
 public class I18nFileDefinition implements Serializable {
 
     private List<I18nFileDefinitionModule> modules = new ArrayList<>();
-
-    public static void main(String[] args) {
-        I18nFileDefinition of = I18nFileDefinition.of("D:\\my\\data\\input");
-        System.out.println(JSON.toJSONString(of));
-    }
 
     public static I18nFileDefinition of(String dirPreffix) {
         I18nFileDefinition definition = new I18nFileDefinition();
@@ -144,13 +138,22 @@ public class I18nFileDefinition implements Serializable {
         }
 
         public static String getContent(File file) {
+            InputStream is = null;
             try {
-                InputStream is = new FileInputStream(file);
+                is = new FileInputStream(file);
                 byte[] bytes = new byte[is.available()];
                 is.read(bytes);
                 return new String(bytes);
             } catch (Exception e) {
                 e.printStackTrace();
+            } finally {
+                if (null != is) {
+                    try {
+                        is.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
             return "";
         }

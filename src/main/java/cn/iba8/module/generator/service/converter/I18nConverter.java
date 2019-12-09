@@ -47,13 +47,16 @@ public abstract class I18nConverter {
             CodeGeneratorProperties bean = SpringUtils.getBean(CodeGeneratorProperties.class);
             for (String filePath : filePaths) {
                 File origin = new File(filePath);
-                File target = new File(filePath.replaceFirst(bean.getInputDir(), bean.getInputHistory()));
+                String originRelativePath = filePath.substring(bean.getInputDir().length());
+                String targetPath = bean.getInputHistory() + originRelativePath;
+                File target = new File(targetPath);
                 String parent = target.getParent();
                 File f = new File(parent);
                 if (!f.exists()) {
                     f.mkdirs();
                 }
-                FileUtils.moveFile(origin, target);
+                String name = target.getName();
+                FileUtils.moveFile(origin, new File(f.getPath() + "/" + System.currentTimeMillis() + "_" + name));
             }
         } catch (Exception e) {
             e.printStackTrace();

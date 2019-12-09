@@ -5,6 +5,7 @@ import cn.iba8.module.generator.repository.dao.I18nFileOriginRepository;
 import cn.iba8.module.generator.repository.entity.I18nFileOrigin;
 import cn.iba8.module.generator.service.I18nService;
 import cn.iba8.module.generator.service.biz.I18nBizService;
+import cn.iba8.module.generator.service.converter.I18nConverter;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -22,10 +24,13 @@ public class I18nServiceImpl implements I18nService {
 
     private final I18nFileOriginRepository i18nFileOriginRepository;
 
-    @Transactional(rollbackFor = Exception.class)
     @Override
     public void loadI18n() {
-        i18nBizService.loadI18n();
+        Set<String> filePaths = i18nBizService.loadI18n();
+        if (CollectionUtils.isEmpty(filePaths)) {
+            return;
+        }
+        I18nConverter.transferFiles(filePaths);
     }
 
     @Override
