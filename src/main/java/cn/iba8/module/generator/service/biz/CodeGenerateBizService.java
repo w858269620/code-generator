@@ -35,7 +35,7 @@ public class CodeGenerateBizService {
 
     private final CodeTemplateCodeClassRepository codeTemplateCodeClassRepository;
 
-    public List<TemplateDefinition.TemplateFileBean> getCodeFiles(String moduleCode, String version, String typeGroup) {
+    public List<TemplateDefinition.TemplateFileBean> getCodeFiles(String moduleCode, String version, String typeGroup, String templateGroup) {
         Module module = moduleRepository.findFirstByCodeAndVersion(moduleCode, version);
         if (null == module) {
             throw BaseException.of(ResponseCode.MODULE_NOT_EXIST);
@@ -49,7 +49,7 @@ public class CodeGenerateBizService {
         if (CollectionUtils.isEmpty(metaDatabaseTableIdIn)) {
             return null;
         }
-        List<CodeTemplate> codeTemplates = codeTemplateRepository.findAllByTypeGroupAndLatest(typeGroup, 1);
+        List<CodeTemplate> codeTemplates = codeTemplateRepository.findAllByTypeGroupAndTemplateGroupAndLatest(typeGroup, templateGroup, 1);
         if (CollectionUtils.isEmpty(codeTemplates)) {
             return null;
         }
@@ -57,11 +57,11 @@ public class CodeGenerateBizService {
         if (CollectionUtils.isEmpty(metaDatabaseTables)) {
             return null;
         }
-        List<CodeTemplateSuffix> codeTemplateSuffixes = codeTemplateSuffixRepository.findAllByTypeGroup(typeGroup);
+        List<CodeTemplateSuffix> codeTemplateSuffixes = codeTemplateSuffixRepository.findAllByTypeGroupAndTemplateGroup(typeGroup, templateGroup);
         if (CollectionUtils.isEmpty(codeTemplateSuffixes)) {
             return null;
         }
-        List<CodeTemplateCodeClass> codeTemplateCodeClasses = codeTemplateCodeClassRepository.findAllByTypeGroup(typeGroup);
+        List<CodeTemplateCodeClass> codeTemplateCodeClasses = codeTemplateCodeClassRepository.findAllByTypeGroupAndTemplateGroup(typeGroup, templateGroup);
         Map<String, CodeTemplateCodeClass> codeTemplateCodeClassMap = codeTemplateCodeClasses.stream().collect(Collectors.toMap(CodeTemplateCodeClass::getType, r -> r, (k1, k2) -> k2));
         Map<String, CodeTemplateSuffix> codeTemplateSuffixMap = codeTemplateSuffixes.stream().collect(Collectors.toMap(CodeTemplateSuffix::getType, r -> r, (k1, k2) -> k2));
         Map<Long, List<MetaDatabaseTableColumn>> columnsMap = metaDatabaseTableIdIn.stream().collect(Collectors.groupingBy(MetaDatabaseTableColumn::getMetaDatabaseTableId));

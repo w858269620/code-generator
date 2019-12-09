@@ -15,8 +15,8 @@ public class CodeGenerateServiceImpl implements CodeGenerateService {
     private final CodeGenerateBizService codeGenerateBizService;
 
     @Override
-    public List<TemplateDefinition.TemplateFileBean> getCodeFiles(String moduleCode, String version, String typeGroup) {
-        return codeGenerateBizService.getCodeFiles(moduleCode, version, typeGroup);
+    public List<TemplateDefinition.TemplateFileBean> getCodeFiles(String moduleCode, String version, String typeGroup, String templateGroup) {
+        return codeGenerateBizService.getCodeFiles(moduleCode, version, typeGroup, templateGroup);
     }
 
 }

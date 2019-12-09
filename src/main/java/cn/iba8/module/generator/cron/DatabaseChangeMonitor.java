@@ -40,7 +40,7 @@ public class DatabaseChangeMonitor {
 
     private final MetaDatabaseChangeLogTopushRepository metaDatabaseChangeLogTopushRepository;
 
-//    @Scheduled(cron = "${cn.iba8.module.cron.database-monitor}")
+    @Scheduled(cron = "${cn.iba8.module.cron.database-monitor}")
     @Transactional(rollbackFor = Exception.class)
     public void monitor() {
         //数据连接信息

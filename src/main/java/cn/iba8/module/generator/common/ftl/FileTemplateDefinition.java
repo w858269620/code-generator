@@ -12,6 +12,8 @@ import java.util.List;
 @Data
 public class FileTemplateDefinition implements Serializable {
 
+
+
     private List<FileTemplateClassDefinition> loadCodeTemplate = new ArrayList<>();
     private List<FileTemplateSuffixDefinition> loadCodeSuffix = new ArrayList<>();
     private List<FileTemplateCodeClassDefinition> loadCodeClass = new ArrayList<>();
@@ -46,8 +48,8 @@ public class FileTemplateDefinition implements Serializable {
         private String fileLevel;
         private String fileKeyword;
         private String fileNote;
-        public String md5(String content) {
-            return MD5.getMD5Str(toString() + content);
+        public String md5(String templateGroup, String content) {
+            return MD5.getMD5Str(toString() + templateGroup + content);
         }
     }
 
@@ -57,8 +59,8 @@ public class FileTemplateDefinition implements Serializable {
         private String fileTypeGroup;
         private String fileSuffix;
         private String packageSuffix;
-        public String md5() {
-            return MD5.getMD5Str(toString());
+        public String md5(String templateGroup) {
+            return MD5.getMD5Str(toString() + templateGroup);
         }
     }
 

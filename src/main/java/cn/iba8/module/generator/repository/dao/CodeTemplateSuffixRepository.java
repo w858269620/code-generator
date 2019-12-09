@@ -12,6 +12,6 @@ public interface CodeTemplateSuffixRepository extends JpaRepository<CodeTemplate
 
     CodeTemplateSuffix findFirstByTypeAndTypeGroup(String type, String typeGroup);
 
-    List<CodeTemplateSuffix> findAllByTypeGroup(String typeGroup);
+    List<CodeTemplateSuffix> findAllByTypeGroupAndTemplateGroup(String typeGroup, String templateGroup);
 
 }

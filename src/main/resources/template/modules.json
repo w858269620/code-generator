@@ -1,0 +1,22 @@
+{
+  "modules": [
+    {
+      "code": "basic",
+      "name": "正泰云平台",
+      "version": "v1.0.0",
+      "basePackage": "com.chitic",
+      "restClient": "",
+      "restClientRoute": ""
+    }
+  ],
+  "templates": [
+    {
+      "templateGroup": "default",
+      "templateRoot": "classpath:template/generator/default/templates.json"
+    },
+    {
+      "templateGroup": "basic",
+      "templateRoot": "classpath:template/generator/default/templates.json"
+    }
+  ]
+}

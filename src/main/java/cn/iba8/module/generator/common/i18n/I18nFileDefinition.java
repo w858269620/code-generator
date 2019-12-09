@@ -29,7 +29,6 @@ public class I18nFileDefinition implements Serializable {
     @Data
     public static class I18nFileDefinitionModule implements Serializable {
         private String code;
-        private String name;
         private String version;
         private List<I18nFileDefinitionFile> files = new ArrayList<>();
 
@@ -37,8 +36,7 @@ public class I18nFileDefinition implements Serializable {
             String[] names = dirName.split("##");
             I18nFileDefinitionModule module = new I18nFileDefinitionModule();
             module.setCode(names[0]);
-            module.setName(names[1]);
-            module.setVersion(names[2]);
+            module.setVersion(names[1]);
             return module;
         }
 

@@ -15,6 +15,9 @@ public class CodeTemplateSuffix implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "template_group")
+    private String templateGroup;
+
     @Column(name = "type")
     private String type;
 

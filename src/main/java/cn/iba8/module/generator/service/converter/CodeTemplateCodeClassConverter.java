@@ -5,11 +5,12 @@ import cn.iba8.module.generator.repository.entity.CodeTemplateCodeClass;
 
 public abstract class CodeTemplateCodeClassConverter {
 
-    public static CodeTemplateCodeClass toCodeTemplateCodeClass(FileTemplateDefinition.FileTemplateCodeClassDefinition fileTemplateDefinition) {
+    public static CodeTemplateCodeClass toCodeTemplateCodeClass(FileTemplateDefinition.FileTemplateCodeClassDefinition fileTemplateDefinition, String templateGroup) {
         CodeTemplateCodeClass target = new CodeTemplateCodeClass();
         target.setCodeClass(fileTemplateDefinition.getCodeClass());
         target.setType(fileTemplateDefinition.getFileType());
         target.setTypeGroup(fileTemplateDefinition.getFileTypeGroup());
+        target.setTemplateGroup(templateGroup);
         return target;
     }
 

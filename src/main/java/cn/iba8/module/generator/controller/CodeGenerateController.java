@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
@@ -26,12 +27,13 @@ public class CodeGenerateController {
     private final CodeGenerateService codeGenerateService;
 
     @GetMapping("/codeGenerate/codes")
-    public BaseResponse<Void> generate(String moduleCode, String version, String typeGroup, HttpServletResponse response) {
-        List<TemplateDefinition.TemplateFileBean> templateFileBeans = codeGenerateService.getCodeFiles(moduleCode, version, typeGroup);
+    public BaseResponse<Void> generate(String moduleCode, String version, String typeGroup, @RequestParam(defaultValue = "default") String templateGroup, HttpServletResponse response) {
+        List<TemplateDefinition.TemplateFileBean> templateFileBeans = codeGenerateService.getCodeFiles(moduleCode, version, typeGroup, templateGroup);
         CodeGeneratorProperties codeGeneratorProperties = SpringUtils.getBean(CodeGeneratorProperties.class);
         String tmp = codeGeneratorProperties.getCodeOutputTmp() + "/" + System.currentTimeMillis();
         if (!CollectionUtils.isEmpty(templateFileBeans)) {
             for (TemplateDefinition.TemplateFileBean templateFileBean : templateFileBeans) {
+                OutputStream os = null;
                 try {
                     String fileDir = templateFileBean.getFileDir();
                     String path = tmp + "/" + TemplateUtil.toPath(fileDir);
@@ -39,10 +41,16 @@ public class CodeGenerateController {
                     if (!parent.exists()) {
                         parent.mkdirs();
                     }
-                    OutputStream os = new FileOutputStream(new File(path + "/" + templateFileBean.getFilename() + "." + typeGroup));
+                    os = new FileOutputStream(new File(path + "/" + templateFileBean.getFilename() + "." + typeGroup));
                     os.write(templateFileBean.getContent().getBytes());
                 } catch (Exception e) {
-                    log.error("生成临时文件失败");
+                    log.error("生成文件失败");
+                } finally {
+                    if (null != os) {
+                        try {
+                            os.close();
+                        } catch (Exception e) {log.error("关闭流失败 e {}", e);}
+                    }
                 }
             }
         }

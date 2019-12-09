@@ -42,20 +42,21 @@ public class CodeTemplateBizService {
     }
 
     @Transactional
-    public void loadTemplate(FileTemplateDefinition.FileTemplateClassDefinition fileTemplateDefinition) {
+    public void loadTemplate(FileTemplateDefinition.FileTemplateClassDefinition fileTemplateDefinition, String templateGroup) {
         String content = loadContent(fileTemplateDefinition.getFilePath());
         if (StringUtils.isBlank(content)) {
             return;
         }
         CodeTemplate origin = codeTemplateRepository.findFirstByCodeOrderByVersionDesc(fileTemplateDefinition.getFilePath());
-        if (null != origin) {
-            if (origin.getMd5().equals(fileTemplateDefinition.md5(content))) {
+        boolean f = null != origin && origin.getTemplateGroup().equals(templateGroup);
+        if (f) {
+            if (origin.getMd5().equals(fileTemplateDefinition.md5(templateGroup, content))) {
                 return;
             }
         }
-        CodeTemplate codeTemplate = CodeTemplateConverter.toCodeTemplate(origin, fileTemplateDefinition, content);
+        CodeTemplate codeTemplate = CodeTemplateConverter.toCodeTemplate(origin, fileTemplateDefinition, templateGroup, content);
         codeTemplateRepository.save(codeTemplate);
-        if (null != origin) {
+        if (f) {
             origin.setLatest(0);
             codeTemplateRepository.save(origin);
         }

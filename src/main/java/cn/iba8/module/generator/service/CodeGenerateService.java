@@ -13,6 +13,6 @@ import java.util.List;
  **/
 public interface CodeGenerateService {
 
-    List<TemplateDefinition.TemplateFileBean> getCodeFiles(String moduleCode, String version, String typeGroup);
+    List<TemplateDefinition.TemplateFileBean> getCodeFiles(String moduleCode, String version, String typeGroup, String templateGroup);
 
 }

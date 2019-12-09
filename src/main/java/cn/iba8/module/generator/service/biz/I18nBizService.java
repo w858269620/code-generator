@@ -61,7 +61,13 @@ public class I18nBizService {
         for (I18nFileDefinition.I18nFileDefinitionModule definitionModule : modules) {
             Module module = moduleRepository.findFirstByCodeAndVersion(definitionModule.getCode(), definitionModule.getVersion());
             if (null == module) {
-                targetModules.add(CopyUtil.copy(definitionModule, Module.class));
+                log.warn("模块不存在 {}:{}, 将自动创建", definitionModule.getCode(), definitionModule.getVersion());
+                Module copy = CopyUtil.copy(definitionModule, Module.class);
+                copy.setName(definitionModule.getCode());
+                copy.setPackageName("");
+                copy.setRestClient("");
+                copy.setRestClientRoute("");
+                targetModules.add(copy);
             }
             List<I18nFileDefinition.I18nFileDefinitionFile> moduleFiles = definitionModule.getFiles();
             if (!CollectionUtils.isEmpty(moduleFiles)) {
@@ -72,7 +78,6 @@ public class I18nBizService {
                     long l = i18nFileOriginRepository.countAllByMd5(i18nFileDefinitionFile.getMd5());
                     i18nFileOrigin.setCreateTs(System.currentTimeMillis());
                     i18nFileOrigin.setModuleCode(definitionModule.getCode());
-                    i18nFileOrigin.setModuleName(definitionModule.getName());
                     if (l > 0) {
                         i18nFileOrigin.setProcessed(2);
                         i18nFileOrigin.setModifyTs(System.currentTimeMillis());

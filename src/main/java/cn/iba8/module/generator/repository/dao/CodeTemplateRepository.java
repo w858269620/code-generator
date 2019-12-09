@@ -14,4 +14,6 @@ public interface CodeTemplateRepository extends JpaRepository<CodeTemplate, Long
 
     List<CodeTemplate> findAllByTypeGroupAndLatest(String typeGroup, Integer latest);
 
+    List<CodeTemplate> findAllByTypeGroupAndTemplateGroupAndLatest(String typeGroup, String templateGroup, Integer latest);
+
 }

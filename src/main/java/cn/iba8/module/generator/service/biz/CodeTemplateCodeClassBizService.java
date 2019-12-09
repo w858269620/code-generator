@@ -20,16 +20,16 @@ public class CodeTemplateCodeClassBizService {
     private final CodeTemplateCodeClassRepository codeTemplateCodeClassRepository;
 
     @Transactional
-    public void loadTemplateCodeClass(FileTemplateDefinition.FileTemplateCodeClassDefinition fileTemplateDefinition) {
+    public void loadTemplateCodeClass(FileTemplateDefinition.FileTemplateCodeClassDefinition fileTemplateDefinition, String templateGroup) {
         CodeTemplateCodeClass origin = codeTemplateCodeClassRepository.findFirstByTypeAndTypeGroup(fileTemplateDefinition.getFileType(), fileTemplateDefinition.getFileTypeGroup());
-        if (null != origin) {
+        if (null != origin && origin.getTemplateGroup().equals(templateGroup)) {
             if (!origin.getCodeClass().equals(fileTemplateDefinition.getCodeClass())) {
                 origin.setCodeClass(fileTemplateDefinition.getCodeClass());
                 codeTemplateCodeClassRepository.save(origin);
             }
             return;
         }
-        CodeTemplateCodeClass codeTemplateCodeClass = CodeTemplateCodeClassConverter.toCodeTemplateCodeClass(fileTemplateDefinition);
+        CodeTemplateCodeClass codeTemplateCodeClass = CodeTemplateCodeClassConverter.toCodeTemplateCodeClass(fileTemplateDefinition, templateGroup);
         codeTemplateCodeClassRepository.save(codeTemplateCodeClass);
     }
 

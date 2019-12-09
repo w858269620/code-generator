@@ -17,12 +17,12 @@ public class CodeTemplateSuffixBizService {
     private final CodeTemplateSuffixRepository codeTemplateSuffixRepository;
 
     @Transactional
-    public void loadTemplateSuffix(FileTemplateDefinition.FileTemplateSuffixDefinition fileTemplateDefinition) {
+    public void loadTemplateSuffix(FileTemplateDefinition.FileTemplateSuffixDefinition fileTemplateDefinition, String templateGroup) {
         CodeTemplateSuffix origin = codeTemplateSuffixRepository.findFirstByTypeAndTypeGroup(fileTemplateDefinition.getFileType(), fileTemplateDefinition.getFileTypeGroup());
-        if (null != origin) {
+        if (null != origin && origin.getTemplateGroup().equals(templateGroup)) {
             return;
         }
-        CodeTemplateSuffix codeTemplateSuffix = CodeTemplateSuffixConverter.toCodeTemplateSuffix(fileTemplateDefinition);
+        CodeTemplateSuffix codeTemplateSuffix = CodeTemplateSuffixConverter.toCodeTemplateSuffix(fileTemplateDefinition, templateGroup);
         codeTemplateSuffixRepository.save(codeTemplateSuffix);
     }
 

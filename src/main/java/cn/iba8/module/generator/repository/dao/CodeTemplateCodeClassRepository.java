@@ -15,4 +15,6 @@ public interface CodeTemplateCodeClassRepository extends JpaRepository<CodeTempl
 
     List<CodeTemplateCodeClass> findAllByTypeGroup(String typeGroup);
 
+    List<CodeTemplateCodeClass> findAllByTypeGroupAndTemplateGroup(String typeGroup, String templateGroup);
+
 }
