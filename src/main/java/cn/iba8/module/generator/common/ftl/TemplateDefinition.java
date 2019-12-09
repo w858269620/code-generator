@@ -177,6 +177,7 @@ public class TemplateDefinition {
             if (copy.isPrimaryKey() && !"String".equals(copy.getJavaType())) {
                 copy.setJavaType("Long");
             }
+            copy.setColumnName(copy.getColumnName().toLowerCase());
             return copy;
         }
     }
