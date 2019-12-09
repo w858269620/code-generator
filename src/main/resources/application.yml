@@ -56,3 +56,5 @@ cn:
         database-monitor: 0 0/5 * * * ?
         database-change-push: 0 0/1 * * * ?
         table-change-push: 0 0/1 * * * ?
+        i18n-load-origin: 0 0/5 * * * ?
+        i18n-generate-code: 0 0/5 * * * ?
