@@ -38,7 +38,7 @@ public class ${clazzName} implements ${entityName}${codeTemplateSuffix.get('Serv
     private final ${entityName}${codeTemplateSuffix.get('Repository').fileSuffix} ${fieldEntityName}${codeTemplateSuffix.get('Repository').fileSuffix};
 
     @Override
-    public ${codeTemplateClass.get('PageResponse').type}<${entityName}${codeTemplateSuffix.get('PageResponse').fileSuffix}> page(${entityName}${codeTemplateSuffix.get('PageRequest').fileSuffix} request) {
+    public ${codeTemplateClass.get('PageResponse').codeClassName}<${entityName}${codeTemplateSuffix.get('PageResponse').fileSuffix}> page(${entityName}${codeTemplateSuffix.get('PageRequest').fileSuffix} request) {
         return null;
     }
 
