@@ -47,10 +47,10 @@ public class CodeTemplateBizService {
         if (StringUtils.isBlank(content)) {
             return;
         }
-        CodeTemplate origin = codeTemplateRepository.findFirstByCodeOrderByVersionDesc(fileTemplateDefinition.getFilePath());
-        boolean f = null != origin && origin.getTemplateGroup().equals(templateGroup);
+        CodeTemplate origin = codeTemplateRepository.findFirstByCodeAndTemplateGroupOrderByVersionDesc(fileTemplateDefinition.getFilePath(), templateGroup);
+        boolean f = null != origin;
         if (f) {
-            if (origin.getMd5().equals(fileTemplateDefinition.md5(templateGroup, content))) {
+            if (origin.getMd5().equals(fileTemplateDefinition.md5(content))) {
                 return;
             }
         }

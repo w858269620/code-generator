@@ -2,7 +2,9 @@ package cn.iba8.module.generator.service.biz;
 
 import cn.iba8.module.generator.common.BaseException;
 import cn.iba8.module.generator.common.ResponseCode;
+import cn.iba8.module.generator.common.enums.TemplateScopeEnum;
 import cn.iba8.module.generator.common.ftl.TemplateDefinition;
+import cn.iba8.module.generator.common.request.CodeTemplateGenerateRequest;
 import cn.iba8.module.generator.repository.dao.*;
 import cn.iba8.module.generator.repository.entity.*;
 import lombok.AllArgsConstructor;
@@ -35,7 +37,11 @@ public class CodeGenerateBizService {
 
     private final CodeTemplateCodeClassRepository codeTemplateCodeClassRepository;
 
-    public List<TemplateDefinition.TemplateFileBean> getCodeFiles(String moduleCode, String version, String typeGroup, String templateGroup) {
+    public List<TemplateDefinition.TemplateFileBean> getCodeFiles(CodeTemplateGenerateRequest request) {
+        String moduleCode = request.getModuleCode();
+        String version = request.getVersion();
+        String typeGroup = request.getTypeGroup();
+        String templateGroup = request.getTemplateGroup();
         Module module = moduleRepository.findFirstByCodeAndVersion(moduleCode, version);
         if (null == module) {
             throw BaseException.of(ResponseCode.MODULE_NOT_EXIST);
@@ -49,7 +55,8 @@ public class CodeGenerateBizService {
         if (CollectionUtils.isEmpty(metaDatabaseTableIdIn)) {
             return null;
         }
-        List<CodeTemplate> codeTemplates = codeTemplateRepository.findAllByTypeGroupAndTemplateGroupAndLatest(typeGroup, templateGroup, 1);
+        List<CodeTemplate> codeTemplateList = codeTemplateRepository.findAllByTypeGroupAndTemplateGroupAndLatest(typeGroup, templateGroup, 1);
+        List<CodeTemplate> codeTemplates = codeTemplateFilter(codeTemplateList, request);
         if (CollectionUtils.isEmpty(codeTemplates)) {
             return null;
         }
@@ -78,5 +85,25 @@ public class CodeGenerateBizService {
         return templateFileBeanList;
     }
 
+    private List<CodeTemplate> codeTemplateFilter(List<CodeTemplate> codeTemplates, CodeTemplateGenerateRequest request) {
+        List<CodeTemplate> target = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(codeTemplates)) {
+            for (CodeTemplate r : codeTemplates) {
+                if (!request.isWithMethod()) {
+                    if (TemplateScopeEnum.METHOD.getName().equals(r.getScope())) {
+                        continue;
+                    }
+                }
+                if (!request.isWithMethodExcel()) {
+                    if (r.getExcel() == 1) {
+                        continue;
+                    }
+                }
+
+                target.add(r);
+            }
+        }
+        return target;
+    }
 
 }

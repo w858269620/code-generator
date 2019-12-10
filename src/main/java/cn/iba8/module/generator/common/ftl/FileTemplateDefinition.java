@@ -46,10 +46,12 @@ public class FileTemplateDefinition implements Serializable {
         private String fileTypeGroup;
         private String filePath;
         private String fileLevel;
+        private String fileScope;
+        private Boolean fileIsExcel;
         private String fileKeyword;
         private String fileNote;
-        public String md5(String templateGroup, String content) {
-            return MD5.getMD5Str(toString() + templateGroup + content);
+        public String md5(String content) {
+            return MD5.getMD5Str(toString() + content);
         }
     }
 

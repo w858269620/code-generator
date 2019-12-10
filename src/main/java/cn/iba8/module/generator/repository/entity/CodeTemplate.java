@@ -51,4 +51,10 @@ public class CodeTemplate implements Serializable {
     @Column(name = "level")
     private String level;
 
+    @Column(name = "scope")
+    private String scope;
+
+    @Column(name = "excel")
+    private Integer excel;
+
 }

@@ -4,6 +4,8 @@
       "fileTypeGroup": "java",
       "fileType": "Entity",
       "fileLevel": "table",
+      "fileScope": "class",
+      "fileIsExcel": false,
       "fileKeyword": "数据库实体",
       "fileNote": "数据库实体",
       "filePath": "classpath:template/generator/default/repository/Entity.vm"
@@ -12,6 +14,8 @@
       "fileTypeGroup": "java",
       "fileType": "Repository",
       "fileLevel": "table",
+      "fileScope": "class",
+      "fileIsExcel": false,
       "fileKeyword": "数据库接口",
       "fileNote": "数据库接口",
       "filePath": "classpath:template/generator/default/repository/Repository.vm"
@@ -20,6 +24,8 @@
       "fileTypeGroup": "java",
       "fileType": "BizService",
       "fileLevel": "table",
+      "fileScope": "class",
+      "fileIsExcel": false,
       "fileKeyword": "业务细化",
       "fileNote": "业务细化",
       "filePath": "classpath:template/generator/default/service/BizService.vm"
@@ -28,6 +34,8 @@
       "fileTypeGroup": "java",
       "fileType": "Converter",
       "fileLevel": "table",
+      "fileScope": "class",
+      "fileIsExcel": false,
       "fileKeyword": "对象转换",
       "fileNote": "对象转换",
       "filePath": "classpath:template/generator/default/service/Converter.vm"
@@ -36,6 +44,8 @@
       "fileTypeGroup": "java",
       "fileType": "Service",
       "fileLevel": "table",
+      "fileScope": "class",
+      "fileIsExcel": false,
       "fileKeyword": "业务",
       "fileNote": "业务",
       "filePath": "classpath:template/generator/default/service/Service.vm"
@@ -44,6 +54,8 @@
       "fileTypeGroup": "java",
       "fileType": "ServiceImpl",
       "fileLevel": "table",
+      "fileScope": "class",
+      "fileIsExcel": false,
       "fileKeyword": "业务实现",
       "fileNote": "业务实现",
       "filePath": "classpath:template/generator/default/service/ServiceImpl.vm"
@@ -52,6 +64,8 @@
       "fileTypeGroup": "java",
       "fileType": "Api",
       "fileLevel": "table",
+      "fileScope": "class",
+      "fileIsExcel": false,
       "fileKeyword": "对外接口",
       "fileNote": "对外接口",
       "filePath": "classpath:template/generator/default/api/Api.vm"
@@ -60,6 +74,8 @@
       "fileTypeGroup": "java",
       "fileType": "ApiImpl",
       "fileLevel": "table",
+      "fileScope": "class",
+      "fileIsExcel": false,
       "fileKeyword": "对外接口实现",
       "fileNote": "对外接口实现",
       "filePath": "classpath:template/generator/default/controller/ApiImpl.vm"
@@ -68,6 +84,8 @@
       "fileTypeGroup": "java",
       "fileType": "SaveRequest",
       "fileLevel": "table",
+      "fileScope": "method",
+      "fileIsExcel": false,
       "fileKeyword": "新增请求",
       "fileNote": "新增请求",
       "filePath": "classpath:template/generator/default/api/request/SaveRequest.vm"
@@ -76,6 +94,8 @@
       "fileTypeGroup": "java",
       "fileType": "PageRequest",
       "fileLevel": "table",
+      "fileScope": "method",
+      "fileIsExcel": false,
       "fileKeyword": "分页请求",
       "fileNote": "分页请求",
       "filePath": "classpath:template/generator/default/api/request/PageRequest.vm"
@@ -84,6 +104,8 @@
       "fileTypeGroup": "java",
       "fileType": "ListRequest",
       "fileLevel": "table",
+      "fileScope": "method",
+      "fileIsExcel": false,
       "fileKeyword": "列表请求",
       "fileNote": "列表请求",
       "filePath": "classpath:template/generator/default/api/request/ListRequest.vm"
@@ -92,6 +114,8 @@
       "fileTypeGroup": "java",
       "fileType": "ExcelImportRequest",
       "fileLevel": "table",
+      "fileScope": "method",
+      "fileIsExcel": true,
       "fileKeyword": "Excel导入请求",
       "fileNote": "Excel导入请求",
       "filePath": "classpath:template/generator/default/common/request/ExcelImportRequest.vm"
@@ -100,6 +124,8 @@
       "fileTypeGroup": "java",
       "fileType": "ExcelExportRequest",
       "fileLevel": "table",
+      "fileScope": "method",
+      "fileIsExcel": true,
       "fileKeyword": "Excel导出请求",
       "fileNote": "Excel导出请求",
       "filePath": "classpath:template/generator/default/common/request/ExcelExportRequest.vm"
@@ -108,6 +134,8 @@
       "fileTypeGroup": "java",
       "fileType": "SaveResponse",
       "fileLevel": "table",
+      "fileScope": "method",
+      "fileIsExcel": false,
       "fileKeyword": "新增响应",
       "fileNote": "新增响应",
       "filePath": "classpath:template/generator/default/api/response/SaveResponse.vm"
@@ -116,6 +144,8 @@
       "fileTypeGroup": "java",
       "fileType": "DetailResponse",
       "fileLevel": "table",
+      "fileScope": "method",
+      "fileIsExcel": false,
       "fileKeyword": "详情响应",
       "fileNote": "详情响应",
       "filePath": "classpath:template/generator/default/api/response/DetailResponse.vm"
@@ -124,6 +154,8 @@
       "fileTypeGroup": "java",
       "fileType": "PageResponse",
       "fileLevel": "table",
+      "fileScope": "method",
+      "fileIsExcel": false,
       "fileKeyword": "分页响应",
       "fileNote": "分页响应",
       "filePath": "classpath:template/generator/default/api/response/PageResponse.vm"
@@ -132,6 +164,8 @@
       "fileTypeGroup": "java",
       "fileType": "ListResponse",
       "fileLevel": "table",
+      "fileScope": "method",
+      "fileIsExcel": false,
       "fileKeyword": "列表响应",
       "fileNote": "列表响应",
       "filePath": "classpath:template/generator/default/api/response/ListResponse.vm"
@@ -140,6 +174,8 @@
       "fileTypeGroup": "java",
       "fileType": "ExcelImportResponse",
       "fileLevel": "table",
+      "fileScope": "method",
+      "fileIsExcel": true,
       "fileKeyword": "Excel导入响应",
       "fileNote": "Excel导入响应",
       "filePath": "classpath:template/generator/default/common/response/ExcelImportResponse.vm"
@@ -148,6 +184,8 @@
       "fileTypeGroup": "java",
       "fileType": "ExcelExportResponse",
       "fileLevel": "table",
+      "fileScope": "method",
+      "fileIsExcel": true,
       "fileKeyword": "Excel导出响应",
       "fileNote": "Excel导出响应",
       "filePath": "classpath:template/generator/default/common/response/ExcelExportResponse.vm"
@@ -156,6 +194,8 @@
       "fileTypeGroup": "java",
       "fileType": "Enum",
       "fileLevel": "module",
+      "fileScope": "class",
+      "fileIsExcel": false,
       "fileKeyword": "模块枚举文件",
       "fileNote": "模块枚举文件",
       "filePath": "classpath:template/generator/default/common/enums/Enum.vm"
@@ -164,6 +204,8 @@
       "fileTypeGroup": "java",
       "fileType": "Constant",
       "fileLevel": "module",
+      "fileScope": "class",
+      "fileIsExcel": false,
       "fileKeyword": "模块常量文件",
       "fileNote": "模块常量文件",
       "filePath": "classpath:template/generator/default/common/constants/Constant.vm"

@@ -1,6 +1,7 @@
 package cn.iba8.module.generator.service;
 
 import cn.iba8.module.generator.common.ftl.TemplateDefinition;
+import cn.iba8.module.generator.common.request.CodeTemplateGenerateRequest;
 
 import java.util.List;
 
@@ -13,6 +14,6 @@ import java.util.List;
  **/
 public interface CodeGenerateService {
 
-    List<TemplateDefinition.TemplateFileBean> getCodeFiles(String moduleCode, String version, String typeGroup, String templateGroup);
+    List<TemplateDefinition.TemplateFileBean> getCodeFiles(CodeTemplateGenerateRequest request);
 
 }

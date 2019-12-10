@@ -18,7 +18,7 @@ public abstract class CodeTemplateConverter {
         target.setCode(path);
         target.setTemplate(content);
         target.setName(filename);
-        target.setMd5(fileTemplateDefinition.md5(templateGroup, content));
+        target.setMd5(fileTemplateDefinition.md5(content));
         target.setLatest(1);
         target.setType(fileTemplateDefinition.getFileType());
         target.setNote(fileTemplateDefinition.getFileNote());
@@ -26,6 +26,8 @@ public abstract class CodeTemplateConverter {
         target.setKeyword(fileTemplateDefinition.getFileKeyword());
         target.setLevel(fileTemplateDefinition.getFileLevel());
         target.setTemplateGroup(templateGroup);
+        target.setScope(fileTemplateDefinition.getFileScope());
+        target.setExcel(null != fileTemplateDefinition.getFileIsExcel() && fileTemplateDefinition.getFileIsExcel() ? 1 : 0);
         return target;
     }
 

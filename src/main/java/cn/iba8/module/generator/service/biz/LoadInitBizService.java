@@ -24,13 +24,9 @@ import java.util.List;
 @Slf4j
 public class LoadInitBizService implements CommandLineRunner {
 
-    private final CodeTemplateBizService codeTemplateBizService;
-
-    private final CodeTemplateSuffixBizService codeTemplateSuffixBizService;
-
-    private final CodeTemplateCodeClassBizService codeTemplateCodeClassBizService;
-
     private final ModuleBizService moduleBizService;
+
+    private final LoadTemplateBizService loadTemplateBizService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -65,7 +61,7 @@ public class LoadInitBizService implements CommandLineRunner {
             }
             if (!CollectionUtils.isEmpty(templateRoots)) {
                 for (FileModuleDefinition.FileModuleTemplateDefinition templateRoot : templateRoots) {
-                    loadTemplates(templateRoot);
+                    loadTemplateBizService.loadTemplates(templateRoot);
                 }
             }
         } catch (Exception e) {
@@ -82,58 +78,7 @@ public class LoadInitBizService implements CommandLineRunner {
 
     }
 
-    /*
-     * @Author sc.wan
-     * @Description 加载模板
-     * @Date 16:40 2019/12/9
-     * @Param
-     * @return
-     **/
-    private void loadTemplates(FileModuleDefinition.FileModuleTemplateDefinition templateRoot) {
-        String templatesRoot = templateRoot.getTemplateRoot();
-        String templateGroup = templateRoot.getTemplateGroup();
-        InputStream is = null;
-        try {
-            File file = ResourceUtils.getFile(templatesRoot);
-            is = new FileInputStream(file);
-            byte[] bytes = new byte[is.available()];
-            is.read(bytes);
-            String json = new String(bytes);
-            FileTemplateDefinition fileTemplateDefinition = FileTemplateDefinition.ofJson(json);
-            if (null == fileTemplateDefinition) {
-                return;
-            }
-            List<FileTemplateDefinition.FileTemplateSuffixDefinition> loadCodeSuffix = fileTemplateDefinition.getLoadCodeSuffix();
-            List<FileTemplateDefinition.FileTemplateClassDefinition> loadCodeTemplate = fileTemplateDefinition.getLoadCodeTemplate();
-            List<FileTemplateDefinition.FileTemplateCodeClassDefinition> loadCodeClass = fileTemplateDefinition.getLoadCodeClass();
-            if (!CollectionUtils.isEmpty(loadCodeSuffix)) {
-                for (FileTemplateDefinition.FileTemplateSuffixDefinition fileTemplateSuffixDefinition : loadCodeSuffix) {
-                    codeTemplateSuffixBizService.loadTemplateSuffix(fileTemplateSuffixDefinition, templateGroup);
-                }
-            }
-            if (!CollectionUtils.isEmpty(loadCodeTemplate)) {
-                for (FileTemplateDefinition.FileTemplateClassDefinition fileTemplateClassDefinition : loadCodeTemplate) {
-                    codeTemplateBizService.loadTemplate(fileTemplateClassDefinition, templateGroup);
-                }
-            }
-            if (!CollectionUtils.isEmpty(loadCodeClass)) {
-                for (FileTemplateDefinition.FileTemplateCodeClassDefinition fileTemplateCodeClassDefinition : loadCodeClass) {
-                    codeTemplateCodeClassBizService.loadTemplateCodeClass(fileTemplateCodeClassDefinition, templateGroup);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (null != is) {
-                try {
-                    is.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
 
-    }
 
 
 }
