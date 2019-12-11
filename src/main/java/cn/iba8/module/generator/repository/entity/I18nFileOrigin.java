@@ -18,9 +18,6 @@ public class I18nFileOrigin implements Serializable {
 	@Column(name = "module_code")
 	private String moduleCode;
 
-	@Column(name = "module_name")
-	private String moduleName;
-
 	@Column(name = "name")
 	private String name;
 

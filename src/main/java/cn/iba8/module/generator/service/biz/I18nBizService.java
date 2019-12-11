@@ -335,7 +335,7 @@ public class I18nBizService {
         }
         Map<String, List<I18nFileTarget>> lanMap = i18nFileTargets.stream().collect(Collectors.groupingBy(I18nFileTarget::getLanguage));
         String outputDir = codeGeneratorProperties.getOutputDir();
-        String path = outputDir + "/" + app.getCode();
+        String path = outputDir + "/" + app.getCode() + "/i18n/" + System.currentTimeMillis();
         File file = new File(path);
         if (!file.exists()) {
             file.mkdirs();
@@ -355,7 +355,7 @@ public class I18nBizService {
             if (!lanFile.exists()) {
                 lanFile.mkdirs();
             }
-            os = new FileOutputStream(new File(path + "/" + i18nFileTarget.getLanguage() + "/" + i18nFileTarget.getCreateTs() + "-" + i18nFileTarget.getName()));
+            os = new FileOutputStream(new File(path + "/" + i18nFileTarget.getLanguage() + "/" + i18nFileTarget.getName()));
             os.write(i18nFileTarget.getContent().getBytes());
         } catch (Exception e) {
             e.printStackTrace();
