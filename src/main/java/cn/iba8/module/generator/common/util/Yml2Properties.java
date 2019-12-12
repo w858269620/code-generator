@@ -39,7 +39,7 @@ public abstract class Yml2Properties {
         } else if (data instanceof ArrayList) {
             int i = 0;
             for (Object o1 : ((ArrayList) data)) {
-                go(s + (s.isEmpty() ? "" : ".") + "[" + i + "]", o1, list);
+                go(s + "[" + i + "]", o1, list);
                 i += 1;
             }
         } else {
