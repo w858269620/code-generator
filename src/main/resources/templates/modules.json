@@ -12,11 +12,11 @@
   "templates": [
     {
       "templateGroup": "default",
-      "templateRoot": "classpath:template/generator/default/templates.json"
+      "templateRoot": "classpath:templates/generator/default/templates.json"
     },
     {
       "templateGroup": "basic",
-      "templateRoot": "classpath:template/generator/default/templates.json"
+      "templateRoot": "classpath:templates/generator/default/templates.json"
     }
   ]
 }

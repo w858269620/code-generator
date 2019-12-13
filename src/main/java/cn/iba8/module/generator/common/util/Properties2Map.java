@@ -21,7 +21,7 @@ public abstract class Properties2Map {
                     if (i1 < s.length() - 1) {
                         value = s.substring(i1 + 1);
                     }
-                    map.put(key, value);
+                    map.put(key.trim(), value.trim());
                 }
             }
         }

@@ -13,7 +13,7 @@ import static cn.iba8.module.generator.common.properties2json.utils.file.FileUti
 import static cn.iba8.module.generator.common.properties2json.utils.file.FileUtils.loadFileFromPathAsText;
 
 /**
- * Utils class for some text with template, can override some placeholders. It can throw exception when some
+ * Utils class for some text with templates, can override some placeholders. It can throw exception when some
  * placeholder is not resolved.
  * But to enable this please create instance of TemplateAsText by one of method which contains throwExceptionForNotResolved flag
  * and set it to true.
