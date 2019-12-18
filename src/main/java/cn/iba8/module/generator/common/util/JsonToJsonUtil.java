@@ -6,11 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.*;
 
 @Slf4j
 public abstract class JsonToJsonUtil {
@@ -59,7 +55,7 @@ public abstract class JsonToJsonUtil {
                 }
             }
         });
-        String prop = Map2Properties.convert(target);
+        Properties prop = Map2Properties.convert(target);
         return Properties2Json.convert(prop);
     }
 

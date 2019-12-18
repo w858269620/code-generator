@@ -1,21 +1,20 @@
 package cn.iba8.module.generator.common.util;
 
-import cn.iba8.module.generator.common.CodeGenerateConstants;
-
 import java.util.Map;
+import java.util.Properties;
 
 public abstract class Map2Properties {
 
-    public static String convert(Map<String, Object> map) {
-        StringBuffer sb = new StringBuffer();
-        map.keySet().forEach(s -> sb.append(s + "=" + map.get(s) + CodeGenerateConstants.SPLITOR_PROPERTIES));
-        return sb.toString();
+    public static Properties convert(Map<String, Object> map) {
+        Properties properties = new Properties();
+        map.keySet().forEach(s -> properties.put(s, map.get(s)));
+        return properties;
     }
 
-    public static String convertString(Map<String, String> map) {
-        StringBuffer sb = new StringBuffer();
-        map.keySet().forEach(s -> sb.append(s + "=" + map.get(s) + CodeGenerateConstants.SPLITOR_PROPERTIES));
-        return sb.toString();
+    public static Properties convertString(Map<String, String> map) {
+        Properties properties = new Properties();
+        map.keySet().forEach(s -> properties.put(s, map.get(s)));
+        return properties;
     }
 
 }

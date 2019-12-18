@@ -1,9 +1,7 @@
 package cn.iba8.module.generator.service.converter;
 
 import cn.iba8.module.generator.common.enums.FileSuffixEnum;
-import cn.iba8.module.generator.common.util.FileConverterUtil;
-import cn.iba8.module.generator.common.util.MD5;
-import cn.iba8.module.generator.common.util.SpringUtils;
+import cn.iba8.module.generator.common.util.*;
 import cn.iba8.module.generator.config.CodeGeneratorProperties;
 import cn.iba8.module.generator.repository.entity.App;
 import cn.iba8.module.generator.repository.entity.I18nCodeLanguage;
@@ -14,10 +12,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class I18nConverter {
@@ -65,15 +60,16 @@ public abstract class I18nConverter {
 
     private static String buildJson(List<I18nCodeLanguage> i18nCodeLanguages) {
         Map<String, String> map = i18nCodeLanguages.stream().collect(Collectors.toMap(I18nCodeLanguage::getCode, I18nCodeLanguage::getMessage, (k1, k2) -> k2));
-        String json = FileConverterUtil.map2json(map);
+        Properties properties = Map2Properties.convertString(map);
+        String yml = Properties2Yml.convert(properties);
+        String json = Yml2Json.converter(yml);
         return json;
     }
 
     @AllArgsConstructor
     @Getter
     enum FileNameEnum {
-        JSON("locale.constant-zh_CN.json"),
-        ;
+        JSON("locale.constant-zh_CN.json"),;
         private String name;
     }
 

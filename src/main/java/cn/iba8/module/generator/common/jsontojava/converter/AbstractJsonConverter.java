@@ -38,22 +38,17 @@ public abstract class AbstractJsonConverter implements JsonConverter{
 
     private JavaClassBuilder convert(Map<String, JavaClassBuilder> javaClasses, String json, String objectName, String packageName, boolean withAnnotations) {
         JavaClassBuilder javaClassBuilder = null;
-        String parent = "";
         if(jsonTypeChecker().isObject(json)) {
-            javaClassBuilder = convertObject(parent, javaClasses, new JSONObject(json), objectName, packageName, withAnnotations);
+            javaClassBuilder = convertObject(javaClasses, new JSONObject(json), objectName, packageName, withAnnotations);
         } else if(jsonTypeChecker().isArray(json)){
             javaClassBuilder = convertArray(javaClasses, new JSONArray(json), objectName, packageName, withAnnotations);
         }
-        parent = javaClassBuilder.getClassName();
         return javaClassBuilder;
     }
 
-    private JavaClassBuilder convertObject(String parent, Map<String, JavaClassBuilder> javaClasses, JSONObject jsonObject, String objectName, String packageName, boolean withAnnotations) {
-        if (null == parent) {
-            parent = "";
-        }
-        JavaClassBuilder javaClassBuilder = new JavaClassBuilder(parent + objectName, packageName, withAnnotations);
-        javaClasses.put(parent + objectName, javaClassBuilder);
+    private JavaClassBuilder convertObject(Map<String, JavaClassBuilder> javaClasses, JSONObject jsonObject, String objectName, String packageName, boolean withAnnotations) {
+        JavaClassBuilder javaClassBuilder = new JavaClassBuilder(objectName, packageName, withAnnotations);
+        javaClasses.put(objectName, javaClassBuilder);
 
         for(String key : jsonObject.keySet()) {
             Object value = jsonObject.get(key);
@@ -66,13 +61,11 @@ public abstract class AbstractJsonConverter implements JsonConverter{
                 } else {
                     JavaClassBuilder propertyJavaNewClass = convert(javaClasses, value.toString(), JavaClassBuilder.firstCharToUpperCase(key), packageName, withAnnotations);
                     javaClassBuilder.addProperty(key, propertyJavaNewClass.getClassName());
-                    parent += objectName;
                 }
             } else {
                 javaClassBuilder.addProperty(key, SinglePropertyType.OBJECT.getDeclareName());
             }
         }
-        javaClassBuilder.setParentClass(parent);
         return javaClassBuilder;
     }
 

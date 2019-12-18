@@ -35,16 +35,6 @@ public class JavaClassBuilder {
 
     private boolean withAnnotations = JsonToJavaConstants.DEFAULT_FOR_WITH_ANNOTATIONS;
 
-    private String parentClass;
-
-    public String getParentClass() {
-        return parentClass;
-    }
-
-    public void setParentClass(String parentClass) {
-        this.parentClass = parentClass;
-    }
-
     public JavaClassBuilder(String className, String packagename) {
         validClassNameAndPackageName(className, packagename);
         declareClass(JavaClassBuilder.firstCharToUpperCase(className), packagename);

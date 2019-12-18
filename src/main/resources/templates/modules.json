@@ -3,7 +3,7 @@
     {
       "code": "basic",
       "name": "正泰云平台",
-      "version": "v1.0.0",
+      "version": "v1.2",
       "basePackage": "com.chitic",
       "restClient": "",
       "restClientRoute": ""

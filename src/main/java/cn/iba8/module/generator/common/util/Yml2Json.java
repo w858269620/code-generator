@@ -1,24 +1,30 @@
 package cn.iba8.module.generator.common.util;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.yaml.snakeyaml.Yaml;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public abstract class Properties2Map {
+public abstract class Yml2Json {
 
-    public static Map<String, String> converter(String properties) {
+    public static String converter(String yml) {
         Properties p = new Properties();
         InputStream is = null;
         Reader reader = null;
         try {
-            is = new ByteArrayInputStream(properties.getBytes());
+            is = new ByteArrayInputStream(yml.getBytes());
             reader = new InputStreamReader(is);
-            p.load(reader);
-            return new HashMap<String, String>((Map) p);
+            Gson gs = new GsonBuilder().disableHtmlEscaping().create();
+            Yaml yaml = new Yaml();
+            Map<String, Object> loaded = yaml.load(reader);
+            String s = gs.toJson(loaded);
+            return s;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

@@ -27,6 +27,17 @@ public abstract class Properties2Yml {
         return yaml.dumpAs(hashMap, Tag.MAP, DumperOptions.FlowStyle.BLOCK);
     }
 
+    public static String convert(Properties properties) {
+        LinkedHashMap hashMap = new LinkedHashMap();
+        HashMap<String, Object> hashMap1 = new HashMap<>();
+        hashMap1.put("", hashMap);
+        properties.forEach((o, o2) -> {
+            join("", o.toString().split("\\."), o2, hashMap1);
+        });
+        Yaml yaml = new Yaml();
+        return yaml.dumpAs(hashMap, Tag.MAP, DumperOptions.FlowStyle.BLOCK);
+    }
+
     private static void join(String parentUrl, String[] keyList, Object value, HashMap<String, Object> pool) {
         if (keyList.length == 0) return;
 

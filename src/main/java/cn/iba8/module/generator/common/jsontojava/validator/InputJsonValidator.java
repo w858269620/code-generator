@@ -1,7 +1,6 @@
 package cn.iba8.module.generator.common.jsontojava.validator;
 
 import cn.iba8.module.generator.common.jsontojava.exception.JsonToJavaException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
 
 public class InputJsonValidator implements JsonValidator{
