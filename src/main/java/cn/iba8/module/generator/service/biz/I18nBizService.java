@@ -1,6 +1,7 @@
 package cn.iba8.module.generator.service.biz;
 
 import cn.iba8.module.generator.common.enums.FileSuffixEnum;
+import cn.iba8.module.generator.common.enums.I18nFileTypeEnum;
 import cn.iba8.module.generator.common.i18n.I18nFileDefinition;
 import cn.iba8.module.generator.common.i18n.I18nKVLanguage;
 import cn.iba8.module.generator.common.util.CopyUtil;
@@ -314,9 +315,14 @@ public class I18nBizService {
             }
         }
         List<I18nFileTarget> target = new ArrayList<>();
+        Map<String, I18nFileTarget> lanTargetFileMap = new HashMap<>();
         if (!CollectionUtils.isEmpty(targetLans)) {
             Map<String, List<I18nCodeLanguage>> i18nCodeMap = targetLans.stream().collect(Collectors.groupingBy(I18nCodeLanguage::getLanguage));
-            target.addAll(I18nConverter.toI18nFileTargetJson(app, i18nCodeMap, notes));
+            i18nCodeMap.keySet().forEach(r -> {
+                I18nFileTarget i18nFileTarget = i18nFileTargetRepository.findFirstByAppCodeAndLanguageAndTypeOrderByCreateTsDesc(appCode, r, I18nFileTypeEnum.ALL.getCode());
+                lanTargetFileMap.put(r, i18nFileTarget);
+            });
+            target.addAll(I18nConverter.toI18nFileTargetJson(app, i18nCodeMap, lanTargetFileMap, notes));
         }
         if (!CollectionUtils.isEmpty(target)) {
             i18nFileTargetRepository.saveAll(target);

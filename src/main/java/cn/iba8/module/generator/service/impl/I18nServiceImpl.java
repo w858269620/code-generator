@@ -24,7 +24,7 @@ public class I18nServiceImpl implements I18nService {
     private final I18nFileOriginRepository i18nFileOriginRepository;
 
     @Override
-    public void loadI18n() {
+    public synchronized void loadI18n() {
         Set<String> filePaths = i18nBizService.loadI18n();
         if (CollectionUtils.isEmpty(filePaths)) {
             return;
@@ -33,7 +33,7 @@ public class I18nServiceImpl implements I18nService {
     }
 
     @Override
-    public void processI18nFileOrigin() {
+    public synchronized void processI18nFileOrigin() {
         List<I18nFileOrigin> i18nFileOrigins = i18nFileOriginRepository.findAllByProcessed(0);
         if (CollectionUtils.isEmpty(i18nFileOrigins)) {
             return;
@@ -55,22 +55,22 @@ public class I18nServiceImpl implements I18nService {
     }
 
     @Override
-    public void compensateToLanguage() {
+    public synchronized void compensateToLanguage() {
         i18nBizService.compensateToLanguage();
     }
 
     @Override
-    public void compensateToCode() {
+    public synchronized void compensateToCode() {
         i18nBizService.compensateToCode();
     }
 
     @Override
-    public void generateApp(String appCode) {
+    public synchronized void generateApp(String appCode) {
         i18nBizService.generateApp(appCode);
     }
 
     @Override
-    public void generateLatestTargetFile(String appCode) {
+    public synchronized void generateLatestTargetFile(String appCode) {
         i18nBizService.generateLatestTargetFile(appCode);
     }
 

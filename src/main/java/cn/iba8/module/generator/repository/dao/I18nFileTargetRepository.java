@@ -12,4 +12,6 @@ public interface I18nFileTargetRepository extends JpaRepository<I18nFileTarget, 
 
     List<I18nFileTarget> findAllByAppCodeOrderByCreateTsDesc(String appCode);
 
+    I18nFileTarget findFirstByAppCodeAndLanguageAndTypeOrderByCreateTsDesc(String appCode, String language, Integer type);
+
 }

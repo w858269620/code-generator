@@ -39,6 +39,9 @@ public class I18nFileTarget implements Serializable {
 	@Column(name = "version")
 	private String version;
 
+	@Column(name = "type")
+	private Integer type;
+
 	@Column(name = "md5")
 	private String md5;
 
