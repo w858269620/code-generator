@@ -21,7 +21,7 @@ public class ApplicationTest {
 
    @Before
    public void init() {
-       System.out.println("开始测试");
+       System.out.println("开始测试a");
    }
 
    @After
