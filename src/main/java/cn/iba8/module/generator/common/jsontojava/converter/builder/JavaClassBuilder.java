@@ -12,6 +12,7 @@ public class JavaClassBuilder {
     public static final String NEW_LINE = System.lineSeparator();
     public static final String SPACE = " ";
     public static final String BIG_SPACE = "    ";
+    public static final String DOUBLE_BIG_SPACE = BIG_SPACE + BIG_SPACE;
     public static final String DOUBLE_NEW_LINE = System.lineSeparator() + System.lineSeparator();
     public static final char BLOCK_OPEN = '{';
     public static final char BLOCK_CLOSED = '}';

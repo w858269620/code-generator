@@ -1,6 +1,5 @@
 package cn.iba8.module.generator.common.jsontojava.tosingleclass;
 
-import cn.iba8.module.generator.common.jsontojava.converter.builder.JavaClassBuilder;
 import cn.iba8.module.generator.common.jsontojava.converter.builder.enums.ComplexPropertyType;
 import cn.iba8.module.generator.common.jsontojava.converter.builder.enums.PropertyType;
 import cn.iba8.module.generator.common.jsontojava.converter.builder.enums.SinglePropertyType;
@@ -10,14 +9,12 @@ import cn.iba8.module.generator.common.jsontojava.validator.InputJsonValidator;
 import cn.iba8.module.generator.common.jsontojava.validator.JsonType;
 import cn.iba8.module.generator.common.jsontojava.validator.JsonTypeChecker;
 import cn.iba8.module.generator.common.jsontojava.validator.JsonValidator;
-import com.alibaba.fastjson.JSON;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 public class ToSingleJsonConverter {
 
@@ -25,32 +22,7 @@ public class ToSingleJsonConverter {
 
     private static JsonTypeChecker jsonTypeChecker = new JsonType();
 
-    public static void main(String[] args) throws Exception {
-        InputStream originJsonIs = new FileInputStream(new File("D:\\tmp\\test\\origin.json"));
-        byte[] originJsonBytes = new byte[originJsonIs.available()];
-        originJsonIs.read(originJsonBytes);
-        String originJson = new String(originJsonBytes);
-        Map<String, ToSingleJsonClassBuilder> test = convertJsonToJava(originJson, "Test", "cn.iba8", true);
-        ToSingleJsonClassBuilder root = test.get("Test");
-        List<ToSingleJsonClassBuilder> innerBean = new ArrayList<>();
-        Set<String> imports = new HashSet<>();
-        test.keySet().forEach(r -> {
-            ToSingleJsonClassBuilder toSingleJsonClassBuilder = test.get(r);
-            if (!"Test".equals(r)) {
-                innerBean.add(toSingleJsonClassBuilder);
-            }
-            imports.addAll(toSingleJsonClassBuilder.getImportedClasses());
-        });
-        String packageName = "cn.iba8";
-        StringBuffer sb = new StringBuffer();
-        sb.append("package ").append(packageName).append(JavaClassBuilder.END_STATEMENT)
-                .append(JavaClassBuilder.DOUBLE_NEW_LINE);
-        imports.forEach(s -> sb.append("import " + s + JavaClassBuilder.END_STATEMENT).append(JavaClassBuilder.NEW_LINE));
-        System.out.println(JSON.toJSONString(sb));
-
-    }
-
-    protected static Map<String, ToSingleJsonClassBuilder> convertJsonToJava(String json, String objectName, String packageName, boolean withAnnotations) {
+    public static Map<String, ToSingleJsonClassBuilder> convertJsonToJava(String json, String objectName, String packageName, boolean withAnnotations) {
         if (jsonValidator.isValidJson(json)) {
             Map<String, ToSingleJsonClassBuilder> javaClasses = new HashMap<>();
 

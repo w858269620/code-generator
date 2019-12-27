@@ -46,6 +46,8 @@ public class ToSingleJsonClassBuilder {
 
         addImportStatement("lombok.Data");
         addImportStatement("java.io.Serializable");
+        addImportStatement("com.fasterxml.jackson.databind.ObjectMapper");
+        addImportStatement("lombok.extern.slf4j.Slf4j");
         if(this.withAnnotations)
            addImportStatement(JSONPROPERTY_IMPORT_STATEMENT);
     }
