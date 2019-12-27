@@ -59,7 +59,7 @@ public abstract class AbstractJsonConverter implements JsonConverter{
                         addProperty(javaClasses, javaClassBuilder, key, propertyType, value, packageName, withAnnotations);
                     }
                 } else {
-                    JavaClassBuilder propertyJavaNewClass = convert(javaClasses, value.toString(), JavaClassBuilder.firstCharToUpperCase(key), packageName, withAnnotations);
+                    JavaClassBuilder propertyJavaNewClass = convert(javaClasses, value.toString(), objectName + JavaClassBuilder.firstCharToUpperCase(key), packageName, withAnnotations);
                     javaClassBuilder.addProperty(key, propertyJavaNewClass.getClassName());
                 }
             } else {

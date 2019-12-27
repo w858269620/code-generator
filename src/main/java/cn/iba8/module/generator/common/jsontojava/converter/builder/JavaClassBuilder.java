@@ -8,18 +8,18 @@ import java.util.HashSet;
 
 public class JavaClassBuilder {
 
-    private static final char END_STATEMENT = ';';
-    private static final String NEW_LINE = System.lineSeparator();
-    private static final String SPACE = " ";
-    private static final String BIG_SPACE = "    ";
-    private static final String DOUBLE_NEW_LINE = System.lineSeparator() + System.lineSeparator();
-    private static final char BLOCK_OPEN = '{';
-    private static final char BLOCK_CLOSED = '}';
-    private static final String METHOD_NO_ARGS = "()";
-    private static final char METHOD_OPEN = '(';
-    private static final char METHOD_CLOSED = ')';
+    public static final char END_STATEMENT = ';';
+    public static final String NEW_LINE = System.lineSeparator();
+    public static final String SPACE = " ";
+    public static final String BIG_SPACE = "    ";
+    public static final String DOUBLE_NEW_LINE = System.lineSeparator() + System.lineSeparator();
+    public static final char BLOCK_OPEN = '{';
+    public static final char BLOCK_CLOSED = '}';
+    public static final String METHOD_NO_ARGS = "()";
+    public static final char METHOD_OPEN = '(';
+    public static final char METHOD_CLOSED = ')';
 
-    private static final String JSONPROPERTY_IMPORT_STATEMENT = "com.fasterxml.jackson.annotation.JsonProperty";
+    public static final String JSONPROPERTY_IMPORT_STATEMENT = "com.fasterxml.jackson.annotation.JsonProperty";
 
     private String javaClassDeclaration;
 
