@@ -24,6 +24,7 @@ public enum  DataTypeMappingEnum {
     CHAR("CHAR", "Boolean"),
     VARCHAR("VARCHAR", "String"),
     LONGVARCHAR("LONGVARCHAR", "String"),
+    DATETIME("DATETIME", "java.util.Date"),
     DATE("DATE", "java.util.Date"),
     TIME("TIME", "java.util.Date"),
     TIMESTAMP("TIMESTAMP", "java.util.Date"),
