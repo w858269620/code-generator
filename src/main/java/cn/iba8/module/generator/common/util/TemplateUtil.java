@@ -22,13 +22,13 @@ public abstract class TemplateUtil {
     }
 
     public static String toClassName(String tableName) {
-        String str = CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_CAMEL, tableName);
-        return str.substring(0,1).toUpperCase().concat(str.substring(1).toLowerCase());
+        return CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, tableName);
     }
 
     public static String toJavaField(String dbField) {
         String s = dbField.toLowerCase();
-        return CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_CAMEL, s);
+        String a = CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, s);
+        return  a.substring(0,1).toLowerCase().concat(a.substring(1));
     }
 
     public static String entityName(String table) {
