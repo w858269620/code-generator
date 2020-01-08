@@ -12,8 +12,9 @@ import java.util.Set;
 
 public abstract class ValidatorUtil {
 
+    private static final  Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+
     public static <T> Map<String, StringBuffer> validate(T obj) {
-        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         Map<String, StringBuffer> errorMap = null;
         Set<ConstraintViolation<T>> set = validator.validate(obj, Default.class);
         if (set != null && set.size() > 0) {
@@ -34,7 +35,7 @@ public abstract class ValidatorUtil {
     }
 
     public static <T> StringBuffer validate2Msg(T obj) {
-        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+
         Set<ConstraintViolation<T>> set = validator.validate(obj, Default.class);
         StringBuffer sb = new StringBuffer();
         if (set != null && set.size() > 0) {
